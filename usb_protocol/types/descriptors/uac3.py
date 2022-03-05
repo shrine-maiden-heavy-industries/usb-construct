@@ -565,7 +565,7 @@ class AudioDataFormats(IntEnum):
 # As defined in [Audio30], Table 4-47
 AudioControlInterruptEndpointDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(7, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificStandardDescriptorNumbers.CS_ENDPOINT),
+    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_ENDPOINT),
     "bEndpointAddress"    / DescriptorField(description="The address of the endpoint, use USBDirection.*.from_endpoint_address()"),
     "bmAttributes"        / DescriptorField(description="D1..0: Transfer type (0b11 = Interrupt)", default=0b11),
     "wMaxPacketSize"      / DescriptorField(description="Maximum packet size this endpoint is capable of. Used here to pass 6-byte interrupt information.", default=6),
@@ -594,7 +594,7 @@ AudioStreamingIsochronousFeedbackEndpointDescriptor = DescriptorFormat(
 
 HeaderDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(10, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificStandardDescriptorNumbers.CS_INTERFACE),
+    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_INTERFACE),
     "bDescriptorSubtype"  / DescriptorNumber(AudioClassSpecificACInterfaceDescriptorSubtypes.HEADER),
     "bCategory"           / DescriptorField(description="Audio Function Category, see AudioFunctionCategoryCodes"),
     "wTotalLength"        / DescriptorField("Length including subordinates"),
@@ -615,7 +615,7 @@ AudioStreamingInterfaceDescriptor = DescriptorFormat(
 
 ClassSpecificAudioStreamingInterfaceDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(23, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificStandardDescriptorNumbers.CS_INTERFACE),
+    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_INTERFACE),
     "bDescriptorSubtype"  / DescriptorNumber(AudioClassSpecificASInterfaceDescriptorSubtypes.AS_GENERAL),
     "bTerminalLink"       / DescriptorField(description="the ID of the terminal to which this interface is connected"),
     "bmControls"          / DescriptorField(description="D1..0: active alternate setting control; D3..2: valid alternate settings control; D5..4: audio data format control; D31..6: reserved"),
@@ -629,7 +629,7 @@ ClassSpecificAudioStreamingInterfaceDescriptor = DescriptorFormat(
 
 InputTerminalDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(20, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificStandardDescriptorNumbers.CS_INTERFACE),
+    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_INTERFACE),
     "bDescriptorSubtype"  / DescriptorNumber(AudioClassSpecificACInterfaceDescriptorSubtypes.INPUT_TERMINAL),
     "bTerminalID"         / DescriptorField(description="unique identifier for the terminal within the audio function."),
     "wTerminalType"       / DescriptorField(description="a value of one of the terminal types Enums (eg InputTerminaTypes, ExternalTerminalTypes)"),
@@ -644,7 +644,7 @@ InputTerminalDescriptor = DescriptorFormat(
 
 OutputTerminalDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(19, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificStandardDescriptorNumbers.CS_INTERFACE),
+    "bDescriptorType"     / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_INTERFACE),
     "bDescriptorSubtype"  / DescriptorNumber(AudioClassSpecificACInterfaceDescriptorSubtypes.OUTPUT_TERMINAL),
     "bTerminalID"         / DescriptorField(description="unique identifier for the terminal within the audio function."),
     "wTerminalType"       / DescriptorField(description="a value of one of the terminal types Enums (eg OutputTerminaTypes, ExternalTerminalTypes)"),
