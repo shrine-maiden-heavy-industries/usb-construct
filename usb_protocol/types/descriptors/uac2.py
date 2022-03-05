@@ -12,8 +12,7 @@
 """
 
 import unittest
-from usb_protocol.emitters import descriptor
-from enum                  import IntEnum
+from enum         import IntEnum
 
 import construct
 
