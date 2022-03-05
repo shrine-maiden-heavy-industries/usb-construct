@@ -579,17 +579,6 @@ AudioStreamingIsochronousFeedbackEndpointDescriptor = DescriptorFormat(
     "bInterval"           / DescriptorField(description="Interval for polling the Interrupt endpoint")
 )
 
-InterfaceAssociationDescriptor = DescriptorFormat(
-    "bLength"             / construct.Const(8, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(StandardDescriptorNumbers.INTERFACE_ASSOCIATION),
-    "bFirstInterface"     / DescriptorField(description="Interface number of the first interface that is associated with this function.", default=0),
-    "bInterfaceCount"     / DescriptorField(description="Number of contiguous interfaces that are associated with this function"),
-    "bFunctionClass"      / DescriptorNumber(AudioFunctionClassCode.AUDIO_FUNCTION),
-    "bFunctionSubClass"   / DescriptorField(description="function subclass code (currently not used in uac2)", default=AudioFunctionCategoryCodes.FUNCTION_SUBCLASS_UNDEFINED), 
-    "bFunctionProtocol"   / DescriptorNumber(AudioFunctionProtocolCodes.AF_VERSION_02_00),
-    "iFunction"           / DescriptorField(description="Index of a string descriptor that describes this interface", default=0),
-)
-
 StandardAudioControlInterfaceDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(9, construct.Int8ul),
     "bDescriptorType"     / DescriptorNumber(StandardDescriptorNumbers.INTERFACE),

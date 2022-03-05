@@ -8,9 +8,9 @@ from contextlib import contextmanager
 from .. import emitter_for_format
 from ...types.descriptors.uac2 import *
 from ...emitters.descriptor    import ComplexDescriptorEmitter
+from .standard                 import InterfaceAssociationDescriptor, InterfaceAssociationDescriptorEmitter
 
 # Create our emitters.
-InterfaceAssociationDescriptorEmitter          = emitter_for_format(InterfaceAssociationDescriptor)
 StandardAudioControlInterfaceDescriptorEmitter = emitter_for_format(StandardAudioControlInterfaceDescriptor)
 
 class ClassSpecificAudioControlInterfaceDescriptorEmitter(ComplexDescriptorEmitter):

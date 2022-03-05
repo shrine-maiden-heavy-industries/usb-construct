@@ -160,6 +160,18 @@ DeviceQualifierDescriptor = DescriptorFormat(
 )
 
 
+InterfaceAssociationDescriptor = DescriptorFormat(
+    "bLength"             / construct.Const(8, construct.Int8ul),
+    "bDescriptorType"     / DescriptorNumber(StandardDescriptorNumbers.INTERFACE_ASSOCIATION),
+    "bFirstInterface"     / DescriptorField(description="Interface number of the first interface that is associated with this function.", default=0),
+    "bInterfaceCount"     / DescriptorField(description="Number of contiguous interfaces that are associated with this function"),
+    "bFunctionClass"      / DescriptorField(description="Function class code"),
+    "bFunctionSubClass"   / DescriptorField(description="Function subclass code"),
+    "bFunctionProtocol"   / DescriptorField(description="Function protocol code"),
+    "iFunction"           / DescriptorField(description="Index of a string descriptor that describes this interface", default=0),
+)
+
+
 #
 # SuperSpeed descriptors
 #
