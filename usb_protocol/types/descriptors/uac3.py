@@ -11,7 +11,7 @@
     NOTE: This is not complete yet and will be extended as needed
 """
 
-from build.lib.usb_protocol.emitters import descriptor
+from usb_protocol.emitters import descriptor
 import unittest
 from enum import IntEnum
 
