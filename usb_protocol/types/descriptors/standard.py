@@ -166,7 +166,7 @@ InterfaceAssociationDescriptor = DescriptorFormat(
     "bFirstInterface"     / DescriptorField(description="Interface number of the first interface that is associated with this function.", default=0),
     "bInterfaceCount"     / DescriptorField(description="Number of contiguous interfaces that are associated with this function"),
     "bFunctionClass"      / DescriptorField(description="Function class code"),
-    "bFunctionSubClass"   / DescriptorField(description="Function subclass code"),
+    "bFunctionSubclass"   / DescriptorField(description="Function subclass code"),
     "bFunctionProtocol"   / DescriptorField(description="Function protocol code"),
     "iFunction"           / DescriptorField(description="Index of a string descriptor that describes this interface", default=0),
 )

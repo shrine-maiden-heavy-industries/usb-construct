@@ -41,8 +41,8 @@ class InterfaceAssociationDescriptorEmitter(ComplexDescriptorEmitter):
 
     def _pre_emit(self):
         # Ensure that our interface string is an index, if we can.
-        if self._collection and hasattr(self, 'iInterface'):
-            self.iInterface = self._collection.ensure_string_field_is_index(self.iInterface)
+        if self._collection and hasattr(self, 'iFunction'):
+            self.iFunction = self._collection.ensure_string_field_is_index(self.iFunction)
 
 class EndpointDescriptorEmitter(ComplexDescriptorEmitter):
     """ Emitter that creates an EndpointDescriptor. """
