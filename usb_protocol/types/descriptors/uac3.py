@@ -15,7 +15,6 @@ import unittest
 from enum         import IntEnum
 
 import construct
-from   construct  import this, Default
 
 from .standard import StandardDescriptorNumbers
 from ..descriptor import \
