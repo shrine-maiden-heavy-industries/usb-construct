@@ -603,7 +603,7 @@ HeaderDescriptor = DescriptorFormat(
 
 AudioStreamingInterfaceDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(9, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(DescriptorTypes.INTERFACE),
+    "bDescriptorType"     / DescriptorNumber(StandardDescriptorNumbers.INTERFACE),
     "bInterfaceNumber"    / DescriptorField(description="ID of the streaming interface"),
     "bAlternateSetting"   / DescriptorField(description="alternate setting number for the interface", default=0),
     "bNumEndpoints"       / DescriptorField(description="Number of data endpoints used (excluding endpoint 0). Can be: 0 (no data endpoint); 1 (data endpoint); 2 (data + explicit feedback endpoint)", default=0),
