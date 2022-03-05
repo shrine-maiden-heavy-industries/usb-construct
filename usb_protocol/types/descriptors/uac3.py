@@ -634,7 +634,7 @@ InputTerminalDescriptor = DescriptorFormat(
     "wTerminalType"       / DescriptorField(description="a value of one of the terminal types Enums (eg InputTerminaTypes, ExternalTerminalTypes)"),
     "bAssocTerminal"      / DescriptorField(description="ID of the associated output terminal"),
     "bCSourceID"          / DescriptorField(description="ID of the clock which is connected to this terminal"),
-    "bmControls"          / DescriptorField(description="D1..0: Insertion Control; D3..2: Overload Control; D5..4: Underflow Control; D7..6: Overflow Control; D31..8: Reserved"),
+    "bmControls"          / DescriptorField(description="D1..0: Insertion Control; D3..2: Overload Control; D5..4: Underflow Control; D7..6: Overflow Control; D31..8: Reserved", length=4),
     "wClusterDescrID"     / DescriptorField(description="ID of the cluster descriptor for this input terminal."),
     "wExTerminalDescrID"  / DescriptorField(description="ID of the extended terminal descriptor for this input terminal. Zero if no extended terminal descriptor is present."),
     "wConnectorsDescrID"  / DescriptorField(description="ID of the Connectors descriptor for this Input Terminal. Zero if no connectors descriptor is present."),
@@ -650,8 +650,7 @@ OutputTerminalDescriptor = DescriptorFormat(
     "bAssocTerminal"      / DescriptorField(description="ID of the associated input terminal"),
     "bSourceID"           / DescriptorField(description="ID of the unit or terminal which is connected to this terminal"),
     "bCSourceID"          / DescriptorField(description="ID of the clock which is connected to this terminal"),
-    "bmControls"          / DescriptorField(description="D1..0: Insertion Control; D3..2: Overload Control; D5..4: Underflow Control; D7..6: Overflow Control; D31..8: Reserved"),
-    "wClusterDescrID"     / DescriptorField(description="ID of the cluster descriptor for this input terminal."),
+    "bmControls"          / DescriptorField(description="D1..0: Insertion Control; D3..2: Overload Control; D5..4: Underflow Control; D7..6: Overflow Control; D31..8: Reserved", length=4),
     "wExTerminalDescrID"  / DescriptorField(description="ID of the extended terminal descriptor for this output terminal. Zero if no extended terminal descriptor is present.", default=0),
     "wConnectorsDescrID"  / DescriptorField(description="ID of the connectors descriptor for this input terminal. Zero if no connectors descriptor is present.", default=0),
     "wTerminalDescrStr"   / DescriptorField(description="ID of a class-specific string descriptor, describing the output terminal.")
