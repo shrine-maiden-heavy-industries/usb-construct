@@ -64,6 +64,18 @@ class DeviceCapabilityTypes(IntEnum):
     CONFIGURATION_SUMMARY       = 16
 
 
+class DeviceClassCodes(IntEnum):
+	MISCELLANEOUS = 239
+
+
+class MiscellaneousSubclassCodes(IntEnum):
+	MULTIFUNCTION = 2
+
+
+class MultifunctionProtocolCodes(IntEnum):
+	INTERFACE_ASSOCIATION = 1
+
+
 
 DeviceDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(0x12, construct.Int8ul),
