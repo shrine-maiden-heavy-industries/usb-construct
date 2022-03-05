@@ -30,6 +30,21 @@ class AudioInterfaceClassCode(IntEnum):
     AUDIO = 0x01
 
 
+class AudioInterfaceSubclassCodes(IntEnum):
+    # As defined in [Audio30], Table A-5
+    INTERFACE_SUBCLASS_UNDEFINED = 0x00
+    AUDIO_CONTROL                = 0x01
+    AUDIO_STREAMING              = 0x02
+    MIDI_STREAMING               = 0x03
+
+
+class AudioInterfaceProtocolCodes(IntEnum):
+    # As defined in [Audio30], Table A-6
+    IP_VERSION_01_00 = 0x00
+    IP_VERSION_02_00 = 0x20
+    IP_VERSION_03_00 = 0x30
+
+
 class AudioFunctionClassCode(IntEnum):
     # As defined in [Audio30], Table A-1
     AUDIO_FUNCTION = AudioInterfaceClassCode.AUDIO
@@ -54,21 +69,6 @@ class AudioFunctionProtocolCodes(IntEnum):
     AF_VERSION_01_00 = AudioInterfaceProtocolCodes.IP_VERSION_01_00
     AF_VERSION_02_00 = AudioInterfaceProtocolCodes.IP_VERSION_02_00
     AF_VERSION_03_00 = AudioInterfaceProtocolCodes.IP_VERSION_03_00
-
-
-class AudioInterfaceSubclassCodes(IntEnum):
-    # As defined in [Audio30], Table A-5
-    INTERFACE_SUBCLASS_UNDEFINED = 0x00
-    AUDIO_CONTROL                = 0x01
-    AUDIO_STREAMING              = 0x02
-    MIDI_STREAMING               = 0x03
-
-
-class AudioInterfaceProtocolCodes(IntEnum):
-    # As defined in [Audio30], Table A-6
-    IP_VERSION_01_00 = 0x00
-    IP_VERSION_02_00 = 0x20
-    IP_VERSION_03_00 = 0x30
 
 
 class AudioFunctionCategoryCodes(IntEnum):
