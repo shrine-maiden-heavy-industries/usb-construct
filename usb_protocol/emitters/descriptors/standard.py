@@ -40,7 +40,7 @@ class InterfaceAssociationDescriptorEmitter(ComplexDescriptorEmitter):
     DESCRIPTOR_FORMAT = InterfaceAssociationDescriptor
 
     def _pre_emit(self):
-        # Ensure that our interface string is an index, if we can.
+        # Ensure that our function string is an index, if we can.
         if self._collection and hasattr(self, 'iFunction'):
             self.iFunction = self._collection.ensure_string_field_is_index(self.iFunction)
 
