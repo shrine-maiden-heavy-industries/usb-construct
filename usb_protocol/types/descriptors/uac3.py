@@ -617,12 +617,12 @@ ClassSpecificAudioStreamingInterfaceDescriptor = DescriptorFormat(
     "bDescriptorType"     / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_INTERFACE),
     "bDescriptorSubtype"  / DescriptorNumber(AudioClassSpecificASInterfaceDescriptorSubtypes.AS_GENERAL),
     "bTerminalLink"       / DescriptorField(description="the ID of the terminal to which this interface is connected"),
-    "bmControls"          / DescriptorField(description="D1..0: active alternate setting control; D3..2: valid alternate settings control; D5..4: audio data format control; D31..6: reserved"),
+    "bmControls"          / DescriptorField(description="D1..0: active alternate setting control; D3..2: valid alternate settings control; D5..4: audio data format control; D31..6: reserved", length=4),
     "wClusterDescrID"     / DescriptorField(description="ID of the cluster descriptor of the audio streamin interface"),
     "bmFormats"           / DescriptorField(description="audio data formats which can be used with this interface", length=8, default=AudioDataFormats.PCM),
     "bSubslotSize"        / DescriptorField(description="number of bytes occupied by one audio subslot"),
     "bBitResolution"      / DescriptorField(description="number of effectively used bits in the audio subslot"),
-    "bmAuxProtocols"      / DescriptorField(description="which auxiliary protocols are required", default=0),
+    "bmAuxProtocols"      / DescriptorField(description="which auxiliary protocols are required", length=2, default=0),
     "bControlSize"        / DescriptorField(description="size of the control channel words in bytes")
 )
 
