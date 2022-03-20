@@ -65,11 +65,40 @@ class DeviceCapabilityTypes(IntEnum):
 
 
 class DeviceClassCodes(IntEnum):
-	MISCELLANEOUS = 239
+    INTERFACE = 0
+    CDC = 2
+    HUB = 9
+    BILLBOARD = 11
+    DIAGNOSTIC = 220
+    MISCELLANEOUS = 239
+    VENDOR = 255
+
+
+class InterfaceClassCodes(IntEnum):
+    AUDIO = 1
+    CDC = 2
+    HID = 3
+    PHYSICAL = 5
+    IMAGE = 6
+    PRINTER = 7
+    MASS_STORAGE = 8
+    CDC_DATA = 10
+    SMART_CARD = 11
+    CONTENT_SECURITY = 13
+    VIDEO = 14
+    PERSONAL_HEALTHCARE = 15
+    AUDIO_VIDEO = 16
+    TYPE_C_BRIDGE = 18
+    I3C_DEVICE = 60
+    DIAGNOSTIC = 220
+    WIRELESS = 224
+    MISCELLANEOUS = 239
+    APPLICATION = 254
+    VENDOR = 255
 
 
 class MiscellaneousSubclassCodes(IntEnum):
-	MULTIFUNCTION = 2
+    MULTIFUNCTION = 2
 
 
 class MultifunctionProtocolCodes(IntEnum):
