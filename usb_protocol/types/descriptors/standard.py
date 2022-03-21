@@ -110,6 +110,14 @@ class MassStorageSubclassCodes(IntEnum):
     VENDOR = 255
 
 
+class MassStorageProtocolCodes(IntEnum):
+    CBI_INTERRUPT = 0
+    CBI_NO_INTERRUPT = 1
+    BBB = 80
+    UAS = 98
+    VENDOR = 255
+
+
 class MiscellaneousSubclassCodes(IntEnum):
     MULTIFUNCTION = 2
 
