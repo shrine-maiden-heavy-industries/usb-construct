@@ -97,6 +97,19 @@ class InterfaceClassCodes(IntEnum):
     VENDOR = 255
 
 
+class MassStorageSubclassCodes(IntEnum):
+    NON_SPECIFIC = 0
+    RBC = 1
+    MMC5_ATAPI = 2
+    QIC157 = 3
+    UFI = 4
+    SFF8070i = 5
+    TRANSPARENT = 6
+    LSD_FS = 7
+    IEEE1667 = 8
+    VENDOR = 255
+
+
 class MiscellaneousSubclassCodes(IntEnum):
     MULTIFUNCTION = 2
 
