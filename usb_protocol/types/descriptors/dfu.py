@@ -19,6 +19,26 @@ class DFUDescriptorNumbers(IntEnum):
 	FUNCTIONAL = 0x21
 
 
+class DFUWillDetach(IntEnum):
+	NO = 0x00
+	YES = 0x08
+
+
+class DFUManifestationTollerant(IntEnum):
+	NO = 0
+	YES = 0x04
+
+
+class DFUCanUpload(IntEnum):
+	NO = 0
+	YES = 0x02
+
+
+class DFUCanDownload(IntEnum):
+	NO = 0
+	YES = 0x01
+
+
 FunctionalDescriptor = DescriptorFormat(
 	"bLength"             / construct.const(0x09, construct.Int8ul),
     "bDescriptorType"     / DescriptorNumber(DFUDescriptorNumbers.FUNCTIONAL),
