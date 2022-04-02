@@ -40,7 +40,7 @@ class DFUCanDownload(IntEnum):
 
 
 FunctionalDescriptor = DescriptorFormat(
-	"bLength"             / construct.const(0x09, construct.Int8ul),
+	"bLength"             / construct.Const(0x09, construct.Int8ul),
     "bDescriptorType"     / DescriptorNumber(DFUDescriptorNumbers.FUNCTIONAL),
 	"bmAttributes"        / DescriptorField("DFU Attributes", length = 1),
 	"wDetachTimeOut"      / DescriptorField("Time, in miliseconds, that the device will wait after receipt of DFU_DETATCH to be asked to reset"),
