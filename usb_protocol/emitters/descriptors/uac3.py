@@ -6,7 +6,7 @@
 from functools import cached_property
 
 from .. import emitter_for_format
-from ..descriptor import ComplexDescriptorEmitter
+from ..descriptor import ConstructEmitter, ComplexDescriptorEmitter
 
 from ...types.descriptors.uac3 import *
 
@@ -20,27 +20,39 @@ AudioStreamingIsochronousFeedbackEndpointDescriptorEmitter               = emitt
 
 
 class HeaderDescriptorEmitter(ComplexDescriptorEmitter):
-	def __init__(self):
-		super().__init__(self.DESCRIPTOR_FORMAT)
+    def __init__(self):
+        super().__init__(self.DESCRIPTOR_FORMAT)
 
-	@cached_property
-	def DESCRIPTOR_FORMAT(self):
-		from usb_protocol.emitters.descriptors.uac3 import HeaderDescriptor
-		return HeaderDescriptor
+    @cached_property
+    def DESCRIPTOR_FORMAT(self):
+        from usb_protocol.emitters.descriptors.uac3 import HeaderDescriptor
+        return HeaderDescriptor
 
-	def add_subordinate_descriptor(self, subordinate):
-		""" Adds a subordinate descriptor to the relevant parent descriptor.
+    def add_subordinate_descriptor(self, subordinate):
+        """ Adds a subordinate descriptor to the relevant parent descriptor.
 
-		Parameter:
-			subordinate -- The subordinate descriptor to add; can be an emitter,
-							or a bytes-like object.
-		"""
-		if hasattr(subordinate, 'emit'):
-			subordinate = subordinate.emit()
-		else:
-			subordinate = bytes(subordinate)
-		self._subordinates.append(subordinate)
+        Parameter:
+            subordinate -- The subordinate descriptor to add; can be an emitter,
+                            or a bytes-like object.
+        """
+        if hasattr(subordinate, 'emit'):
+            subordinate = subordinate.emit()
+        else:
+            subordinate = bytes(subordinate)
+        self._subordinates.append(subordinate)
 
-	def _pre_emit(self):
-		subordinate_length = sum(len(sub) for sub in self._subordinates)
-		self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
+    def _pre_emit(self):
+        subordinate_length = sum(len(sub) for sub in self._subordinates)
+        self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
+
+
+def ClockSourceDescriptorEmitter():
+    return ConstructEmitter(ClockSourceDescriptor)
+
+
+def PowerDomainDescriptorEmitter():
+    return ConstructEmitter(PowerDomainDescriptor)
+
+
+def ConnectorDescriptorEmitter():
+	return ConstructEmitter(ConnectorDescriptor)
