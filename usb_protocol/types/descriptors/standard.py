@@ -126,6 +126,14 @@ class MultifunctionProtocolCodes(IntEnum):
 	INTERFACE_ASSOCIATION = 1
 
 
+class ApplicationSubclassCodes(IntEnum):
+    DFU = 1
+
+
+class DFUProtocolCodes(IntEnum):
+    APPLICATION = 1
+    DFU = 2
+
 
 DeviceDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(0x12, construct.Int8ul),
