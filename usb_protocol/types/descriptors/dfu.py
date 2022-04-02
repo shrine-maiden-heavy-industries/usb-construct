@@ -39,6 +39,16 @@ class DFUCanDownload(IntEnum):
 	YES = 0x01
 
 
+class DFURequests(IntEnum):
+	DETACH = 0
+	DOWNLOAD = 1
+	UPLOAD = 2
+	GET_STATUS = 3
+	CLR_STATUS = 4
+	GET_STATE = 5
+	ABORT = 6
+
+
 FunctionalDescriptor = DescriptorFormat(
 	"bLength"             / construct.Const(0x09, construct.Int8ul),
     "bDescriptorType"     / DescriptorNumber(DFUDescriptorNumbers.FUNCTIONAL),
