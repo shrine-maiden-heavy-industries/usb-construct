@@ -580,19 +580,6 @@ class DescriptorTypes(IntEnum):
     REPORT                    = 34
 
 
-class USBSynchronizationType(IntEnum):
-    NONE         = 0x00
-    ASYNC        = 0x01
-    ADAPTIVE     = 0x02
-    SYNCHRONOUS  = 0x03
-
-
-class USBUsageType(IntEnum):
-    DATA              = 0
-    FEEDBACK          = 1
-    IMPLICIT_FEEDBACK = 2
-
-
 class USBTransferType(IntEnum):
     CONTROL     = 0
     ISOCHRONOUS = 1
