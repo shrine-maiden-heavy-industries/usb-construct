@@ -133,7 +133,7 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
         yield descriptor
 
         self._subordinate = descriptor
-        self._collection.add_descriptor(descriptor, index = self.bMS_VendorCode)
+        self._collection.add_descriptor(descriptor, vendor_code = self.bMS_VendorCode)
 
 
     def _pre_emit(self):
