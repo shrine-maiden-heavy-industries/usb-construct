@@ -127,12 +127,13 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
 
     @contextmanager
     def SetHeaderDescriptor(self):
+        assert hasattr(self, 'bMS_VendorCode')
+
         descriptor = SetHeaderDescriptorEmitter()
         yield descriptor
 
         self._subordinate = descriptor
-
-        # TODO: Add descriptor to the BOS collection
+        self._collection.add_descriptor(descriptor, index = self.bMS_VendorCode)
 
 
     def _pre_emit(self):
