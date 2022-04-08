@@ -39,6 +39,11 @@ class RegistryTypes(IntEnum):
     REG_MULTI_SZ = 7
 
 
+class MicrosoftRequests(IntEnum):
+    GET_DESCRIPTOR_SET = 7
+    SET_ALTERNATE_ENUM = 8
+
+
 PlatformDescriptor = DescriptorFormat(
     "bLength"               / DescriptorField("Total length of the platform-specific descriptor block"),
     "bDescriptorType"       / DescriptorNumber(StandardDescriptorNumbers.DEVICE_CAPABILITY),
