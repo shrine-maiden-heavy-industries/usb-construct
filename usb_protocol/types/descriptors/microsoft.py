@@ -101,9 +101,9 @@ FeatureRegProperty = DescriptorFormat(
     "wLength"             / construct.Rebuild(construct.Int16ul, 10 + this.wPropertyNameLength + this.wPropertyDataLength),
     "wDescriptorType"     / DescriptorNumber(OSDescriptorTypes.FEATURE_REG_PROPERTY),
     "wPropertyDataType"   / DescriptorField("Data type of the registry property"),
-    "wPropertyNameLength" / construct.Rebuild(construct.Int16tul, len_(this.PropertyName)),
+    "wPropertyNameLength" / construct.Rebuild(construct.Int16ul, len_(this.PropertyName)),
     "PropertyName"        / construct.CString("utf16"),
-    "wPropertyDataLength" / construct.Rebuild(construct.Int16tul, len_(this.PropertyData)),
+    "wPropertyDataLength" / construct.Rebuild(construct.Int16ul, len_(this.PropertyData)),
     "PropertyData"        / construct.Union(
             this.wPropertyNameLength,
             construct.CString("utf16"),
