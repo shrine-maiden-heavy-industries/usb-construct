@@ -148,7 +148,7 @@ class PlatformDescriptorCollection:
         self._descriptors = {}
 
 
-    def add_descriptor(self, descriptor : SetHeaderDescriptor, vendor_code : int):
+    def add_descriptor(self, descriptor : SetHeaderDescriptorEmitter, vendor_code : int):
         """ Adds a descriptor to our collection.
 
         Parameters:
@@ -156,7 +156,7 @@ class PlatformDescriptorCollection:
             vendor_code -- The vendor request code for this descriptor tree
         """
 
-        assert isinstance(descriptor, SetHeaderDescriptor)
+        assert isinstance(descriptor, SetHeaderDescriptorEmitter)
         descriptor = descriptor.emit()
 
         self._descriptors[vendor_code] = descriptor
