@@ -79,7 +79,7 @@ class SubsetHeaderFunctionEmitter(FeatureDescriptorEmitter):
     def _pre_emit(self):
         # Figure out our total length.
         subordinate_length = sum(len(sub) for sub in self._subordinates)
-        self.bTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
+        self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
 
 
 class SubsetHeaderConfigurationEmitter(FeatureDescriptorEmitter):
@@ -98,7 +98,7 @@ class SubsetHeaderConfigurationEmitter(FeatureDescriptorEmitter):
     def _pre_emit(self):
         # Figure out our total length.
         subordinate_length = sum(len(sub) for sub in self._subordinates)
-        self.bTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
+        self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
 
 
 class SetHeaderDescriptorEmitter(FeatureDescriptorEmitter):
@@ -117,7 +117,7 @@ class SetHeaderDescriptorEmitter(FeatureDescriptorEmitter):
     def _pre_emit(self):
         # Figure out our total length.
         subordinate_length = sum(len(sub) for sub in self._subordinates)
-        self.bTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
+        self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
 
 
 class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
@@ -137,7 +137,7 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
 
     def _pre_emit(self):
         # Figure out our total length.
-        self.wMSOSDescriptorSetTotalLength = self._descriptor.wTotalLength
+        self.wMSOSDescriptorSetTotalLength = self._subordinate.wTotalLength
 
 
 class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
