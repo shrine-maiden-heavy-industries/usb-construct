@@ -65,7 +65,7 @@ DescriptorSetInformation = DescriptorFormat(
 
 SetHeaderDescriptor = DescriptorFormat(
     "wLength"          / construct.Const(0x0A, construct.Int16ul),
-    "wDescriptorType"  / DescriptorNumber(OSDescriptorTypes.SET_HEADER),
+    "wDescriptorType"  / construct.Const(OSDescriptorTypes.SET_HEADER, construct.Int16ul),
     "dwWindowsVersion" / DescriptorField("Windows version", default = 0x06030000),
     "wTotalLength"     / DescriptorField("The total length of this descriptor set"),
 )
@@ -73,7 +73,7 @@ SetHeaderDescriptor = DescriptorFormat(
 
 SubsetHeaderConfiguration = DescriptorFormat(
     "wLength"             / construct.Const(0x08, construct.Int16ul),
-    "wDescriptorType"     / DescriptorNumber(OSDescriptorTypes.SUBSET_HEADER_CONFIGURATION),
+    "wDescriptorType"     / construct.Const(OSDescriptorTypes.SUBSET_HEADER_CONFIGURATION, construct.Int16ul),
     "bConfigurationValue" / DescriptorField("The configuration ID to which this subset applies"),
     "bReserved"           / construct.Const(0x00, construct.Int8ul),
     "wTotalLength"        / DescriptorField("The total length the configuration subset (including header)"),
@@ -82,7 +82,7 @@ SubsetHeaderConfiguration = DescriptorFormat(
 
 SubsetHeaderFunction = DescriptorFormat(
     "wLength"         / construct.Const(0x08, construct.Int16ul),
-    "wDescriptorType" / DescriptorNumber(OSDescriptorTypes.SUBSET_HEADER_FUNCTION),
+    "wDescriptorType" / construct.Const(OSDescriptorTypes.SUBSET_HEADER_FUNCTION, construct.Int16ul),
     "bFirstInterface" / DescriptorField("The first interface number to which this function subset applies"),
     "bReserved"       / construct.Const(0x00, construct.Int8ul),
     "wTotalLength"    / DescriptorField("The total length the function subset (including header)"),
@@ -91,15 +91,15 @@ SubsetHeaderFunction = DescriptorFormat(
 
 FeatureCompatibleID = DescriptorFormat(
     "wLength"         / construct.Const(0x14, construct.Int16ul),
-    "wDescriptorType" / DescriptorNumber(OSDescriptorTypes.FEATURE_COMPATIBLE_ID),
-    "CompatibleID"    / construct.Bytes(8),
-    "SubCompatibleID" / construct.Bytes(8),
+    "wDescriptorType" / construct.Const(OSDescriptorTypes.FEATURE_COMPATIBLE_ID, construct.Int16ul),
+    "CompatibleID"    / construct.PaddedString(8, "utf8"),
+    "SubCompatibleID" / construct.PaddedString(8, "utf8"),
 )
 
 
 FeatureRegProperty = DescriptorFormat(
     "wLength"             / construct.Rebuild(construct.Int16ul, 10 + this.wPropertyNameLength + this.wPropertyDataLength),
-    "wDescriptorType"     / DescriptorNumber(OSDescriptorTypes.FEATURE_REG_PROPERTY),
+    "wDescriptorType"     / construct.Const(OSDescriptorTypes.FEATURE_REG_PROPERTY, construct.Int16ul),
     "wPropertyDataType"   / DescriptorField("Data type of the registry property"),
     "wPropertyNameLength" / construct.Rebuild(construct.Int16ul, len_(this.PropertyName)),
     "PropertyName"        / construct.CString("utf16"),
@@ -114,7 +114,7 @@ FeatureRegProperty = DescriptorFormat(
 
 FeatureMinResumeTime = DescriptorFormat(
     "wLength"              / construct.Const(0x06, construct.Int16ul),
-    "wDescriptorType"      / DescriptorNumber(OSDescriptorTypes.FEATURE_MIN_RESUME_TIME),
+    "wDescriptorType"      / construct.Const(OSDescriptorTypes.FEATURE_MIN_RESUME_TIME, construct.Int16ul),
     "bResumeRecoveryTime"  / DescriptorField("Number of milliseconds required to resume the device"),
     "bResumeSignalingTime" / DescriptorField("Number of milliseconds device required for resume signaling to be asserted"),
 )
@@ -122,19 +122,19 @@ FeatureMinResumeTime = DescriptorFormat(
 
 FeatureModelID = DescriptorFormat(
     "wLength"         / construct.Const(0x14, construct.Int16ul),
-    "wDescriptorType" / DescriptorNumber(OSDescriptorTypes.FEATURE_MODEL_ID),
+    "wDescriptorType" / construct.Const(OSDescriptorTypes.FEATURE_MODEL_ID, construct.Int16ul),
     "ModelID"         / construct.Bytes(16),
 )
 
 
 FeatureCCGPDevice = DescriptorFormat(
     "wLength"         / construct.Const(0x04, construct.Int16ul),
-    "wDescriptorType" / DescriptorNumber(OSDescriptorTypes.FEATURE_CCGP_DEVICE),
+    "wDescriptorType" / construct.Const(OSDescriptorTypes.FEATURE_CCGP_DEVICE, construct.Int16ul),
 )
 
 
 FeatureVendorRevision = DescriptorFormat(
     "wLength"         / construct.Const(0x06, construct.Int16ul),
-    "wDescriptorType" / DescriptorNumber(OSDescriptorTypes.FEATURE_VENDOR_REVISION),
+    "wDescriptorType" / construct.Const(OSDescriptorTypes.FEATURE_VENDOR_REVISION, construct.Int16ul),
     "VendorRevision"  / construct.Int16ul,
 )
