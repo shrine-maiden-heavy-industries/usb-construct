@@ -4,6 +4,7 @@
 """ Convenience emitters for microsoft OS descriptors. """
 
 from contextlib import contextmanager
+from typing import Dict
 
 from ..           import emitter_for_format
 from ..descriptor import ComplexDescriptorEmitter
@@ -160,6 +161,11 @@ class PlatformDescriptorCollection:
         descriptor = descriptor.emit()
 
         self._descriptors[vendor_code] = descriptor
+
+
+    @property
+    def descriptors(self) -> Dict[int, bytes]:
+        return self._descriptors
 
 
 class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
