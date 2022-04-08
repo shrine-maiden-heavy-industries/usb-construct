@@ -140,10 +140,37 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
         self.wMSOSDescriptorSetTotalLength = self._subordinate.wTotalLength
 
 
+class PlatformDescriptorCollection:
+    """ Object that holds the OS descriptor sets for windows """
+
+    def __init__(self):
+        self._descriptors = {}
+
+
+    def add_descriptor(self, descriptor : SetHeaderDescriptor, vendor_code : int):
+        """ Adds a descriptor to our collection.
+
+        Parameters:
+            descriptor  -- The set header descriptor to be added.
+            vendor_code -- The vendor request code for this descriptor tree
+        """
+
+        assert isinstance(descriptor, SetHeaderDescriptor)
+        descriptor = descriptor.emit()
+
+        self._descriptors[vendor_code] = descriptor
+
+
 class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
     """ Emitter that creates a PlatformDescriptor. """
 
     DESCRIPTOR_FORMAT = PlatformDescriptor
+
+    def __init__(self, platform_collection : PlatformDescriptorCollection, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self._platform_collection = platform_collection
+
 
     @contextmanager
     def DescriptorSetInformation(self):
@@ -158,7 +185,7 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
         This adds the relevant descriptor, automatically.
         """
 
-        descriptor = DescriptorSetInformationEmitter()
+        descriptor = DescriptorSetInformationEmitter(collection = self._platform_collection)
         yield descriptor
 
         self.add_subordinate_descriptor(descriptor)
