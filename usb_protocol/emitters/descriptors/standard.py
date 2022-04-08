@@ -321,6 +321,25 @@ class DeviceDescriptorCollection:
         self.add_descriptor(descriptor)
 
 
+    @contextmanager
+    def BOSDescriptor(self):
+        """ Context manager that allows addition of a Binary Object Store descriptor.
+
+        It can be used with a `with` statement; and yields an BinaryObjectStoreDescriptorEmitter
+        that can be populated:
+
+            with collection.BOSDescriptor() as d:
+                [snip]
+
+        This adds the relevant descriptor, automatically. Note that populating derived
+        fields such as bNumDeviceCaps aren't necessary; they'll be populated automatically.
+        """
+        descriptor = BinaryObjectStoreDescriptorEmitter()
+        yield descriptor
+
+        self.add_descriptor(descriptor)
+
+
     def _ensure_has_language_descriptor(self):
         """ ensures that we have a language descriptor; adding one if necessary."""
 
@@ -424,25 +443,6 @@ class SuperSpeedDeviceDescriptorCollection(DeviceDescriptorCollection):
         """
         self._automatic_descriptors = automatic_descriptors
         super().__init__(automatic_language_descriptor=automatic_descriptors)
-
-
-    @contextmanager
-    def BOSDescriptor(self):
-        """ Context manager that allows addition of a Binary Object Store descriptor.
-
-        It can be used with a `with` statement; and yields an BinaryObjectStoreDescriptorEmitter
-        that can be populated:
-
-            with collection.BOSDescriptor() as d:
-                [snip]
-
-        This adds the relevant descriptor, automatically. Note that populating derived
-        fields such as bNumDeviceCaps aren't necessary; they'll be populated automatically.
-        """
-        descriptor = BinaryObjectStoreDescriptorEmitter()
-        yield descriptor
-
-        self.add_descriptor(descriptor)
 
 
     def add_default_bos_descriptor(self):
