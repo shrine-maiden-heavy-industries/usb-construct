@@ -9,7 +9,16 @@
 
 from enum import IntEnum
 
+import construct
+
+from .uac1 import *
+
+from .. import USBTransferType, USBSynchronizationType, USBUsageType
+
 from .standard import StandardDescriptorNumbers
+from ..descriptor import \
+    DescriptorField, DescriptorNumber, DescriptorFormat
+
 
 
 class MidiStreamingInterfaceDescriptorSubtypes(IntEnum):
@@ -37,7 +46,7 @@ class MidiStreamingJackTypes(IntEnum):
 # As defined in [Midi10], Table 6-1
 StandardMidiStreamingInterfaceDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(9, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(DescriptorTypes.INTERFACE),
+    "bDescriptorType"     / DescriptorNumber(StandardDescriptorNumbers.INTERFACE),
     "bInterfaceNumber"    / DescriptorField(description="ID of the streaming interface"),
     "bAlternateSetting"   / DescriptorField(description="alternate setting number for the interface", default=0),
     "bNumEndpoints"       / DescriptorField(description="Number of data endpoints used (excluding endpoint 0). Can be: 0 (no data endpoint); 1 (data endpoint); 2 (data + explicit feedback endpoint)", default=0),
@@ -88,7 +97,7 @@ MidiOutJackDescriptorFoot = DescriptorFormat(
 # As defined in [Midi10], Table 6-6
 StandardMidiStreamingBulkDataEndpointDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(9, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(DescriptorTypes.ENDPOINT),
+    "bDescriptorType"     / DescriptorNumber(StandardDescriptorNumbers.ENDPOINT),
     "bEndpointAddress"    / DescriptorField(description="The address of the endpoint, use USBDirection.*.from_endpoint_address()"),
     "bmAttributes"        / DescriptorField(description="D1..0: transfer type (10=bulk), D3..2: synchronization type (00=no sync);", default=USBTransferType.BULK | USBSynchronizationType.NONE | USBUsageType.DATA),
     "wMaxPacketSize"      / DescriptorField(description="Maximum packet size this endpoint is capable of", default=512),
@@ -106,5 +115,5 @@ ClassSpecificMidiStreamingBulkDataEndpointDescriptorHead = DescriptorFormat(
 )
 
 ClassSpecificMidiStreamingBulkDataEndpointDescriptorElement = DescriptorFormat(
-    "baAssocJackID"       / construct.Int8ul # ID of the embedded eack that is associated with this endpoint
+    "baAssocJackID"       / construct.Int8ul # ID of the embedded jack that is associated with this endpoint
 )
