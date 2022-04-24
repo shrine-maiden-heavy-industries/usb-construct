@@ -9,7 +9,15 @@
 
 from enum import IntEnum
 
+import construct
+
+from .uac3 import *
+
+from .. import USBTransferType
+
 from .standard import StandardDescriptorNumbers
+from ..descriptor import \
+    DescriptorField, DescriptorNumber, DescriptorFormat
 
 
 class MidiStreamingInterfaceDescriptorTypes(IntEnum):
@@ -55,7 +63,7 @@ class MidiStreamingJackTypes(IntEnum):
 # As defined in [Midi20], Table B-5
 StandardMidiStreamingInterfaceDescriptor = DescriptorFormat(
     "bLength"             / construct.Const(9, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(DescriptorTypes.INTERFACE),
+    "bDescriptorType"     / DescriptorNumber(StandardDescriptorNumbers.INTERFACE),
     "bInterfaceNumber"    / DescriptorField(description="ID of the streaming interface"),
     "bAlternateSetting"   / DescriptorField(description="alternate setting number for the interface", default=0),
     "bNumEndpoints"       / DescriptorField(description="Number of data endpoints used (excluding endpoint 0). Can be: 0 (no data endpoint); 1 (data endpoint); 2 (data + explicit feedback endpoint)", default=0),
@@ -83,6 +91,3 @@ StandardMidiStreamingDataEndpointDescriptor = DescriptorFormat(
     "wMaxPacketSize"      / DescriptorField(description="Maximum packet size this endpoint is capable of sending or receiving"),
     "bInterval"           / DescriptorField(description="Interval for polling endpoint for Interrupt data transfers. For bulk endpoints this field is ignored and must be reset to 0", default=0)
 )
-
-
-
