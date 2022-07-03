@@ -103,15 +103,15 @@ FeatureCompatibleID = DescriptorFormat(
 
 
 FeatureRegProperty = DescriptorFormat(
-    "wLength"             / construct.Rebuild(construct.Int16ul, 10 + this.wPropertyNameLength + this.wPropertyDataLength),
+    "wLength"             / construct.Rebuild(construct.Int16ul, 10 + 2 + 2*len_(this.PropertyName) + 2 + 2*len_(this.PropertyData)),
     "wDescriptorType"     / construct.Const(OSDescriptorTypes.FEATURE_REG_PROPERTY, construct.Int16ul),
     "wPropertyDataType"   / DescriptorField("Data type of the registry property"),
-    "wPropertyNameLength" / construct.Rebuild(construct.Int16ul, len_(this.PropertyName)),
-    "PropertyName"        / construct.CString("utf16"),
-    "wPropertyDataLength" / construct.Rebuild(construct.Int16ul, len_(this.PropertyData)),
+    "wPropertyNameLength" / construct.Rebuild(construct.Int16ul, 2 + 2*len_(this.PropertyName)),
+    "PropertyName"        / construct.CString("utf_16_le"),
+    "wPropertyDataLength" / construct.Rebuild(construct.Int16ul, 2 + 2*len_(this.PropertyData)),
     "PropertyData"        / construct.Union(
             this.wPropertyNameLength,
-            construct.CString("utf16"),
+            construct.CString("utf_16_le"),
             construct.Bytes(this.wPropertyNameLength)
         ),
 )
