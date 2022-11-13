@@ -1,43 +1,73 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: BSD-3-Clause
 
 from setuptools import setup, find_packages
+from pathlib    import Path
+
+REPO_ROOT   = Path(__file__).parent
+README_FILE = (REPO_ROOT / 'README.md')
+
+def vcs_ver():
+	def scheme(version):
+		if version.tag and not version.distance:
+			return version.format_with('')
+		else:
+			return version.format_choice('+{node}', '+{node}.dirty')
+	return {
+		'relative_to': __file__,
+		'version_scheme': 'guess-next-dev',
+		'local_scheme': scheme
+	}
 
 setup(
+	name             = 'usb-construct',
+	use_scm_version  = vcs_ver(),
+	license          = 'BSD-3-Clause',
+	url              = 'https://github.com/shrine-maiden-heavy-industries/usb-construct',
+	author           = 'Katherine J. Temkin',
+	author_email     = 'k@ktemkin.com',
+	maintainer       = [
+		'Aki Van Ness',
+		'Rachel Mant',
+	],
+	maintainer_email = [
+		'aki@lethalbit.net',
+		'git@dragonmux.network',
+	],
+	description      = 'python library providing utilities, data structures, constants, parsers, and tools for working with USB data',
 
-    # Vitals
-    name='usb_protocol',
-    license='BSD',
-    url='https://github.com/usb-tool/luna',
-    author='Katherine J. Temkin',
-    author_email='ktemkin@greatscottgadgets.com',
-    description='python library providing utilities, data structures, constants, parsers, and tools for working with USB data',
-    use_scm_version= {
-        "root": '..',
-        "relative_to": __file__,
-        "version_scheme": "guess-next-dev",
-        "local_scheme": lambda version : version.format_choice("+{node}", "+{node}.dirty"),
-        "fallback_version": "0.0"
-    },
+	long_description = README_FILE.read_text(),
+	long_description_content_type = 'text/markdown',
 
-    # Imports / exports / requirements.
-    platforms='any',
-    packages=find_packages(),
-    include_package_data=True,
-    python_requires="~=3.7",
-    install_requires=['construct'],
-    setup_requires=['setuptools', 'setuptools_scm'],
 
-    # Metadata
-    classifiers = [
-        'Programming Language :: Python',
-        'Development Status :: 1 - Planning',
-        'Natural Language :: English',
-        'Environment :: Console',
-        'Environment :: Plugins',
-        'Intended Audience :: Developers',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
-        'Topic :: Scientific/Engineering',
-        'Topic :: Security',
-        ],
+	setup_requires   = [
+		'wheel',
+		'setuptools',
+		'setuptools_scm',
+	],
+	packages         = find_packages(
+		where = '.'
+	),
+	python_requires  = '~=3.9',
+	install_requires = [
+		'construct',
+	],
+	classifiers      = [
+		'Programming Language :: Python',
+		'Development Status :: 1 - Planning',
+		'Natural Language :: English',
+		'Environment :: Console',
+		'Environment :: Plugins',
+		'Intended Audience :: Developers',
+		'Intended Audience :: Science/Research',
+		'License :: OSI Approved :: BSD License',
+		'Operating System :: OS Independent',
+		'Topic :: Scientific/Engineering',
+		'Topic :: Security',
+	],
+	project_urls      = {
+		'Documentation': '',
+		'Source Code': 'https://github.com/shrine-maiden-heavy-industries/usb-construct',
+		'Bug Tracker': 'https://github.com/shrine-maiden-heavy-industries/usb-construct/issues',
+	},
 )

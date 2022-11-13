@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: BSD-3-Clause
 #
 # This file is part of usb-protocol.
 #
 """ Example that builds a device-worth of descriptors using a collection object. """
 
-from usb_protocol.emitters.descriptors import DeviceDescriptorCollection
+from usb_construct.emitters.descriptors import DeviceDescriptorCollection
 
 collection = DeviceDescriptorCollection()
 
