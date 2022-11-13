@@ -52,6 +52,11 @@ setup(
 	install_requires = [
 		'construct',
 	],
+	extras_require = {
+		'dev': [
+			'nox'
+		],
+	},
 	classifiers      = [
 		'Programming Language :: Python',
 		'Development Status :: 1 - Planning',
