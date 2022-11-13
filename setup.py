@@ -26,14 +26,14 @@ setup(
 	url              = 'https://github.com/shrine-maiden-heavy-industries/usb-construct',
 	author           = 'Katherine J. Temkin',
 	author_email     = 'k@ktemkin.com',
-	maintainer       = [
+	maintainer       = ', '.join([
 		'Aki Van Ness',
 		'Rachel Mant',
-	],
-	maintainer_email = [
+	]),
+	maintainer_email = ', '.join([
 		'aki@lethalbit.net',
 		'git@dragonmux.network',
-	],
+	]),
 	description      = 'python library providing utilities, data structures, constants, parsers, and tools for working with USB data',
 
 	long_description = README_FILE.read_text(),
