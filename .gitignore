@@ -130,4 +130,7 @@ dmypy.json
 .pyre/
 
 # Editor / IDE files
-.vscode
+/.vs
+/.vscode
+.nox/
+.mypy_cache/
