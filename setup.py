@@ -58,20 +58,28 @@ setup(
 		],
 	},
 	classifiers      = [
-		'Programming Language :: Python',
-		'Development Status :: 1 - Planning',
-		'Natural Language :: English',
+		'Development Status :: 4 - Beta',
 		'Environment :: Console',
 		'Environment :: Plugins',
 		'Intended Audience :: Developers',
 		'Intended Audience :: Science/Research',
 		'License :: OSI Approved :: BSD License',
+		'Natural Language :: English',
 		'Operating System :: OS Independent',
+		'Programming Language :: Python :: 3.9',
+		'Programming Language :: Python :: 3.10',
+		'Programming Language :: Python :: 3.11',
+
+
+
 		'Topic :: Scientific/Engineering',
 		'Topic :: Security',
+		'Topic :: Software Development :: Libraries',
+		'Topic :: System :: Hardware :: Universal Serial Bus (USB)',
+
 	],
 	project_urls      = {
-		'Documentation': '',
+		'Documentation': 'https://github.com/shrine-maiden-heavy-industries/usb-construct',
 		'Source Code': 'https://github.com/shrine-maiden-heavy-industries/usb-construct',
 		'Bug Tracker': 'https://github.com/shrine-maiden-heavy-industries/usb-construct/issues',
 	},
