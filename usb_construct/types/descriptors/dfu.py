@@ -13,7 +13,7 @@ from enum import IntEnum
 import construct
 
 from ..descriptor import \
-    DescriptorField, DescriptorNumber, DescriptorFormat
+	DescriptorField, DescriptorNumber, DescriptorFormat
 
 
 class DFUDescriptorNumbers(IntEnum):
@@ -52,7 +52,7 @@ class DFURequests(IntEnum):
 
 FunctionalDescriptor = DescriptorFormat(
 	"bLength"             / construct.Const(0x09, construct.Int8ul),
-    "bDescriptorType"     / DescriptorNumber(DFUDescriptorNumbers.FUNCTIONAL),
+	"bDescriptorType"     / DescriptorNumber(DFUDescriptorNumbers.FUNCTIONAL),
 	"bmAttributes"        / DescriptorField("DFU Attributes", length = 1),
 	"wDetachTimeOut"      / DescriptorField("Time, in miliseconds, that the device will wait after receipt of DFU_DETATCH to be asked to reset"),
 	"wTransferSize"       / DescriptorField("Number of bytes (max) that the device can accept per control write"),

@@ -15,12 +15,12 @@ from .standard                 import InterfaceAssociationDescriptor, InterfaceA
 StandardAudioControlInterfaceDescriptorEmitter = emitter_for_format(StandardAudioControlInterfaceDescriptor)
 
 class ClassSpecificAudioControlInterfaceDescriptorEmitter(ComplexDescriptorEmitter):
-    DESCRIPTOR_FORMAT = ClassSpecificAudioControlInterfaceDescriptor
+	DESCRIPTOR_FORMAT = ClassSpecificAudioControlInterfaceDescriptor
 
-    def _pre_emit(self):
-        # Figure out the total length of our descriptor, including subordinates.
-        subordinate_length = sum(len(sub) for sub in self._subordinates)
-        self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
+	def _pre_emit(self):
+		# Figure out the total length of our descriptor, including subordinates.
+		subordinate_length = sum(len(sub) for sub in self._subordinates)
+		self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
 
 ClockSourceDescriptorEmitter                                             = emitter_for_format(ClockSourceDescriptor)
 InputTerminalDescriptorEmitter                                           = emitter_for_format(InputTerminalDescriptor)

@@ -9,28 +9,28 @@ from usb_construct.types.descriptors    import StringDescriptor
 from usb_construct.emitters.descriptors import DeviceDescriptorEmitter
 
 string_descriptor = bytes([
-        40, # Length
-        3,  # Type
-        ord('G'), 0x00,
-        ord('r'), 0x00,
-        ord('e'), 0x00,
-        ord('a'), 0x00,
-        ord('t'), 0x00,
-        ord(' '), 0x00,
-        ord('S'), 0x00,
-        ord('c'), 0x00,
-        ord('o'), 0x00,
-        ord('t'), 0x00,
-        ord('t'), 0x00,
-        ord(' '), 0x00,
-        ord('G'), 0x00,
-        ord('a'), 0x00,
-        ord('d'), 0x00,
-        ord('g'), 0x00,
-        ord('e'), 0x00,
-        ord('t'), 0x00,
-        ord('s'), 0x00,
-    ])
+		40, # Length
+		3,  # Type
+		ord('G'), 0x00,
+		ord('r'), 0x00,
+		ord('e'), 0x00,
+		ord('a'), 0x00,
+		ord('t'), 0x00,
+		ord(' '), 0x00,
+		ord('S'), 0x00,
+		ord('c'), 0x00,
+		ord('o'), 0x00,
+		ord('t'), 0x00,
+		ord('t'), 0x00,
+		ord(' '), 0x00,
+		ord('G'), 0x00,
+		ord('a'), 0x00,
+		ord('d'), 0x00,
+		ord('g'), 0x00,
+		ord('e'), 0x00,
+		ord('t'), 0x00,
+		ord('s'), 0x00,
+	])
 
 # Use our simple StringDescriptor object to parse a binary blob string descriptor.
 print(f"Parsing: {string_descriptor}")

@@ -10,5 +10,5 @@ from ...emitters.descriptors.dfu import FunctionalDescriptorEmitter
 
 
 class FunctionalDescriptor(DescriptorContextManager):
-    ParentDescriptor = InterfaceDescriptorEmitter
-    DescriptorEmitter = lambda self: FunctionalDescriptorEmitter()
+	ParentDescriptor = InterfaceDescriptorEmitter
+	DescriptorEmitter = lambda self: FunctionalDescriptorEmitter()
