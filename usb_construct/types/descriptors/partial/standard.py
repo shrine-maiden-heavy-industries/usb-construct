@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: BSD-3-Clause
-""" Convenience aliases for versions of descriptor structs that support parsing incomplete binary data. """
+''' Convenience aliases for versions of descriptor structs that support parsing incomplete binary data. '''
 
 from .. import standard
 

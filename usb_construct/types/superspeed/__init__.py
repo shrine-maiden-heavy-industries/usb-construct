@@ -2,12 +2,12 @@
 #
 # This file is part of usb-construct.
 #
-""" SuperSpeed USB types -- defines enumerations that describe standard USB3 types. """
+''' SuperSpeed USB types -- defines enumerations that describe standard USB3 types. '''
 
 from enum import IntEnum
 
 class LinkCommand(IntEnum):
-	""" Constant values (including both class and type) for link commands. """
+	''' Constant values (including both class and type) for link commands. '''
 
 	LGOOD = 0   # Header Packet ACK
 	LCRD  = 1   # Header Credit
@@ -28,7 +28,7 @@ class LinkCommand(IntEnum):
 
 
 class HeaderPacketType(IntEnum):
-	""" Constants representing the Header Packet archetypes. """
+	''' Constants representing the Header Packet archetypes. '''
 	TRANSACTION           = 0b00100
 	DATA                  = 0b01000
 	ISOCHRONOUS_TIMESTAMP = 0b01100
@@ -36,7 +36,7 @@ class HeaderPacketType(IntEnum):
 
 
 class TransactionPacketSubtype(IntEnum):
-	""" Constants representing the subtypes of Transition Header Packet. """
+	''' Constants representing the subtypes of Transition Header Packet. '''
 
 	ACK           = 1
 	NRDY          = 2
@@ -49,7 +49,7 @@ class TransactionPacketSubtype(IntEnum):
 
 
 class LinkManagementPacketSubtype(IntEnum):
-	""" Constants represneting the various types of Link Management Packet. """
+	''' Constants represneting the various types of Link Management Packet. '''
 
 	SET_LINK_FUNCTION           = 1
 	U2_INACTIVITY_TIMEOUT       = 2

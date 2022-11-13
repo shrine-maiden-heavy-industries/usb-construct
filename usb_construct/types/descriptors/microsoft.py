@@ -2,11 +2,11 @@
 #
 # This file is part of usb-construct.
 #
-"""
+'''
 Structures describing Microsoft OS specific functionality descriptors. Versions that support parsing
 incomplete binary data are available as `DescriptorType`.Partial, e.g. `DeviceDescriptor.Partial`, and
 are collectively available in the `usb_construct.types.descriptors.partial.microsoft` module.
-"""
+'''
 
 from enum import IntEnum
 
@@ -46,11 +46,11 @@ class MicrosoftRequests(IntEnum):
 
 
 PlatformDescriptor = DescriptorFormat(
-	"bLength"               / DescriptorField("Total length of the platform-specific descriptor block"),
-	"bDescriptorType"       / DescriptorNumber(StandardDescriptorNumbers.DEVICE_CAPABILITY),
-	"bDevCapabilityType"    / construct.Const(DeviceCapabilityTypes.PLATFORM, construct.Int8ul),
-	"bReserved"             / construct.Const(0x00, construct.Int8ul),
-	"PlatformCapabilityUUID" / construct.Sequence(
+	'bLength'               / DescriptorField('Total length of the platform-specific descriptor block'),
+	'bDescriptorType'       / DescriptorNumber(StandardDescriptorNumbers.DEVICE_CAPABILITY),
+	'bDevCapabilityType'    / construct.Const(DeviceCapabilityTypes.PLATFORM, construct.Int8ul),
+	'bReserved'             / construct.Const(0x00, construct.Int8ul),
+	'PlatformCapabilityUUID' / construct.Sequence(
 			construct.Const(0xd8dd60df, construct.Int32ul),
 			construct.Const(0x4589,     construct.Int16ul),
 			construct.Const(0x4cc7,     construct.Int16ul),
@@ -62,85 +62,85 @@ PlatformDescriptor = DescriptorFormat(
 
 
 DescriptorSetInformation = DescriptorFormat(
-	"dwWindowsVersion"              / DescriptorField("Minimum windows version this set should apply to", default = 0x06030000),
-	"wMSOSDescriptorSetTotalLength" / DescriptorField("The byte length of the descriptor set"),
-	"bMS_VendorCode"                / DescriptorField("The vendor code to request this descriptor set with"),
-	"bAltEnumCode"                  / DescriptorField("A non-zero number if the device may return non-default USB descriptors for enumeration.", default = 0),
+	'dwWindowsVersion'              / DescriptorField('Minimum windows version this set should apply to', default = 0x06030000),
+	'wMSOSDescriptorSetTotalLength' / DescriptorField('The byte length of the descriptor set'),
+	'bMS_VendorCode'                / DescriptorField('The vendor code to request this descriptor set with'),
+	'bAltEnumCode'                  / DescriptorField('A non-zero number if the device may return non-default USB descriptors for enumeration.', default = 0),
 )
 
 
 SetHeaderDescriptor = DescriptorFormat(
-	"wLength"          / construct.Const(0x0A, construct.Int16ul),
-	"wDescriptorType"  / construct.Const(OSDescriptorTypes.SET_HEADER, construct.Int16ul),
-	"dwWindowsVersion" / DescriptorField("Windows version", default = 0x06030000),
-	"wTotalLength"     / DescriptorField("The total length of this descriptor set"),
+	'wLength'          / construct.Const(0x0A, construct.Int16ul),
+	'wDescriptorType'  / construct.Const(OSDescriptorTypes.SET_HEADER, construct.Int16ul),
+	'dwWindowsVersion' / DescriptorField('Windows version', default = 0x06030000),
+	'wTotalLength'     / DescriptorField('The total length of this descriptor set'),
 )
 
 
 SubsetHeaderConfiguration = DescriptorFormat(
-	"wLength"             / construct.Const(0x08, construct.Int16ul),
-	"wDescriptorType"     / construct.Const(OSDescriptorTypes.SUBSET_HEADER_CONFIGURATION, construct.Int16ul),
-	"bConfigurationValue" / DescriptorField("The configuration ID to which this subset applies"),
-	"bReserved"           / construct.Const(0x00, construct.Int8ul),
-	"wTotalLength"        / DescriptorField("The total length the configuration subset (including header)"),
+	'wLength'             / construct.Const(0x08, construct.Int16ul),
+	'wDescriptorType'     / construct.Const(OSDescriptorTypes.SUBSET_HEADER_CONFIGURATION, construct.Int16ul),
+	'bConfigurationValue' / DescriptorField('The configuration ID to which this subset applies'),
+	'bReserved'           / construct.Const(0x00, construct.Int8ul),
+	'wTotalLength'        / DescriptorField('The total length the configuration subset (including header)'),
 )
 
 
 SubsetHeaderFunction = DescriptorFormat(
-	"wLength"         / construct.Const(0x08, construct.Int16ul),
-	"wDescriptorType" / construct.Const(OSDescriptorTypes.SUBSET_HEADER_FUNCTION, construct.Int16ul),
-	"bFirstInterface" / DescriptorField("The first interface number to which this function subset applies"),
-	"bReserved"       / construct.Const(0x00, construct.Int8ul),
-	"wTotalLength"    / DescriptorField("The total length the function subset (including header)"),
+	'wLength'         / construct.Const(0x08, construct.Int16ul),
+	'wDescriptorType' / construct.Const(OSDescriptorTypes.SUBSET_HEADER_FUNCTION, construct.Int16ul),
+	'bFirstInterface' / DescriptorField('The first interface number to which this function subset applies'),
+	'bReserved'       / construct.Const(0x00, construct.Int8ul),
+	'wTotalLength'    / DescriptorField('The total length the function subset (including header)'),
 )
 
 
 FeatureCompatibleID = DescriptorFormat(
-	"wLength"         / construct.Const(0x14, construct.Int16ul),
-	"wDescriptorType" / construct.Const(OSDescriptorTypes.FEATURE_COMPATIBLE_ID, construct.Int16ul),
-	"CompatibleID"    / construct.PaddedString(8, "utf8"),
-	"SubCompatibleID" / construct.PaddedString(8, "utf8"),
+	'wLength'         / construct.Const(0x14, construct.Int16ul),
+	'wDescriptorType' / construct.Const(OSDescriptorTypes.FEATURE_COMPATIBLE_ID, construct.Int16ul),
+	'CompatibleID'    / construct.PaddedString(8, 'utf8'),
+	'SubCompatibleID' / construct.PaddedString(8, 'utf8'),
 )
 
 
 FeatureRegProperty = DescriptorFormat(
-	"wLength"             / construct.Rebuild(construct.Int16ul, 14 + (2 * len_(this.PropertyName)) + (2 * len_(this.PropertyData))),
-	"wDescriptorType"     / construct.Const(OSDescriptorTypes.FEATURE_REG_PROPERTY, construct.Int16ul),
-	"wPropertyDataType"   / DescriptorField("Data type of the registry property"),
-	"wPropertyNameLength" / construct.Rebuild(construct.Int16ul, 2 + (2 * len_(this.PropertyName))),
-	"PropertyName"        / construct.CString("utf_16_le"),
-	"wPropertyDataLength" / construct.Rebuild(construct.Int16ul, 2 + (2 * len_(this.PropertyData))),
-	"PropertyData"        / construct.Union(
+	'wLength'             / construct.Rebuild(construct.Int16ul, 14 + (2 * len_(this.PropertyName)) + (2 * len_(this.PropertyData))),
+	'wDescriptorType'     / construct.Const(OSDescriptorTypes.FEATURE_REG_PROPERTY, construct.Int16ul),
+	'wPropertyDataType'   / DescriptorField('Data type of the registry property'),
+	'wPropertyNameLength' / construct.Rebuild(construct.Int16ul, 2 + (2 * len_(this.PropertyName))),
+	'PropertyName'        / construct.CString('utf_16_le'),
+	'wPropertyDataLength' / construct.Rebuild(construct.Int16ul, 2 + (2 * len_(this.PropertyData))),
+	'PropertyData'        / construct.Union(
 			this.wPropertyNameLength,
-			construct.CString("utf_16_le"),
+			construct.CString('utf_16_le'),
 			construct.Bytes(this.wPropertyNameLength)
 		),
 )
 
 
 FeatureMinResumeTime = DescriptorFormat(
-	"wLength"              / construct.Const(0x06, construct.Int16ul),
-	"wDescriptorType"      / construct.Const(OSDescriptorTypes.FEATURE_MIN_RESUME_TIME, construct.Int16ul),
-	"bResumeRecoveryTime"  / DescriptorField("Number of milliseconds required to resume the device"),
-	"bResumeSignalingTime" / DescriptorField("Number of milliseconds device required for resume signaling to be asserted"),
+	'wLength'              / construct.Const(0x06, construct.Int16ul),
+	'wDescriptorType'      / construct.Const(OSDescriptorTypes.FEATURE_MIN_RESUME_TIME, construct.Int16ul),
+	'bResumeRecoveryTime'  / DescriptorField('Number of milliseconds required to resume the device'),
+	'bResumeSignalingTime' / DescriptorField('Number of milliseconds device required for resume signaling to be asserted'),
 )
 
 
 FeatureModelID = DescriptorFormat(
-	"wLength"         / construct.Const(0x14, construct.Int16ul),
-	"wDescriptorType" / construct.Const(OSDescriptorTypes.FEATURE_MODEL_ID, construct.Int16ul),
-	"ModelID"         / construct.Bytes(16),
+	'wLength'         / construct.Const(0x14, construct.Int16ul),
+	'wDescriptorType' / construct.Const(OSDescriptorTypes.FEATURE_MODEL_ID, construct.Int16ul),
+	'ModelID'         / construct.Bytes(16),
 )
 
 
 FeatureCCGPDevice = DescriptorFormat(
-	"wLength"         / construct.Const(0x04, construct.Int16ul),
-	"wDescriptorType" / construct.Const(OSDescriptorTypes.FEATURE_CCGP_DEVICE, construct.Int16ul),
+	'wLength'         / construct.Const(0x04, construct.Int16ul),
+	'wDescriptorType' / construct.Const(OSDescriptorTypes.FEATURE_CCGP_DEVICE, construct.Int16ul),
 )
 
 
 FeatureVendorRevision = DescriptorFormat(
-	"wLength"         / construct.Const(0x06, construct.Int16ul),
-	"wDescriptorType" / construct.Const(OSDescriptorTypes.FEATURE_VENDOR_REVISION, construct.Int16ul),
-	"VendorRevision"  / construct.Int16ul,
+	'wLength'         / construct.Const(0x06, construct.Int16ul),
+	'wDescriptorType' / construct.Const(OSDescriptorTypes.FEATURE_VENDOR_REVISION, construct.Int16ul),
+	'VendorRevision'  / construct.Int16ul,
 )

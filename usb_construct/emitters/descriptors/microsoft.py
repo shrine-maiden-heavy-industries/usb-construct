@@ -2,7 +2,7 @@
 #
 # This file is part of usb-construct.
 #
-""" Convenience emitters for microsoft OS descriptors. """
+''' Convenience emitters for microsoft OS descriptors. '''
 
 from contextlib import contextmanager
 from typing import Dict
@@ -23,7 +23,7 @@ FeatureVendorRevisionEmitter = emitter_for_format(FeatureVendorRevision)
 
 # ... and complex emitters.
 class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
-	""" Abstract base type for things that can hold Feature Descriptors. """
+	''' Abstract base type for things that can hold Feature Descriptors. '''
 
 	@contextmanager
 	def FeatureCompatibleID(self):
@@ -74,7 +74,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 class SubsetHeaderFunctionEmitter(FeatureDescriptorEmitter):
-	""" Emitter that creates a SubsetHeaderFunctionEmitter. """
+	''' Emitter that creates a SubsetHeaderFunctionEmitter. '''
 
 	DESCRIPTOR_FORMAT = SubsetHeaderFunction
 
@@ -85,7 +85,7 @@ class SubsetHeaderFunctionEmitter(FeatureDescriptorEmitter):
 
 
 class SubsetHeaderConfigurationEmitter(FeatureDescriptorEmitter):
-	""" Emitter that creates a SubsetHeaderConfiguration. """
+	''' Emitter that creates a SubsetHeaderConfiguration. '''
 
 	DESCRIPTOR_FORMAT = SubsetHeaderConfiguration
 
@@ -104,7 +104,7 @@ class SubsetHeaderConfigurationEmitter(FeatureDescriptorEmitter):
 
 
 class SetHeaderDescriptorEmitter(FeatureDescriptorEmitter):
-	""" Emitter that creates a SetHeaderDescriptor. """
+	''' Emitter that creates a SetHeaderDescriptor. '''
 
 	DESCRIPTOR_FORMAT = SetHeaderDescriptor
 
@@ -123,7 +123,7 @@ class SetHeaderDescriptorEmitter(FeatureDescriptorEmitter):
 
 
 class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
-	""" Emitter that creates a DescriptorSetInformation. """
+	''' Emitter that creates a DescriptorSetInformation. '''
 
 	DESCRIPTOR_FORMAT = DescriptorSetInformation
 
@@ -144,19 +144,19 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
 
 
 class PlatformDescriptorCollection:
-	""" Object that holds the OS descriptor sets for windows """
+	''' Object that holds the OS descriptor sets for windows '''
 
 	def __init__(self):
 		self._descriptors = {}
 
 
 	def add_descriptor(self, descriptor : SetHeaderDescriptorEmitter, vendor_code : int):
-		""" Adds a descriptor to our collection.
+		''' Adds a descriptor to our collection.
 
 		Parameters:
 			descriptor  -- The set header descriptor to be added.
 			vendor_code -- The vendor request code for this descriptor tree
-		"""
+		'''
 
 		assert isinstance(descriptor, SetHeaderDescriptorEmitter)
 		descriptor = descriptor.emit()
@@ -170,7 +170,7 @@ class PlatformDescriptorCollection:
 
 
 class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
-	""" Emitter that creates a PlatformDescriptor. """
+	''' Emitter that creates a PlatformDescriptor. '''
 
 	DESCRIPTOR_FORMAT = PlatformDescriptor
 
@@ -182,7 +182,7 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
 
 	@contextmanager
 	def DescriptorSetInformation(self):
-		""" Context manager that allows addition of the information associated with a descriptor set.
+		''' Context manager that allows addition of the information associated with a descriptor set.
 
 		It can be used with a `with` statement; and yields a DescriptorSetInformationEmitter
 		that can be populated:
@@ -191,7 +191,7 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
 				dsi.bMS_VendorCode = 1
 
 		This adds the relevant descriptor, automatically.
-		"""
+		'''
 
 		descriptor = DescriptorSetInformationEmitter(collection = self._platform_collection)
 		yield descriptor

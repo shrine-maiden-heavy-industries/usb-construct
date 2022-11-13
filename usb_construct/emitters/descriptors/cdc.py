@@ -2,7 +2,7 @@
 #
 # This file is part of usb-construct.
 #
-""" Convenience emitters for CDC descriptors. """
+''' Convenience emitters for CDC descriptors. '''
 
 from .. import emitter_for_format
 from ...types.descriptors.cdc import \

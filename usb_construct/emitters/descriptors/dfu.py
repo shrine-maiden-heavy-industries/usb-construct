@@ -2,7 +2,7 @@
 #
 # This file is part of usb-construct.
 #
-""" Convenience emitters for simple, DFU descriptors. """
+''' Convenience emitters for simple, DFU descriptors. '''
 
 from ..           import emitter_for_format
 

@@ -2,9 +2,9 @@
 #
 # This file is part of usb-construct.
 #
-"""
+'''
 https://wicg.github.io/webusb/
-"""
+'''
 
 from enum import IntEnum
 
@@ -31,11 +31,11 @@ class WebUSBURLSchemaTypes(IntEnum):
 	EMPTY = 255
 
 PlatformDescriptor = DescriptorFormat(
-	"bLength"                / construct.Const(0x18, construct.Int8ul),
-	"bDescriptorType"        / DescriptorNumber(StandardDescriptorNumbers.DEVICE_CAPABILITY),
-	"bDevCapabilityType"     / DescriptorNumber(DeviceCapabilityTypes.PLATFORM),
-	"bReserved"              / construct.Const(0x00, construct.Int8ul),
-	"PlatformCapabilityUUID" / construct.Sequence(
+	'bLength'                / construct.Const(0x18, construct.Int8ul),
+	'bDescriptorType'        / DescriptorNumber(StandardDescriptorNumbers.DEVICE_CAPABILITY),
+	'bDevCapabilityType'     / DescriptorNumber(DeviceCapabilityTypes.PLATFORM),
+	'bReserved'              / construct.Const(0x00, construct.Int8ul),
+	'PlatformCapabilityUUID' / construct.Sequence(
 			construct.Const(0x3408b638, construct.Int32ul),
 			construct.Const(0x09a9,     construct.Int16ul),
 			construct.Const(0x47a0,     construct.Int16ul),
@@ -43,14 +43,14 @@ PlatformDescriptor = DescriptorFormat(
 			construct.Const(0xa076,     construct.Int16ub),
 			construct.Const(0x8815b665, construct.Int32ub)
 		),
-	"bcdVersion"             / DescriptorField("WebUSB Version", default=1.0),
-	"bVendorCode"            / DescriptorField("WebUSB Vendor Code", default=1),
-	"iLandingPage"           / DescriptorField("WebUSB Landing Page", default=0),
+	'bcdVersion'             / DescriptorField('WebUSB Version', default = 1.0),
+	'bVendorCode'            / DescriptorField('WebUSB Vendor Code', default = 1),
+	'iLandingPage'           / DescriptorField('WebUSB Landing Page', default = 0),
 )
 
 URLDescriptor = DescriptorFormat(
-	"bLength"         / construct.Rebuild(construct.Int8ul, len_(this.URL) + 3),
-	"bDescriptorType" / DescriptorNumber(WebUSBDescriptorNumbers.WEBUSB_URL),
-	"bScheme"         / DescriptorField("WebUSB URL Schema", default=WebUSBURLSchemaTypes.HTTPS),
-	"URL"             / construct.CString("utf8"),
+	'bLength'         / construct.Rebuild(construct.Int8ul, len_(this.URL) + 3),
+	'bDescriptorType' / DescriptorNumber(WebUSBDescriptorNumbers.WEBUSB_URL),
+	'bScheme'         / DescriptorField('WebUSB URL Schema', default = WebUSBURLSchemaTypes.HTTPS),
+	'URL'             / construct.CString('utf8'),
 )

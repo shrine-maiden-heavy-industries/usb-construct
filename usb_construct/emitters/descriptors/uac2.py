@@ -2,7 +2,7 @@
 #
 # This file is part of usb-construct.
 #
-""" Convenience emitters for USB Audio Class 2 descriptors. """
+''' Convenience emitters for USB Audio Class 2 descriptors. '''
 
 from contextlib import contextmanager
 

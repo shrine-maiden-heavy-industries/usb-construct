@@ -2,7 +2,7 @@
 #
 # This file is part of usb-construct.
 #
-""" Convenience emitters for USB Audio Class 3 descriptors. """
+''' Convenience emitters for USB Audio Class 3 descriptors. '''
 
 from functools import cached_property
 
@@ -30,12 +30,12 @@ class HeaderDescriptorEmitter(ComplexDescriptorEmitter):
 		return HeaderDescriptor
 
 	def add_subordinate_descriptor(self, subordinate):
-		""" Adds a subordinate descriptor to the relevant parent descriptor.
+		''' Adds a subordinate descriptor to the relevant parent descriptor.
 
 		Parameter:
 			subordinate -- The subordinate descriptor to add; can be an emitter,
 							or a bytes-like object.
-		"""
+		'''
 		if hasattr(subordinate, 'emit'):
 			subordinate = subordinate.emit()
 		else:

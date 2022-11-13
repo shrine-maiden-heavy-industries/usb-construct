@@ -3,7 +3,7 @@
 #
 # This file is part of usb-protocol.
 #
-""" Example that builds a device-worth of descriptors using a collection object. """
+''' Example that builds a device-worth of descriptors using a collection object. '''
 
 from usb_construct.emitters.descriptors import DeviceDescriptorCollection
 
@@ -16,9 +16,9 @@ with collection.DeviceDescriptor() as d:
 	d.idProduct          = 0xc0de
 	d.bNumConfigurations = 1
 
-	d.iManufacturer      = "usb-tools"
-	d.iProduct           = "Illegitimate USB Device"
-	d.iSerialNumber      = "123456"
+	d.iManufacturer      = 'usb-tools'
+	d.iProduct           = 'Illegitimate USB Device'
+	d.iSerialNumber      = '123456'
 
 
 # Create our configuration descriptor, and its subordinates.
@@ -39,8 +39,8 @@ with collection.ConfigurationDescriptor() as c:
 			e.wMaxPacketSize   = 512
 
 
-print("This device's descriptors would look like:")
+print('This device\'s descriptors would look like:')
 
 # Iterate over all of our descriptors.
 for value, index, raw in collection:
-	print(f"    type {value} (index {index}) = {raw}")
+	print(f'    type {value} (index {index}) = {raw}')

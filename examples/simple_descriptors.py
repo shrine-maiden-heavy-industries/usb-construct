@@ -3,7 +3,7 @@
 #
 # This file is part of usb-protocol.
 #
-""" Examples for using the simple descriptor data structures. """
+''' Examples for using the simple descriptor data structures. '''
 
 from usb_construct.types.descriptors    import StringDescriptor
 from usb_construct.emitters.descriptors import DeviceDescriptorEmitter
@@ -33,7 +33,7 @@ string_descriptor = bytes([
 	])
 
 # Use our simple StringDescriptor object to parse a binary blob string descriptor.
-print(f"Parsing: {string_descriptor}")
+print(f'Parsing: {string_descriptor}')
 parsed = StringDescriptor.parse(string_descriptor)
 print(parsed)
 
@@ -43,4 +43,4 @@ builder = DeviceDescriptorEmitter()
 builder.idVendor  = 0x1234
 builder.idProduct = 0xabcd
 builder.bNumConfigurations = 3
-print(f"Generated device descriptor: {builder.emit()}")
+print(f'Generated device descriptor: {builder.emit()}')

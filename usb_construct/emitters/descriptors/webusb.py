@@ -2,9 +2,9 @@
 #
 # This file is part of usb-construct.
 #
-"""
+'''
 https://wicg.github.io/webusb/
-"""
+'''
 
 
 from ..           import emitter_for_format
