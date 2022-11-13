@@ -159,7 +159,9 @@ class ConfigurationDescriptorEmitter(ComplexDescriptorEmitter):
 	def _pre_emit(self):
 
 		# Count our interfaces. Alternate settings of the same interface do not count multiple times.
-		self.bNumInterfaces = len(set([subordinate[2] for subordinate in self._subordinates if (subordinate[1] == StandardDescriptorNumbers.INTERFACE)]))
+		self.bNumInterfaces = len(set([
+			subordinate[2] for subordinate in self._subordinates if (subordinate[1] == StandardDescriptorNumbers.INTERFACE)
+		]))
 
 		# Figure out our total length.
 		subordinate_length = sum(len(sub) for sub in self._subordinates)
@@ -183,7 +185,7 @@ class DeviceDescriptorCollection:
 		Parameters:
 			automatic_language_descriptor -- If set or not provided, a language descriptor will automatically
 											 be added if none exists.
-		'''
+		''' # noqa: E101
 
 
 		self._automatic_language_descriptor = automatic_language_descriptor
@@ -245,7 +247,7 @@ class DeviceDescriptorCollection:
 			index           -- The index of the relevant descriptor. Defaults to 0.
 			descriptor_type -- The type of the descriptor to be added. If `None`,
 							   this is automatically derived from the descriptor contents.
-		'''
+		''' # noqa: E101
 
 		# If this is an emitter rather than a descriptor itself, convert it.
 		if hasattr(descriptor, 'emit'):
@@ -441,7 +443,7 @@ class SuperSpeedDeviceDescriptorCollection(DeviceDescriptorCollection):
 		Parameters:
 			automatic_descriptors -- If set or not provided, certian required descriptors will be
 									 be added if none exists.
-		'''
+		''' # noqa: E101
 		self._automatic_descriptors = automatic_descriptors
 		super().__init__(automatic_language_descriptor = automatic_descriptors)
 
@@ -583,7 +585,9 @@ class EmitterTests(unittest.TestCase):
 		self.assertIn((1, 0, b'\x12\x01\x00\x02\x00\x00\x00@\xad\xde\xef\xbe\x00\x00\x01\x02\x00\x01'), results)
 
 		# Configuration descriptor, with subordinates.
-		self.assertIn((2, 0, b'\t\x02 \x00\x01\x01\x00\x80\xfa\t\x04\x01\x00\x02\xff\xff\xff\x00\x07\x05\x81\x02@\x00\xff\x07\x05\x01\x02@\x00\xff'), results)
+		self.assertIn((2, 0,
+			b'\t\x02 \x00\x01\x01\x00\x80\xfa\t\x04\x01\x00\x02\xff\xff\xff\x00\x07\x05\x81\x02@\x00\xff\x07\x05\x01\x02@\x00\xff'
+		), results)
 
 
 	def test_empty_descriptor_collection(self):

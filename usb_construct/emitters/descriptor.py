@@ -20,7 +20,7 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 			collection -- If this descriptor belongs to a collection, it should be
 						  provided here. Using a collection object allows e.g. automatic
 						  assignment of string descriptor indices.
-		'''
+		'''  # noqa: E101
 
 		self._collection = collection
 
@@ -39,7 +39,7 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 		Parameter:
 			subordinate -- The subordinate descriptor to add; can be an emitter,
 						   or a bytes-like object.
-		'''
+		'''  # noqa: E101
 
 		if hasattr(subordinate, 'emit'):
 			subordinate = subordinate.emit()
