@@ -1,18 +1,33 @@
 # SPDX-License-Identifier: BSD-3-Clause
-import os, sys, datetime
+import os, sys
+from pathlib import Path
+from datetime import datetime
 sys.path.insert(0, os.path.abspath('.'))
 
-try:
-	import usb_construct
-	version = usb_construct.__version__
+from usb_construct import __version__ as usb_construct_version
 
-except ImportError:
-	version = ':nya_confused:' # :nocov:
+ROOT_DIR = (Path(__file__).parent).parent
+
+def doc_version():
+	try:
+		from setuptools_scm.git import parse as parse_git
+	except ImportError:
+		return ''
+
+	git = parse_git(str(ROOT_DIR.resolve()))
+	if not git:
+		return ''
+	elif git.exact:
+		return git.format_with('v{tag}')
+	else:
+		return 'latest'
 
 project   = 'usb-construct'
+version   = usb_construct_version
 release   = version.split('+')[0]
 copyright = f'{datetime.date.today().year} Shrine Maiden Heavy Industries, et. al.'
 language  = 'en'
+docver    = doc_version()
 
 extensions = [
 	'sphinx.ext.autodoc',
@@ -24,6 +39,10 @@ extensions = [
 	'myst_parser',
 	'sphinx_rtd_theme',
 ]
+
+with (ROOT_DIR / '.gitignore').open('r') as f:
+	exclude_patterns = [line.strip() for line in f.readlines()]
+
 
 source_suffix = {
 	'.rst': 'restructuredtext',
@@ -44,7 +63,27 @@ napoleon_google_docstring = False
 napoleon_numpy_docstring  = True
 napoleon_use_ivar         = True
 
-html_baseurl     = ''
+myst_heading_anchors = 3
+
+templates_path = [
+	'_templates',
+]
+
+html_context = {
+	'display_lower_left': False,
+	'current_language'  : language,
+	'current_version'   : docver,
+	'version'           : docver,
+	'display_github'    : True,
+	'github_user'       : 'shrine-maiden-heavy-industries',
+	'github_repo'       : 'sol',
+	'github_version'    : 'main/docs/',
+	'versions'          : [
+		('latest', '/latest')
+	]
+}
+
+html_baseurl     = 'https://shrine-maiden-heavy-industries.github.io/usb-construct'
 html_theme       = 'sphinx_rtd_theme'
 html_copy_source = False
 
