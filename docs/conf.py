@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
-import os, sys
+import os, sys, datetime
 from pathlib import Path
-from datetime import datetime
 sys.path.insert(0, os.path.abspath('.'))
 
 from usb_construct import __version__ as usb_construct_version
@@ -76,9 +75,7 @@ html_context = {
 	'version'           : docver,
 	'display_github'    : True,
 	'github_user'       : 'shrine-maiden-heavy-industries',
-	'github_repo'       : 'sol',
-	'github_version'    : 'main/docs/',
-	'versions'          : [
+	'github_repo'       : [
 		('latest', '/latest')
 	]
 }
