@@ -75,7 +75,9 @@ html_context = {
 	'version'           : docver,
 	'display_github'    : True,
 	'github_user'       : 'shrine-maiden-heavy-industries',
-	'github_repo'       : [
+	'github_repo'       : 'usb-construct',
+	'github_version'    : 'main/docs/',
+	'versions'          : [
 		('latest', '/latest')
 	]
 }
