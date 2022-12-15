@@ -1,6 +1,8 @@
 ```{toctree}
 :hidden:
 
+
+Source Code <https://github.com/shrine-maiden-heavy-industries/usb-construct/>
 ```
 # usb-construct
 
