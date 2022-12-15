@@ -82,7 +82,7 @@ html_context = {
 	]
 }
 
-html_baseurl     = 'https://shrine-maiden-heavy-industries.github.io/usb-construct'
+html_baseurl     = 'https://usb-construct.shmdn.link/'
 html_theme       = 'sphinx_rtd_theme'
 html_copy_source = False
 

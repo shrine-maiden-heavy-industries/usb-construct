@@ -79,7 +79,7 @@ setup(
 
 	],
 	project_urls      = {
-		'Documentation': 'https://github.com/shrine-maiden-heavy-industries/usb-construct',
+		'Documentation': 'https://usb-construct.shmdn.link/',
 		'Source Code': 'https://github.com/shrine-maiden-heavy-industries/usb-construct',
 		'Bug Tracker': 'https://github.com/shrine-maiden-heavy-industries/usb-construct/issues',
 	},
