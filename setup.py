@@ -23,7 +23,7 @@ setup(
 	name             = 'usb-construct',
 	use_scm_version  = vcs_ver(),
 	license          = 'BSD-3-Clause',
-	url              = 'https://github.com/shrine-maiden-heavy-industries/usb-construct',
+	url              = 'https://usb-construct.shmdn.link/',
 	author           = 'Katherine J. Temkin',
 	author_email     = 'k@ktemkin.com',
 	maintainer       = ', '.join([
