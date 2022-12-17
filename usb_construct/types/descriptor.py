@@ -132,7 +132,7 @@ class DescriptorNumber(construct.Const):
 		self.docs = 'Descriptor type'
 
 
-	def _parse(self, stream, context: construct.Context, path: str):
+	def _parse(self, stream, context: construct.Container, path: str):
 		const_bytes = super()._parse(stream, context, path)
 		return const_bytes[0]
 
@@ -145,12 +145,12 @@ class DescriptorNumber(construct.Const):
 class BCDFieldAdapter(construct.Adapter):
 	''' Construct adapter that dynamically parses BCD fields. '''
 
-	def _decode(self, obj: int, context: construct.Context, path: str) -> float:
+	def _decode(self, obj: int, context: construct.Container, path: str) -> float:
 		hex_string = f'{obj:04x}'
 		return float(f'{hex_string[0:2]}.{hex_string[2:]}')
 
 
-	def _encode(self, obj: float, context: construct.Context, path: str) -> int:
+	def _encode(self, obj: float, context: construct.Container, path: str) -> int:
 
 		# Break the object down into its component parts...
 		integer = int(obj) % 100
