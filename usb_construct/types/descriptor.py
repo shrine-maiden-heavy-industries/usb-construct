@@ -41,7 +41,8 @@ class DescriptorFormat(construct.Struct):
 
 	@classmethod
 	def _create_partial(cls, *subcons, **subconskw) -> 'DescriptorFormat':
-		''' Creates a version of the descriptor format for parsing incomplete binary data as a descriptor.
+		'''
+		Creates a version of the descriptor format for parsing incomplete binary data as a descriptor.
 
 		This essentially wraps every field after bLength and bDescriptorType in a `construct.Optional`.
 		'''
@@ -254,6 +255,6 @@ class DescriptorField(construct.Subconstruct):
 
 
 # Convenience type that gets a descriptor's own length.
-DescriptorLength = \
-	construct.Rebuild(construct.Int8ul, construct.len_(construct.this)) \
-	* 'Descriptor Length'
+DescriptorLength = construct.Rebuild(
+	construct.Int8ul, construct.len_(construct.this)
+) * 'Descriptor Length'

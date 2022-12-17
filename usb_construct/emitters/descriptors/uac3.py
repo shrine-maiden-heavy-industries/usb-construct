@@ -43,11 +43,15 @@ class HeaderDescriptorEmitter(ComplexDescriptorEmitter):
 		return HeaderDescriptor
 
 	def add_subordinate_descriptor(self, subordinate) -> None:
-		''' Adds a subordinate descriptor to the relevant parent descriptor.
+		'''
+		Adds a subordinate descriptor to the relevant parent descriptor.
 
-		Parameter:
-			subordinate -- The subordinate descriptor to add; can be an emitter,
-							or a bytes-like object.
+		Parameters
+		----------
+		subordinate
+			The subordinate descriptor to add; can be an emitter,
+			or a bytes-like object.
+
 		'''
 		if hasattr(subordinate, 'emit'):
 			subordinate = subordinate.emit()

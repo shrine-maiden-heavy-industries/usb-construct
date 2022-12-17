@@ -149,11 +149,17 @@ class PlatformDescriptorCollection:
 
 
 	def add_descriptor(self, descriptor: SetHeaderDescriptorEmitter, vendor_code: int) -> None:
-		''' Adds a descriptor to our collection.
+		'''
+		Adds a descriptor to our collection.
 
-		Parameters:
-			descriptor  -- The set header descriptor to be added.
-			vendor_code -- The vendor request code for this descriptor tree
+		Parameters
+		----------
+		descriptor
+			The set header descriptor to be added.
+
+		vendor_code : int
+			The vendor request code for this descriptor tree
+
 		'''
 
 		assert isinstance(descriptor, SetHeaderDescriptorEmitter)
@@ -182,15 +188,19 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
 
 	@contextmanager
 	def DescriptorSetInformation(self) -> DescriptorSetInformationEmitter:
-		''' Context manager that allows addition of the information associated with a descriptor set.
+		'''
+		Context manager that allows addition of the information associated with a descriptor set.
 
 		It can be used with a `with` statement; and yields a DescriptorSetInformationEmitter
 		that can be populated:
+
+		.. code-block:: python
 
 			with platformDescriptor.DescriptorSetInformation() as dsi:
 				dsi.bMS_VendorCode = 1
 
 		This adds the relevant descriptor, automatically.
+
 		'''
 
 		descriptor = DescriptorSetInformationEmitter(collection = self._platform_collection)

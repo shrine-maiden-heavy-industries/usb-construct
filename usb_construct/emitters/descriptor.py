@@ -15,11 +15,14 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 
 	def __init__(self, collection = None) -> None:
 		'''
-		Parameters:
-			collection -- If this descriptor belongs to a collection, it should be
-						  provided here. Using a collection object allows e.g. automatic
-						  assignment of string descriptor indices.
-		'''  # noqa: E101
+		Parameters
+		----------
+		collection
+			If this descriptor belongs to a collection, it should be
+			provided here. Using a collection object allows e.g. automatic
+			assignment of string descriptor indices.
+
+		'''
 
 		self._collection = collection
 
@@ -33,11 +36,15 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 
 
 	def add_subordinate_descriptor(self, subordinate) -> None:
-		''' Adds a subordinate descriptor to the relevant descriptor.
+		'''
+		Adds a subordinate descriptor to the relevant descriptor.
 
-		Parameter:
-			subordinate -- The subordinate descriptor to add; can be an emitter,
-						   or a bytes-like object.
+		Parameters
+		----------
+		subordinate
+			The subordinate descriptor to add; can be an emitter,
+			or a bytes-like object.
+
 		'''  # noqa: E101
 
 		if hasattr(subordinate, 'emit'):
@@ -60,11 +67,15 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 		pass
 
 
-	def emit(self, include_subordinates : bool = True) -> bytes:
-		''' Emit our descriptor.
+	def emit(self, include_subordinates: bool = True) -> bytes:
+		'''
+		Emit our descriptor.
 
-		Parameters:
-			include_subordinates -- If true or not provided, any subordinate descriptors will be included.
+		Parameters
+		----------
+		include_subordinates
+			If true or not provided, any subordinate descriptors will be included.
+
 		'''
 
 		# Run any pre-emit hook code before we perform our emission...
