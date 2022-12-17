@@ -55,16 +55,22 @@ def docs(session: nox.Session) -> None:
 @nox.session
 def mypy(session: nox.Session) -> None:
 	out_dir = (BUILD_DIR / 'mypy')
+	out_dir.mkdir(parents = True, exist_ok = True)
+
 	session.install('mypy')
 	session.install('lxml')
+	session.install('construct-typing') # Stubs for Construct
 	session.install('.')
-	session.run('mypy', '--non-interactive', '--install-types')
-	session.run('mypy', '-p', 'usb_construct', '--html-report', str(out_dir.resolve()))
+	session.run(
+		'mypy', '--non-interactive', '--install-types', '--pretty',
+		'-p', 'usb_construct', '--html-report', str(out_dir.resolve())
+	)
 
 @nox.session
 def flake8(session: nox.Session) -> None:
 	session.install('flake8')
 	session.run('flake8', './usb_construct')
+	session.run('flake8', './tests')
 	session.run('flake8', './examples')
 
 @nox.session
