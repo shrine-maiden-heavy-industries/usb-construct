@@ -8,17 +8,14 @@
 	[Midi20] refers to 'Universal Serial Bus Device Class Definition for MIDI Devices', Release 2.0, May 5, 2020
 '''
 
-from enum import IntEnum
+from enum         import IntEnum
 
 import construct
 
-from .uac3 import *
-
-from .. import USBTransferType
-
-from .standard import StandardDescriptorNumbers
-from ..descriptor import \
-	DescriptorField, DescriptorNumber, DescriptorFormat
+from ..           import USBTransferType
+from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
+from .standard    import StandardDescriptorNumbers
+from .uac3        import *
 
 
 class MidiStreamingInterfaceDescriptorTypes(IntEnum):
@@ -63,32 +60,49 @@ class MidiStreamingJackTypes(IntEnum):
 
 # As defined in [Midi20], Table B-5
 StandardMidiStreamingInterfaceDescriptor = DescriptorFormat(
-	'bLength'             / construct.Const(9, construct.Int8ul),
-	'bDescriptorType'     / DescriptorNumber(StandardDescriptorNumbers.INTERFACE),
-	'bInterfaceNumber'    / DescriptorField(description = 'ID of the streaming interface'),
-	'bAlternateSetting'   / DescriptorField(description = 'alternate setting number for the interface', default = 0),
-	'bNumEndpoints'       / DescriptorField(description = 'Number of data endpoints used (excluding endpoint 0). Can be: 0 (no data endpoint); 1 (data endpoint); 2 (data + explicit feedback endpoint)', default = 0),
-	'bInterfaceClass'     / DescriptorNumber(AudioInterfaceClassCode.AUDIO),
-	'bInterfaceSubClass'  / DescriptorNumber(AudioInterfaceSubclassCodes.MIDI_STREAMING),
-	'bInterfaceProtocol'  / DescriptorNumber(0),
-	'iInterface'          / DescriptorField(description = 'index of a string descriptor describing this interface (0 = unused)', default = 0)
+	'bLength'            / construct.Const(9, construct.Int8ul),
+	'bDescriptorType'    / DescriptorNumber(StandardDescriptorNumbers.INTERFACE),
+	'bInterfaceNumber'   / DescriptorField(description = 'ID of the streaming interface'),
+	'bAlternateSetting'  / DescriptorField(description = 'alternate setting number for the interface', default = 0),
+	'bNumEndpoints'      / DescriptorField(description =
+		'Number of data endpoints used (excluding endpoint 0). Can be: 0 (no data endpoint); 1 (data endpoint);'
+		' 2 (data + explicit feedback endpoint)',
+		default = 0
+	),
+	'bInterfaceClass'    / DescriptorNumber(AudioInterfaceClassCode.AUDIO),
+	'bInterfaceSubClass' / DescriptorNumber(AudioInterfaceSubclassCodes.MIDI_STREAMING),
+	'bInterfaceProtocol' / DescriptorNumber(0),
+	'iInterface'         / DescriptorField(
+		description = 'index of a string descriptor describing this interface (0 = unused)',
+		default = 0
+	)
 )
 
 # As defined in [Midi20], Table B-6
 ClassSpecificMidiStreamingInterfaceHeaderDescriptor = DescriptorFormat(
-	'bLength'             / construct.Const(7, construct.Int8ul),
-	'bDescriptorType'     / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_INTERFACE),
-	'bDescriptorSubtype'  / DescriptorNumber(AudioClassSpecificACInterfaceDescriptorSubtypes.HEADER),
-	'bcdADC'              / DescriptorField(description = 'Midi Streaming Class specification release version', default = 1.0),
-	'wTotalLength'        / DescriptorField(description = 'Total number of bytes of the class-specific MIDIStreaming interface descriptor. Includes the combined length of this descriptor header and all Jack and Element descriptors.'),
+	'bLength'            / construct.Const(7, construct.Int8ul),
+	'bDescriptorType'    / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_INTERFACE),
+	'bDescriptorSubtype' / DescriptorNumber(AudioClassSpecificACInterfaceDescriptorSubtypes.HEADER),
+	'bcdADC'             / DescriptorField(description = 'Midi Streaming Class specification release version', default = 1.0),
+	'wTotalLength'       / DescriptorField(description =
+		'Total number of bytes of the class-specific MIDIStreaming interface descriptor. Includes the combined length'
+		' of this descriptor header and all Jack and Element descriptors.'
+	),
 )
 
 # As defined in [Midi20], Table 5-3
 StandardMidiStreamingDataEndpointDescriptor = DescriptorFormat(
-	'bLength'             / construct.Const(7, construct.Int8ul),
-	'bDescriptorType'     / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_ENDPOINT),
-	'bEndpointAddress'    / DescriptorField(description = 'endpoint address, use USBDirection.*.from_endpoint_address()'),
-	'bmAttributes'        / DescriptorField(description = 'endpoint type, see USBTransferType (only NONE, BULK or INTERRUPT allowed)', default = USBTransferType.BULK),
-	'wMaxPacketSize'      / DescriptorField(description = 'Maximum packet size this endpoint is capable of sending or receiving'),
-	'bInterval'           / DescriptorField(description = 'Interval for polling endpoint for Interrupt data transfers. For bulk endpoints this field is ignored and must be reset to 0', default = 0)
+	'bLength'          / construct.Const(7, construct.Int8ul),
+	'bDescriptorType'  / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_ENDPOINT),
+	'bEndpointAddress' / DescriptorField(description = 'endpoint address, use USBDirection.*.from_endpoint_address()'),
+	'bmAttributes'     / DescriptorField(
+		description = 'endpoint type, see USBTransferType (only NONE, BULK or INTERRUPT allowed)',
+		default = USBTransferType.BULK
+	),
+	'wMaxPacketSize'   / DescriptorField(description = 'Maximum packet size this endpoint is capable of sending or receiving'),
+	'bInterval'        / DescriptorField(description =
+		'Interval for polling endpoint for Interrupt data transfers. For bulk endpoints this field is ignored'
+		' and must be reset to 0',
+		default = 0
+	)
 )

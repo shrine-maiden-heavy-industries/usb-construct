@@ -7,7 +7,6 @@
 import unittest
 import construct
 
-
 class ConstructEmitter:
 	''' Class that creates a simple emitter based on a construct struct.
 
@@ -24,7 +23,7 @@ class ConstructEmitter:
 		my_bytes  = emitter.emit() # '\xab\xcd'
 	'''
 
-	def __init__(self, struct):
+	def __init__(self, struct: construct.Struct) -> None:
 		'''
 		Parmeters:
 			construct_format -- The format for which to create an emitter.
@@ -33,7 +32,7 @@ class ConstructEmitter:
 		self.__dict__['fields'] = {}
 
 
-	def _format_contains_field(self, field_name):
+	def _format_contains_field(self, field_name: str) -> bool:
 		''' Returns True iff the given format has a field with the provided name.
 
 		Parameters:
@@ -43,7 +42,7 @@ class ConstructEmitter:
 		return any(f.name == field_name for f in self.format.subcons)
 
 
-	def __setattr__(self, name, value):
+	def __setattr__(self, name: str, value) -> None:
 		''' Hook that we used to set our fields. '''
 
 		# If the field starts with a '_', don't handle it, as it's an internal field.
@@ -57,7 +56,7 @@ class ConstructEmitter:
 		self.fields[name] = value
 
 
-	def emit(self):
+	def emit(self) -> bytes:
 		''' Emits the stream of bytes associated with this object. '''
 
 		try:
@@ -66,7 +65,7 @@ class ConstructEmitter:
 			raise KeyError(f'missing necessary field: {e}')
 
 
-	def __getattr__(self, name):
+	def __getattr__(self, name: str):
 		''' Retrieves an emitter field, if possible. '''
 
 		if name in self.fields:
@@ -91,10 +90,10 @@ class ConstructEmitterTest(unittest.TestCase):
 		self.assertEqual(emitter.emit(), b'\xab\xcd')
 
 
-def emitter_for_format(construct_format):
+def emitter_for_format(construct_format: construct.Struct):
 	''' Creates a factory method for the relevant construct format. '''
 
-	def _factory():
+	def _factory() -> ConstructEmitter:
 		return ConstructEmitter(construct_format)
 
 	return _factory

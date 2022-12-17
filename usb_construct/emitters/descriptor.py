@@ -3,10 +3,9 @@
 # This file is part of usb-construct.
 #
 
-
 from collections import defaultdict
 
-from . import ConstructEmitter
+from .           import ConstructEmitter
 
 class ComplexDescriptorEmitter(ConstructEmitter):
 	''' Base class for emitting complex descriptors, which contain nested subordinates. '''
@@ -14,7 +13,7 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 	# Base classes should override this.
 	DESCRIPTOR_FORMAT = None
 
-	def __init__(self, collection = None):
+	def __init__(self, collection = None) -> None:
 		'''
 		Parameters:
 			collection -- If this descriptor belongs to a collection, it should be
@@ -33,7 +32,7 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 		self._type_counts = defaultdict(int)
 
 
-	def add_subordinate_descriptor(self, subordinate):
+	def add_subordinate_descriptor(self, subordinate) -> None:
 		''' Adds a subordinate descriptor to the relevant descriptor.
 
 		Parameter:
@@ -56,12 +55,12 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 		self._subordinates.append(subordinate)
 
 
-	def _pre_emit(self):
+	def _pre_emit(self) -> None:
 		''' Performs any manipulations needed on this object before emission. '''
 		pass
 
 
-	def emit(self, include_subordinates = True):
+	def emit(self, include_subordinates : bool = True) -> bytes:
 		''' Emit our descriptor.
 
 		Parameters:

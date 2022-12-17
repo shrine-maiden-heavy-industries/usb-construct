@@ -48,6 +48,11 @@ setup(
 	packages         = find_packages(
 		where = '.'
 	),
+	package_data      = {
+		'usb_construct': [
+			'py.typed'
+		],
+	},
 	python_requires  = '~=3.9',
 	install_requires = [
 		'construct',

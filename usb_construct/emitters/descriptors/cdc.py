@@ -4,13 +4,16 @@
 #
 ''' Convenience emitters for CDC descriptors. '''
 
-from .. import emitter_for_format
-from ...types.descriptors.cdc import \
-	HeaderDescriptor, UnionFunctionalDescriptor, ACMFunctionalDescriptor, \
-	CallManagementFunctionalDescriptor
+from ...types.descriptors.cdc import (
+	ACMFunctionalDescriptor, CallManagementFunctionalDescriptor, HeaderDescriptor,
+	UnionFunctionalDescriptor
+)
+from ..                        import emitter_for_format
 
 # Create our emitters.
 HeaderDescriptorEmitter                   = emitter_for_format(HeaderDescriptor)
 UnionFunctionalDescriptorEmitter          = emitter_for_format(UnionFunctionalDescriptor)
 ACMFunctionalDescriptorEmitter            = emitter_for_format(ACMFunctionalDescriptor)
-CallManagementFunctionalDescriptorEmitter = emitter_for_format(CallManagementFunctionalDescriptor)
+CallManagementFunctionalDescriptorEmitter = emitter_for_format(
+	CallManagementFunctionalDescriptor
+)

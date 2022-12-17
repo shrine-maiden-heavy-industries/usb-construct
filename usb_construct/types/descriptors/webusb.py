@@ -9,14 +9,11 @@ https://wicg.github.io/webusb/
 from enum import IntEnum
 
 import construct
-from   construct  import this, len_
+from construct    import len_, this
 
-from ..descriptor import \
-	DescriptorField, DescriptorNumber, DescriptorFormat, \
-	BCDFieldAdapter
+from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
+from .standard    import DeviceCapabilityTypes, StandardDescriptorNumbers
 
-from .standard    import \
-	StandardDescriptorNumbers, DeviceCapabilityTypes
 
 class WebUSBRequestTypes(IntEnum):
 	GET_URL = 2

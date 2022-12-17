@@ -4,16 +4,11 @@
 #
 ''' Structures describing Communications Device Class descriptors. '''
 
-import unittest
-from enum import IntEnum
+from enum         import IntEnum
 
 import construct
-from   construct  import this, Default
 
-from .. import LanguageIDs
-from ..descriptor import \
-	DescriptorField, DescriptorNumber, DescriptorFormat, \
-	BCDFieldAdapter, DescriptorLength
+from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
 
 
 class CDCDescriptorNumbers(IntEnum):
@@ -54,17 +49,17 @@ class CDCDescriptorSubtypes(IntEnum):
 
 
 HeaderDescriptor = DescriptorFormat(
-	'bLength'             / construct.Const(5, construct.Int8ul),
-	'bDescriptorType'     / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
-	'bDescriptorSubtype'  / DescriptorNumber(CDCDescriptorSubtypes.HEADER),
-	'bcdCDC'              / DescriptorField(description = 'CDC Version', default = 1.1)
+	'bLength'            / construct.Const(5, construct.Int8ul),
+	'bDescriptorType'    / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
+	'bDescriptorSubtype' / DescriptorNumber(CDCDescriptorSubtypes.HEADER),
+	'bcdCDC'             / DescriptorField(description = 'CDC Version', default = 1.1)
 )
 
 ACMFunctionalDescriptor = DescriptorFormat(
-	'bLength'             / construct.Const(4, construct.Int8ul),
-	'bDescriptorType'     / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
-	'bDescriptorSubtype'  / DescriptorNumber(CDCDescriptorSubtypes.ABSTRACT_CONTROL_MANAGEMENT_FUNCTIONAL),
-	'bmCapabilities'      / DescriptorField(description = 'ACM Capabilities', default = 0b0010)
+	'bLength'            / construct.Const(4, construct.Int8ul),
+	'bDescriptorType'    / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
+	'bDescriptorSubtype' / DescriptorNumber(CDCDescriptorSubtypes.ABSTRACT_CONTROL_MANAGEMENT_FUNCTIONAL),
+	'bmCapabilities'     / DescriptorField(description = 'ACM Capabilities', default = 0b0010)
 )
 
 UnionFunctionalDescriptor = DescriptorFormat(
@@ -76,9 +71,9 @@ UnionFunctionalDescriptor = DescriptorFormat(
 )
 
 CallManagementFunctionalDescriptor = DescriptorFormat(
-	'bLength'                / construct.Const(5, construct.Int8ul),
-	'bDescriptorType'        / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
-	'bDescriptorSubtype'     / DescriptorNumber(CDCDescriptorSubtypes.CALL_MANAGEMENT_FUNCTIONAL),
-	'bmCapabilities'         / DescriptorField(description = 'Call Management capabilities', default = 0),
-	'bDataInterface'         / DescriptorField(description = 'Data Interface Number')
+	'bLength'            / construct.Const(5, construct.Int8ul),
+	'bDescriptorType'    / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
+	'bDescriptorSubtype' / DescriptorNumber(CDCDescriptorSubtypes.CALL_MANAGEMENT_FUNCTIONAL),
+	'bmCapabilities'     / DescriptorField(description = 'Call Management capabilities', default = 0),
+	'bDataInterface'     / DescriptorField(description = 'Data Interface Number')
 )

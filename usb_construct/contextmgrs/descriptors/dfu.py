@@ -3,12 +3,13 @@
 # This file is part of usb-construct.
 #
 
-from ..manager import DescriptorContextManager
-
+from ...emitters.descriptors.dfu      import FunctionalDescriptorEmitter
 from ...emitters.descriptors.standard import InterfaceDescriptorEmitter
-from ...emitters.descriptors.dfu import FunctionalDescriptorEmitter
+from ..manager                        import DescriptorContextManager
 
 
 class FunctionalDescriptor(DescriptorContextManager):
 	ParentDescriptor = InterfaceDescriptorEmitter
-	DescriptorEmitter = lambda self: FunctionalDescriptorEmitter()
+
+	def DescriptorEmitter(self) -> FunctionalDescriptorEmitter:
+		return FunctionalDescriptorEmitter()

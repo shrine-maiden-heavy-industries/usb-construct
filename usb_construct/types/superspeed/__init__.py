@@ -20,10 +20,10 @@ class LinkCommand(IntEnum):
 	LUP   = 8   # Downstream-facing Keep-alive
 	LDN   = 11  # Upstream-facing Keep-alive
 
-	def get_class(self):
+	def get_class(self) -> int:
 		return int(self) >> 2
 
-	def get_type(self):
+	def get_type(self) -> int:
 		return int(self) & 0b11
 
 

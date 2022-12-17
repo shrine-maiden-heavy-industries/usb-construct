@@ -2,9 +2,11 @@
 #
 # This file is part of usb-construct.
 #
+
 ''' Type elements for defining USB descriptors. '''
 
-import unittest
+from typing import Optional, Union
+
 import construct
 
 class DescriptorFormat(construct.Struct):
@@ -13,7 +15,7 @@ class DescriptorFormat(construct.Struct):
 	supports parsing incomplete binary as `DescriptorType.Partial`, e.g. `DeviceDescriptor.Partial`.
 	'''
 
-	def __init__(self, *subcons, _create_partial = True, **subconskw):
+	def __init__(self, *subcons, _create_partial: bool = True, **subconskw) -> None:
 
 		if _create_partial:
 			self.Partial = self._create_partial(*subcons, **subconskw) # pylint: disable = invalid-name
@@ -22,7 +24,9 @@ class DescriptorFormat(construct.Struct):
 
 
 	@classmethod
-	def _get_subcon_field_type(cls, subcon):
+	def _get_subcon_field_type(
+		cls, subcon: construct.Subconstruct
+	) -> Union[construct.FormatField, construct.Subconstruct, construct.Construct]:
 		''' Gets the actual field type for a Subconstruct behind arbitrary levels of `Renamed`s.'''
 
 		# DescriptorFields are usually `<Renamed <Renamed <FormatField>>>`.
@@ -36,13 +40,13 @@ class DescriptorFormat(construct.Struct):
 
 
 	@classmethod
-	def _create_partial(cls, *subcons, **subconskw):
+	def _create_partial(cls, *subcons, **subconskw) -> 'DescriptorFormat':
 		''' Creates a version of the descriptor format for parsing incomplete binary data as a descriptor.
 
 		This essentially wraps every field after bLength and bDescriptorType in a `construct.Optional`.
 		'''
 
-		def _apply_optional(subcon):
+		def _apply_optional(subcon: construct.Subconstruct) -> construct.Subconstruct:
 
 			subcon_type = cls._get_subcon_field_type(subcon)
 
@@ -69,7 +73,7 @@ class DescriptorFormat(construct.Struct):
 
 
 	@staticmethod
-	def _to_detail_dictionary(descriptor, use_pretty_names = True):
+	def _to_detail_dictionary(descriptor, use_pretty_names: bool = True):
 		result = {}
 
 		# Loop over every entry in our descriptor context, and try to get a
@@ -94,7 +98,7 @@ class DescriptorFormat(construct.Struct):
 		return result
 
 
-	def parse(self, data, **context_keywords):
+	def parse(self, data, **context_keywords) -> construct.Subconstruct:
 		''' Hook on the parent parse() method which attaches a few methods. '''
 
 		# Use construct to run the parse itself...
@@ -110,7 +114,7 @@ class DescriptorFormat(construct.Struct):
 class DescriptorNumber(construct.Const):
 	''' Trivial wrapper class that denotes a particular Const as the descriptor number. '''
 
-	def __init__(self, const):
+	def __init__(self, const: Union[bytes, int]) -> None:
 
 		# If our descriptor number is an integer, instead of 'raw',
 		# convert it to a byte, first.
@@ -127,12 +131,12 @@ class DescriptorNumber(construct.Const):
 		self.docs = 'Descriptor type'
 
 
-	def _parse(self, stream, context, path):
+	def _parse(self, stream, context: construct.Context, path: str):
 		const_bytes = super()._parse(stream, context, path)
 		return const_bytes[0]
 
 
-	def get_descriptor_number(self):
+	def get_descriptor_number(self) -> int:
 		''' Returns this constant's associated descriptor number.'''
 		return self.number
 
@@ -140,12 +144,12 @@ class DescriptorNumber(construct.Const):
 class BCDFieldAdapter(construct.Adapter):
 	''' Construct adapter that dynamically parses BCD fields. '''
 
-	def _decode(self, obj, context, path):
+	def _decode(self, obj: int, context: construct.Context, path: str) -> float:
 		hex_string = f'{obj:04x}'
 		return float(f'{hex_string[0:2]}.{hex_string[2:]}')
 
 
-	def _encode(self, obj, context, path):
+	def _encode(self, obj: float, context: construct.Context, path: str) -> int:
 
 		# Break the object down into its component parts...
 		integer = int(obj) % 100
@@ -193,7 +197,7 @@ class DescriptorField(construct.Subconstruct):
 
 
 	@staticmethod
-	def _get_prefix(name):
+	def _get_prefix(name) -> str:
 		''' Returns the lower-case prefix on a USB descriptor name. '''
 		prefix = []
 
@@ -213,7 +217,7 @@ class DescriptorField(construct.Subconstruct):
 
 
 	@classmethod
-	def _get_type_for_name(cls, name):
+	def _get_type_for_name(cls, name: str) -> Union[construct.FormatField, BCDFieldAdapter]:
 		''' Returns the type that's appropriate for a given descriptor field name. '''
 
 		try:
@@ -222,13 +226,16 @@ class DescriptorField(construct.Subconstruct):
 			raise ValueError('field names must be formatted per the USB standard!')
 
 
-	def __init__(self, description = '', default = None, *, length = None):
+	def __init__(
+		self, description: str = '', default: Optional[Union[int, float]] = None, *,
+		length: Optional[int] = None
+	) -> None:
 		self.description = description
 		self.default = default
 		self.length = length
 
 
-	def __rtruediv__(self, field_name):
+	def __rtruediv__(self, field_name: str) -> construct.Subconstruct:
 		# If we have a length, use it to figure out the type.
 		# Otherwise, extract the type from the prefix. (Using a length
 		# is useful for e.g. USB3 bitfields; which can span several bytes.)

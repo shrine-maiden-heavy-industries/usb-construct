@@ -4,21 +4,19 @@
 #
 ''' Convenience emitters for microsoft OS descriptors. '''
 
-from contextlib import contextmanager
-from typing import Dict
-
-from ..           import emitter_for_format
-from ..descriptor import ComplexDescriptorEmitter
+from contextlib                     import contextmanager
+from typing                         import Dict
 
 from ...types.descriptors.microsoft import *
-
+from ..                             import emitter_for_format
+from ..descriptor                   import ComplexDescriptorEmitter
 
 # Create our basic emitters...
-FeatureCompatibleIDEmitter = emitter_for_format(FeatureCompatibleID)
-FeatureRegPropertyEmitter = emitter_for_format(FeatureRegProperty)
-FeatureMinResumeTimeEmitter = emitter_for_format(FeatureMinResumeTime)
-FeatureModelIDEmitter = emitter_for_format(FeatureModelID)
-FeatureCCGPDeviceEmitter = emitter_for_format(FeatureCCGPDevice)
+FeatureCompatibleIDEmitter   = emitter_for_format(FeatureCompatibleID)
+FeatureRegPropertyEmitter    = emitter_for_format(FeatureRegProperty)
+FeatureMinResumeTimeEmitter  = emitter_for_format(FeatureMinResumeTime)
+FeatureModelIDEmitter        = emitter_for_format(FeatureModelID)
+FeatureCCGPDeviceEmitter     = emitter_for_format(FeatureCCGPDevice)
 FeatureVendorRevisionEmitter = emitter_for_format(FeatureVendorRevision)
 
 # ... and complex emitters.
@@ -26,7 +24,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 	''' Abstract base type for things that can hold Feature Descriptors. '''
 
 	@contextmanager
-	def FeatureCompatibleID(self):
+	def FeatureCompatibleID(self) -> FeatureCompatibleIDEmitter:
 		descriptor = FeatureCompatibleIDEmitter()
 		yield descriptor
 
@@ -34,7 +32,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureRegProperty(self):
+	def FeatureRegProperty(self) -> FeatureRegPropertyEmitter:
 		descriptor = FeatureRegPropertyEmitter()
 		yield descriptor
 
@@ -42,7 +40,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureMinResumeTime(self):
+	def FeatureMinResumeTime(self) -> FeatureMinResumeTimeEmitter:
 		descriptor = FeatureMinResumeTimeEmitter()
 		yield descriptor
 
@@ -50,7 +48,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureModelID(self):
+	def FeatureModelID(self) -> FeatureModelIDEmitter:
 		descriptor = FeatureModelIDEmitter()
 		yield descriptor
 
@@ -58,7 +56,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureCCGPDevice(self):
+	def FeatureCCGPDevice(self) -> FeatureCCGPDeviceEmitter:
 		descriptor = FeatureCCGPDeviceEmitter()
 		yield descriptor
 
@@ -66,7 +64,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureVendorRevision(self):
+	def FeatureVendorRevision(self) -> FeatureVendorRevisionEmitter:
 		descriptor = FeatureVendorRevisionEmitter()
 		yield descriptor
 
@@ -78,7 +76,7 @@ class SubsetHeaderFunctionEmitter(FeatureDescriptorEmitter):
 
 	DESCRIPTOR_FORMAT = SubsetHeaderFunction
 
-	def _pre_emit(self):
+	def _pre_emit(self) -> None:
 		# Figure out our total length.
 		subordinate_length = sum(len(sub) for sub in self._subordinates)
 		self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
@@ -90,14 +88,14 @@ class SubsetHeaderConfigurationEmitter(FeatureDescriptorEmitter):
 	DESCRIPTOR_FORMAT = SubsetHeaderConfiguration
 
 	@contextmanager
-	def SubsetHeaderFunction(self):
+	def SubsetHeaderFunction(self) -> SubsetHeaderFunctionEmitter:
 		descriptor = SubsetHeaderFunctionEmitter()
 		yield descriptor
 
 		self.add_subordinate_descriptor(descriptor)
 
 
-	def _pre_emit(self):
+	def _pre_emit(self) -> None:
 		# Figure out our total length.
 		subordinate_length = sum(len(sub) for sub in self._subordinates)
 		self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
@@ -109,14 +107,14 @@ class SetHeaderDescriptorEmitter(FeatureDescriptorEmitter):
 	DESCRIPTOR_FORMAT = SetHeaderDescriptor
 
 	@contextmanager
-	def SubsetHeaderConfiguration(self):
+	def SubsetHeaderConfiguration(self) -> SubsetHeaderConfigurationEmitter:
 		descriptor = SubsetHeaderConfigurationEmitter()
 		yield descriptor
 
 		self.add_subordinate_descriptor(descriptor)
 
 
-	def _pre_emit(self):
+	def _pre_emit(self) -> None:
 		# Figure out our total length.
 		subordinate_length = sum(len(sub) for sub in self._subordinates)
 		self.wTotalLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()
@@ -128,7 +126,7 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
 	DESCRIPTOR_FORMAT = DescriptorSetInformation
 
 	@contextmanager
-	def SetHeaderDescriptor(self):
+	def SetHeaderDescriptor(self) -> SetHeaderDescriptorEmitter:
 		assert hasattr(self, 'bMS_VendorCode')
 
 		descriptor = SetHeaderDescriptorEmitter()
@@ -138,7 +136,7 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
 		self._collection.add_descriptor(descriptor, vendor_code = self.bMS_VendorCode)
 
 
-	def _pre_emit(self):
+	def _pre_emit(self) -> None:
 		# Figure out our total length.
 		self.wMSOSDescriptorSetTotalLength = self._subordinate.wTotalLength
 
@@ -146,11 +144,11 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
 class PlatformDescriptorCollection:
 	''' Object that holds the OS descriptor sets for windows '''
 
-	def __init__(self):
+	def __init__(self) -> None:
 		self._descriptors = {}
 
 
-	def add_descriptor(self, descriptor : SetHeaderDescriptorEmitter, vendor_code : int):
+	def add_descriptor(self, descriptor: SetHeaderDescriptorEmitter, vendor_code: int) -> None:
 		''' Adds a descriptor to our collection.
 
 		Parameters:
@@ -174,14 +172,16 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
 
 	DESCRIPTOR_FORMAT = PlatformDescriptor
 
-	def __init__(self, platform_collection : PlatformDescriptorCollection, *args, **kwargs):
+	def __init__(
+		self, platform_collection: PlatformDescriptorCollection, *args, **kwargs
+	) -> None:
 		super().__init__(*args, **kwargs)
 
 		self._platform_collection = platform_collection
 
 
 	@contextmanager
-	def DescriptorSetInformation(self):
+	def DescriptorSetInformation(self) -> DescriptorSetInformationEmitter:
 		''' Context manager that allows addition of the information associated with a descriptor set.
 
 		It can be used with a `with` statement; and yields a DescriptorSetInformationEmitter
@@ -199,7 +199,7 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
 		self.add_subordinate_descriptor(descriptor)
 
 
-	def _pre_emit(self):
+	def _pre_emit(self) -> None:
 		# Figure out our total length.
 		subordinate_length = sum(len(sub) for sub in self._subordinates)
 		self.bLength = subordinate_length + self.DESCRIPTOR_FORMAT.sizeof()

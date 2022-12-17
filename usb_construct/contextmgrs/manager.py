@@ -2,6 +2,7 @@
 #
 # This file is part of usb-construct.
 #
+
 from ..emitters.descriptor import ComplexDescriptorEmitter
 
 
@@ -9,7 +10,7 @@ class DescriptorContextManager:
 	ParentDescriptor = ComplexDescriptorEmitter
 	DescriptorEmitter = None
 
-	def __init__(self, parentDesc : ParentDescriptor):
+	def __init__(self, parentDesc: ParentDescriptor) -> None:
 		self._parent = parentDesc
 		self._descriptor = self.DescriptorEmitter()
 

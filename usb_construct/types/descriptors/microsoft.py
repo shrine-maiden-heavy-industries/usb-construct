@@ -8,36 +8,35 @@ incomplete binary data are available as `DescriptorType`.Partial, e.g. `DeviceDe
 are collectively available in the `usb_construct.types.descriptors.partial.microsoft` module.
 '''
 
-from enum import IntEnum
+from enum         import IntEnum
 
 import construct
-from construct import this, len_
+from construct    import len_, this
 
-from ..descriptor import \
-	DescriptorField, DescriptorNumber, DescriptorFormat
-from .standard import StandardDescriptorNumbers, DeviceCapabilityTypes
+from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
+from .standard    import DeviceCapabilityTypes, StandardDescriptorNumbers
 
 
 class OSDescriptorTypes(IntEnum):
-	SET_HEADER = 0
+	SET_HEADER                  = 0
 	SUBSET_HEADER_CONFIGURATION = 1
-	SUBSET_HEADER_FUNCTION = 2
-	FEATURE_COMPATIBLE_ID = 3
-	FEATURE_REG_PROPERTY = 4
-	FEATURE_MIN_RESUME_TIME = 5
-	FEATURE_MODEL_ID = 6
-	FEATURE_CCGP_DEVICE = 7
-	FEATURE_VENDOR_REVISION = 8
+	SUBSET_HEADER_FUNCTION      = 2
+	FEATURE_COMPATIBLE_ID       = 3
+	FEATURE_REG_PROPERTY        = 4
+	FEATURE_MIN_RESUME_TIME     = 5
+	FEATURE_MODEL_ID            = 6
+	FEATURE_CCGP_DEVICE         = 7
+	FEATURE_VENDOR_REVISION     = 8
 
 
 class RegistryTypes(IntEnum):
-	REG_SZ = 1
-	REG_EXPAND_SZ = 2
-	REG_BINARY = 3
+	REG_SZ                  = 1
+	REG_EXPAND_SZ           = 2
+	REG_BINARY              = 3
 	REG_DWORD_LITTLE_ENDIAN = 4
-	REG_DWORD_BIG_ENDIAN = 5
-	REG_LINK = 6
-	REG_MULTI_SZ = 7
+	REG_DWORD_BIG_ENDIAN    = 5
+	REG_LINK                = 6
+	REG_MULTI_SZ            = 7
 
 
 class MicrosoftRequests(IntEnum):
@@ -65,7 +64,10 @@ DescriptorSetInformation = DescriptorFormat(
 	'dwWindowsVersion'              / DescriptorField('Minimum windows version this set should apply to', default = 0x06030000),
 	'wMSOSDescriptorSetTotalLength' / DescriptorField('The byte length of the descriptor set'),
 	'bMS_VendorCode'                / DescriptorField('The vendor code to request this descriptor set with'),
-	'bAltEnumCode'                  / DescriptorField('A non-zero number if the device may return non-default USB descriptors for enumeration.', default = 0),
+	'bAltEnumCode'                  / DescriptorField(
+		'A non-zero number if the device may return non-default USB descriptors for enumeration.',
+		default = 0
+	),
 )
 
 

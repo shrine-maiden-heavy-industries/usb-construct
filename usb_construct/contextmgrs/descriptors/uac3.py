@@ -3,18 +3,18 @@
 # This file is part of usb-construct.
 #
 
-from ..manager import DescriptorContextManager
-
 from ...emitters.descriptors.standard import InterfaceAssociationDescriptorEmitter, InterfaceDescriptorEmitter
-from ...emitters.descriptors.uac3 import (
-	HeaderDescriptorEmitter, InputTerminalDescriptorEmitter, OutputTerminalDescriptorEmitter,
-	ClockSourceDescriptorEmitter, PowerDomainDescriptorEmitter, ConnectorDescriptorEmitter,
-	ClassSpecificAudioStreamingInterfaceDescriptorEmitter
+from ...emitters.descriptors.uac3     import (
+	ClassSpecificAudioStreamingInterfaceDescriptorEmitter,
+	ClockSourceDescriptorEmitter, ConnectorDescriptorEmitter,
+	HeaderDescriptorEmitter, InputTerminalDescriptorEmitter,
+	OutputTerminalDescriptorEmitter, PowerDomainDescriptorEmitter
 )
+from ..manager                        import DescriptorContextManager
 
 
 class HeaderDescriptor(DescriptorContextManager):
-	ParentDescriptor = InterfaceAssociationDescriptorEmitter
+	ParentDescriptor  = InterfaceAssociationDescriptorEmitter
 	DescriptorEmitter = HeaderDescriptorEmitter
 
 	def __exit__(self, exc_type, exc_value, traceback):
@@ -28,29 +28,41 @@ class HeaderDescriptor(DescriptorContextManager):
 
 class InputTerminalDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
-	DescriptorEmitter = lambda self: InputTerminalDescriptorEmitter()
+
+	def DescriptorEmitter(self) -> InputTerminalDescriptorEmitter:
+		return InputTerminalDescriptorEmitter()
 
 
 class OutputTerminalDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
-	DescriptorEmitter = lambda self: OutputTerminalDescriptorEmitter()
+
+	def DescriptorEmitter(self) -> OutputTerminalDescriptorEmitter:
+		return OutputTerminalDescriptorEmitter()
 
 
 class ClockSourceDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
-	DescriptorEmitter = lambda self: ClockSourceDescriptorEmitter()
+
+	def DescriptorEmitter(self) -> ClockSourceDescriptorEmitter:
+		return ClockSourceDescriptorEmitter()
 
 
 class PowerDomainDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
-	DescriptorEmitter = lambda self: PowerDomainDescriptorEmitter()
+
+	def DescriptorEmitter(self) -> PowerDomainDescriptorEmitter:
+		return PowerDomainDescriptorEmitter()
 
 
 class ClassSpecificAudioStreamingInterfaceDescriptor(DescriptorContextManager):
 	ParentDescriptor = InterfaceDescriptorEmitter
-	DescriptorEmitter = lambda self: ClassSpecificAudioStreamingInterfaceDescriptorEmitter()
+
+	def DescriptorEmitter(self) -> ClassSpecificAudioStreamingInterfaceDescriptorEmitter:
+		return ClassSpecificAudioStreamingInterfaceDescriptorEmitter()
 
 
 class ConnectorDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
-	DescriptorEmitter = lambda self: ConnectorDescriptorEmitter()
+
+	def DescriptorEmitter(self) -> ConnectorDescriptorEmitter:
+		return ConnectorDescriptorEmitter()

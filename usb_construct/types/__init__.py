@@ -4,44 +4,46 @@
 #
 ''' USB types -- defines enumerations that describe standard USB types '''
 
-from enum import Enum, IntFlag, IntEnum
+from typing import Literal, Union, Iterable, Optional, SupportsBytes, SupportsIndex
+from enum   import IntFlag, IntEnum
 
 class USBDirection(IntEnum):
 	''' Class representing USB directions. '''
 	OUT = 0
 	IN = 1
 
-	def is_in(self):
+	def is_in(self) -> bool:
 		return self is self.IN
 
-	def is_out(self):
+	def is_out(self) -> bool:
 		return self is self.OUT
 
 	@classmethod
-	def parse(cls, value):
+	def parse(cls, value) -> 'USBDirection':
 		''' Helper that converts a numeric field into a direction. '''
 		return cls(value)
 
 	@classmethod
-	def from_request_type(cls, request_type_int):
+	def from_request_type(cls, request_type_int: int) -> 'USBDirection':
 		''' Helper method that extracts the direction from a request_type integer. '''
 		return cls(request_type_int >> 7)
 
 	@classmethod
-	def from_endpoint_address(cls, address):
+	def from_endpoint_address(cls, address: int) -> 'USBDirection':
 		''' Helper method that extracts the direction from an endpoint address. '''
 		return cls(address >> 7)
 
-	def token(self):
+	def token(self) -> 'USBPacketID':
 		''' Generates the token corresponding to the given direction. '''
 		return USBPacketID.IN if (self is self.IN) else USBPacketID.OUT
 
-	def reverse(self):
+	# HACK: The typing for this is not 100% proper, but it's being funky so,
+	def reverse(self) -> Literal[0, 1]:
 		''' Returns the reverse of the given direction. '''
 		return self.OUT if (self is self.IN) else self.IN
 
 
-	def to_endpoint_address(self, endpoint_number):
+	def to_endpoint_address(self, endpoint_number: int) -> int:
 		''' Helper method that converts and endpoint_number to an address, given direction. '''
 		if self.is_in():
 			return endpoint_number | (1 << 7)
@@ -94,7 +96,10 @@ class USBPacketID(IntFlag):
 
 
 	@classmethod
-	def from_byte(cls, byte, skip_checks = False):
+	def from_byte(
+		cls, byte: Union[Iterable[SupportsIndex], SupportsBytes],
+		skip_checks: bool = False
+	) -> 'USBPacketID':
 		''' Creates a PID object from a byte. '''
 
 		# Convert the raw PID to an integer.
@@ -103,7 +108,7 @@ class USBPacketID(IntFlag):
 
 
 	@classmethod
-	def from_int(cls, value, skip_checks = True):
+	def from_int(cls, value: int, skip_checks: bool = True) -> 'USBPacketID':
 		''' Create a PID object from an integer. '''
 
 		PID_MASK           = 0b1111
@@ -122,13 +127,13 @@ class USBPacketID(IntFlag):
 
 
 	@classmethod
-	def from_name(cls, name):
+	def from_name(cls, name: str) -> 'USBPacketID':
 		''' Create a PID object from a string representation of its name. '''
 		return cls[name]
 
 
 	@classmethod
-	def parse(cls, value):
+	def parse(cls, value: Union[bytes, str, int]) -> 'USBPacketID':
 		''' Attempt to create a PID object from a number, byte, or string. '''
 
 		if isinstance(value, bytes):
@@ -143,31 +148,31 @@ class USBPacketID(IntFlag):
 		return cls(value)
 
 
-	def category(self):
+	def category(self) -> USBPIDCategory:
 		''' Returns the USBPIDCategory that each given PID belongs to. '''
 		return USBPIDCategory(self & USBPIDCategory.MASK)
 
 
-	def is_data(self):
+	def is_data(self) -> bool:
 		''' Returns true iff the given PID represents a DATA packet. '''
 		return self.category() is USBPIDCategory.DATA
 
 
-	def is_token(self):
+	def is_token(self) -> bool:
 		''' Returns true iff the given PID represents a token packet. '''
 		return self.category() is USBPIDCategory.TOKEN
 
 
-	def is_handshake(self):
+	def is_handshake(self) -> bool:
 		''' Returns true iff the given PID represents a handshake packet. '''
 		return self.category() is USBPIDCategory.HANDSHAKE
 
 
-	def is_invalid(self):
+	def is_invalid(self) -> bool:
 		''' Returns true if this object is an attempt to encapsulate an invalid PID. '''
 		return (self & self.PID_INVALID)
 
-	def direction(self):
+	def direction(self) -> Optional[Literal[USBDirection.IN, USBDirection.OUT]]:
 		''' Get a USB direction from a PacketID. '''
 
 		if self is self.SOF:
@@ -182,7 +187,7 @@ class USBPacketID(IntFlag):
 		raise ValueError('cannot determine the direction of a non-token PID')
 
 
-	def summarize(self):
+	def summarize(self) -> Optional[str]:
 		''' Return a summary of the given packet. '''
 
 		# By default, get the raw name.
@@ -190,12 +195,12 @@ class USBPacketID(IntFlag):
 		name = core_pid.name
 
 		if self.is_invalid():
-			return '{} (check-nibble invalid)'.format(name)
+			return f'{name} (check-nibble invalid)'
 		else:
 			return name
 
 
-	def byte(self):
+	def byte(self) -> int:
 		''' Return the PID's value with its upper nibble. '''
 
 		inverted_pid = self ^ 0b1111
@@ -215,7 +220,7 @@ class USBRequestRecipient(IntEnum):
 	RESERVED  = 4
 
 	@classmethod
-	def from_integer(cls, value):
+	def from_integer(cls, value: int) -> 'USBRequestRecipient':
 		''' Special factory that correctly handles reserved values. '''
 
 		# If we have one of the reserved values; indicate so.
@@ -227,7 +232,7 @@ class USBRequestRecipient(IntEnum):
 
 
 	@classmethod
-	def from_request_type(cls, request_type_int):
+	def from_request_type(cls, request_type_int: int) -> 'USBRequestRecipient':
 		''' Helper method that extracts the type from a request_type integer. '''
 
 		MASK  = 0b11111
@@ -244,7 +249,7 @@ class USBRequestType(IntEnum):
 
 
 	@classmethod
-	def from_request_type(cls, request_type_int):
+	def from_request_type(cls, request_type_int: int) -> 'USBRequestType':
 
 		''' Helper method that extracts the type from a request_type integer. '''
 		SHIFT = 5
@@ -261,7 +266,7 @@ class USBTransferType(IntEnum):
 	INTERRUPT   = 3
 
 
-def endpoint_number_from_address(number):
+def endpoint_number_from_address(number: int) -> int:
 	return number & 0x7F
 
 
@@ -579,13 +584,6 @@ class DescriptorTypes(IntEnum):
 	INTERFACE_POWER           = 8
 	HID                       = 33
 	REPORT                    = 34
-
-
-class USBTransferType(IntEnum):
-	CONTROL     = 0
-	ISOCHRONOUS = 1
-	BULK        = 2
-	INTERRUPT   = 3
 
 
 class USBSynchronizationType(IntEnum):
