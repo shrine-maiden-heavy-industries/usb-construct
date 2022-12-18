@@ -5,7 +5,7 @@
 ''' Convenience emitters for simple, standard descriptors. '''
 
 from contextlib                    import contextmanager
-from typing                        import Generator, Optional, List, Tuple
+from typing                        import Generator, Optional, List, Tuple, Union
 
 from ...types                      import LanguageIDs
 from ...types.descriptors.standard import *
@@ -222,7 +222,7 @@ class DeviceDescriptorCollection:
 		self._index_for_string = {}
 
 
-	def ensure_string_field_is_index(self, field_value) -> None:
+	def ensure_string_field_is_index(self, field_value: Union[int, str]):
 		'''
 		Processes the given field value; if it's not an string index, converts it to one.
 

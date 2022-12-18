@@ -170,7 +170,7 @@ class USBPacketID(IntFlag):
 
 	def is_invalid(self) -> bool:
 		''' Returns true if this object is an attempt to encapsulate an invalid PID. '''
-		return (self & self.PID_INVALID)
+		return bool(self & self.PID_INVALID)
 
 	def direction(self) -> Optional[Literal[USBDirection.IN, USBDirection.OUT]]:
 		''' Get a USB direction from a PacketID. '''

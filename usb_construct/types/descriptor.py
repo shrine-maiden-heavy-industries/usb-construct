@@ -25,7 +25,7 @@ class DescriptorFormat(construct.Struct):
 
 	@classmethod
 	def _get_subcon_field_type(
-		cls, subcon: construct.Subconstruct
+		cls, subcon: Union[construct.Subconstruct, construct.Construct]
 	) -> Union[construct.FormatField, construct.Subconstruct, construct.Construct]:
 		''' Gets the actual field type for a Subconstruct behind arbitrary levels of `Renamed`s.'''
 

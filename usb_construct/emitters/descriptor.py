@@ -3,9 +3,11 @@
 # This file is part of usb-construct.
 #
 
-from collections import defaultdict
+from collections           import defaultdict
+from typing                import Optional
 
-from .           import ConstructEmitter
+from .descriptors.standard import DeviceDescriptorCollection
+from .                     import ConstructEmitter
 
 class ComplexDescriptorEmitter(ConstructEmitter):
 	''' Base class for emitting complex descriptors, which contain nested subordinates. '''
@@ -13,7 +15,7 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 	# Base classes should override this.
 	DESCRIPTOR_FORMAT = None
 
-	def __init__(self, collection = None) -> None:
+	def __init__(self, collection: Optional[DeviceDescriptorCollection] = None) -> None:
 		'''
 		Parameters
 		----------
