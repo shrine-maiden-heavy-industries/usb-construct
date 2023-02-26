@@ -86,7 +86,7 @@ class InterfaceDescriptorEmitter(ComplexDescriptorEmitter):
 		'''
 		Context manager that allows addition of a subordinate endpoint descriptor.
 
-		It can be used with a `with` statement; and yields an EndpointDesriptorEmitter
+		It can be used with a `with` statement; and yields an EndpointDescriptorEmitter
 		that can be populated:
 
 		.. code-block:: python
@@ -512,7 +512,7 @@ class SuperSpeedDeviceDescriptorCollection(DeviceDescriptorCollection):
 		Parameters
 		-----------
 		automatic_descriptors : bool
-			If set or not provided, certian required descriptors will be
+			If set or not provided, certain required descriptors will be
 			be added if none exists.
 
 		'''

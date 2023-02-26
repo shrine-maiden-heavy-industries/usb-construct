@@ -42,7 +42,7 @@ class DescriptorParserCases(unittest.TestCase):
 		# Parse the relevant string...
 		parsed = StringDescriptor.parse(self.STRING_DESCRIPTOR)
 
-		# ... and check the desriptor's fields.
+		# ... and check the descriptor's fields.
 		self.assertEqual(parsed.bLength,                    40)
 		self.assertEqual(parsed.bDescriptorType,             3)
 		self.assertEqual(parsed.bString, 'Great Scott Gadgets')
@@ -86,7 +86,7 @@ class DescriptorParserCases(unittest.TestCase):
 		# Parse the relevant string...
 		parsed = DeviceDescriptor.parse(device_descriptor)
 
-		# ... and check the desriptor's fields.
+		# ... and check the descriptor's fields.
 		self.assertEqual(parsed.bLength,             18)
 		self.assertEqual(parsed.bDescriptorType,      1)
 		self.assertEqual(parsed.bcdUSB,             2.0)

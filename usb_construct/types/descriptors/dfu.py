@@ -24,7 +24,7 @@ class DFUWillDetach(IntEnum):
 	YES = 0x08
 
 
-class DFUManifestationTollerant(IntEnum):
+class DFUManifestationTolerant(IntEnum):
 	NO  = 0
 	YES = 0x04
 
@@ -54,7 +54,7 @@ FunctionalDescriptor = DescriptorFormat(
 	'bDescriptorType' / DescriptorNumber(DFUDescriptorNumbers.FUNCTIONAL),
 	'bmAttributes'    / DescriptorField('DFU Attributes', length = 1),
 	'wDetachTimeOut'  / DescriptorField(
-		'Time, in miliseconds, that the device will wait after receipt of DFU_DETATCH to be asked to reset'
+		'Time, in milliseconds, that the device will wait after receipt of DFU_DETACH to be asked to reset'
 	),
 	'wTransferSize'   / DescriptorField('Number of bytes (max) that the device can accept per control write'),
 	'bcdDFUVersion'   / DescriptorField('Release version of the DFU spec this device conforms to', default = 1.1),

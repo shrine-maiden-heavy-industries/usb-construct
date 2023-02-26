@@ -85,7 +85,7 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 		result = bytearray()
 		result.extend(super().emit())
 
-		# ... and if descired, add our subordinates...
+		# ... and if described, add our subordinates...
 		for sub in self._subordinates:
 			result.extend(sub)
 

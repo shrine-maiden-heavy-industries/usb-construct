@@ -57,7 +57,7 @@ class DescriptorFormat(construct.Struct):
 			if isinstance(subcon_type, construct.Select):
 				# construct uses a weird singleton to define Pass. `construct.core.Pass` would normally be
 				# the type's name, but then they create a singleton of that same name, replacing that name and
-				# making the type technically unnamable and only accessable via `type()`.
+				# making the type technically unnameable and only accessible via `type()`.
 				if isinstance(subcon_type.subcons[1], type(construct.Pass)):
 					return subcon
 

@@ -49,7 +49,7 @@ class TransactionPacketSubtype(IntEnum):
 
 
 class LinkManagementPacketSubtype(IntEnum):
-	''' Constants represneting the various types of Link Management Packet. '''
+	''' Constants representing the various types of Link Management Packet. '''
 
 	SET_LINK_FUNCTION           = 1
 	U2_INACTIVITY_TIMEOUT       = 2

@@ -65,7 +65,7 @@ class EmitterTests(unittest.TestCase):
 				endpoint.bEndpointAddress = 1
 
 
-		# ... and validate that it maches our reference descriptor.
+		# ... and validate that it matches our reference descriptor.
 		binary = emitter.emit()
 		self.assertEqual(len(binary), len(descriptor))
 
