@@ -43,16 +43,19 @@ class UAC2Cases(unittest.TestCase):
 		self.assertEqual(parsed.bFirstInterface, 1)
 		self.assertEqual(parsed.bInterfaceCount, 2)
 		self.assertEqual(parsed.bFunctionClass, AudioFunctionClassCode.AUDIO_FUNCTION)
-		self.assertEqual(parsed.bFunctionSubClass, AudioFunctionCategoryCodes.FUNCTION_SUBCLASS_UNDEFINED)
+		self.assertEqual(parsed.bFunctionSubclass, AudioFunctionCategoryCodes.FUNCTION_SUBCLASS_UNDEFINED)
 		self.assertEqual(parsed.bFunctionProtocol, AudioFunctionProtocolCodes.AF_VERSION_02_00)
 		self.assertEqual(parsed.iFunction, 0x42)
 
 	def test_build_interface_association_descriptor(self):
 		# Build the relevant descriptor
 		data = InterfaceAssociationDescriptor.build({
-			'bFirstInterface': 1,
-			'bInterfaceCount': 2,
-			'iFunction': 0x42
+			'bFirstInterface'  : 1,
+			'bInterfaceCount'  : 2,
+			'bFunctionClass'   : AudioFunctionClassCode.AUDIO_FUNCTION,
+			'bFunctionSubclass': AudioFunctionCategoryCodes.FUNCTION_SUBCLASS_UNDEFINED,
+			'bFunctionProtocol': AudioFunctionProtocolCodes.AF_VERSION_02_00,
+			'iFunction'        : 0x42
 		})
 
 		# ... and check the binary output
