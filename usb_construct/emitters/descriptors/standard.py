@@ -13,10 +13,10 @@ from ..                            import emitter_for_format
 from ..descriptor                  import ComplexDescriptorEmitter
 
 # Create our basic emitters...
-DeviceDescriptorEmitter         = emitter_for_format(DeviceDescriptor)
-StringDescriptorEmitter         = emitter_for_format(StringDescriptor)
-StringLanguageDescriptorEmitter = emitter_for_format(StringLanguageDescriptor)
-DeviceQualifierDescriptor       = emitter_for_format(DeviceQualifierDescriptor)
+DeviceDescriptorEmitter          = emitter_for_format(DeviceDescriptor)
+StringDescriptorEmitter          = emitter_for_format(StringDescriptor)
+StringLanguageDescriptorEmitter  = emitter_for_format(StringLanguageDescriptor)
+DeviceQualifierDescriptorEmitter = emitter_for_format(DeviceQualifierDescriptor)
 
 # ... our basic superspeed emitters ...
 USB2ExtensionDescriptorEmitter                 = emitter_for_format(

@@ -9,7 +9,7 @@ from .standard import (
 	SuperSpeedDeviceDescriptorCollection,
 
 	DeviceDescriptorEmitter, StringDescriptorEmitter, StringLanguageDescriptorEmitter,
-	DeviceQualifierDescriptor, USB2ExtensionDescriptorEmitter,
+	DeviceQualifierDescriptorEmitter, USB2ExtensionDescriptorEmitter,
 	SuperSpeedUSBDeviceCapabilityDescriptorEmitter,
 	SuperSpeedEndpointCompanionDescriptorEmitter,
 )
@@ -28,7 +28,7 @@ __all__ = (
 	'DeviceDescriptorEmitter',
 	'StringDescriptorEmitter',
 	'StringLanguageDescriptorEmitter',
-	'DeviceQualifierDescriptor',
+	'DeviceQualifierDescriptorEmitter',
 	'USB2ExtensionDescriptorEmitter',
 	'SuperSpeedUSBDeviceCapabilityDescriptorEmitter',
 	'SuperSpeedEndpointCompanionDescriptorEmitter',
