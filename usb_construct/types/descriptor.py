@@ -185,6 +185,7 @@ class DescriptorField(construct.Subconstruct):
 		'bm'  : construct.Int8ul,
 		'w'   : construct.Int16ul,
 		'dw'  : construct.Int32ul,
+		'qw'  : construct.Int64ul,
 	}
 
 
@@ -193,7 +194,7 @@ class DescriptorField(construct.Subconstruct):
 		2: construct.Int16ul,
 		3: construct.Int24ul,
 		4: construct.Int32ul,
-		8: construct.Int64ul
+		8: construct.Int64ul,
 	}
 
 
