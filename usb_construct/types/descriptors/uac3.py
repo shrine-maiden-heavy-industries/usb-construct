@@ -576,13 +576,13 @@ class ConnectorAttributes(IntEnum):
 
 
 class ConnectorColour(int):
-	def __init__(self, *, colour: Optional[int] = None, unspecified: Optional[bool] = None):
+	def __new__(cls, *, colour: Optional[int] = None, unspecified: Optional[bool] = None):
 		assert colour is not None or unspecified is not None, 'One of colour and/or unspecified must be given'
 		if unspecified is True:
-			super().__init__(0x01000000)
+			return int.__new__(cls, 0x01000000)
 		elif isinstance(colour, int):
 			assert (colour & 0xFF000000) == 0, 'Colour must be a 24-bit RGB value'
-			super().__init__(colour & 0x00FFFFFF)
+			return int.__new__(cls, colour & 0x00FFFFFF)
 		else:
 			raise AssertionError('unspecified was False and no colour was given or colour was non-integral')
 
