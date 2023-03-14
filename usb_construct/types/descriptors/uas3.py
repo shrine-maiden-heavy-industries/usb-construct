@@ -2,16 +2,16 @@
 #
 # This file is part of usb-construct.
 #
+#
+# ⚠️ This was implemented off of a UAS-3 DRAFT ⚠️
+# ⚠️ It may be incomplete or subtly wrong!     ⚠️
 
-
-from typing       import Optional
 from enum         import IntEnum
 
 import construct
-from construct    import len_, this
+from construct    import this
 
 from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
-from .standard    import StandardDescriptorNumbers
 
 from .msc         import MassStorageClassSpecificDescriptorTypes
 
