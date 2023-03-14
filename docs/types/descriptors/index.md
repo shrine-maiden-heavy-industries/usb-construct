@@ -11,6 +11,7 @@ standard
 uac1
 uac2
 uac3
+uas3
 webusb
 
 ```
