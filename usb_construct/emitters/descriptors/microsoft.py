@@ -5,11 +5,11 @@
 ''' Convenience emitters for microsoft OS descriptors. '''
 
 from contextlib                     import contextmanager
-from typing                         import Dict
+from typing                         import Generator
 
 from ...types.descriptors.microsoft import *
 from ..                             import emitter_for_format
-from ..descriptor                   import ComplexDescriptorEmitter
+from ..descriptor                   import ComplexDescriptorEmitter, ConstructEmitter
 
 # Create our basic emitters...
 FeatureCompatibleIDEmitter   = emitter_for_format(FeatureCompatibleID)
@@ -24,7 +24,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 	''' Abstract base type for things that can hold Feature Descriptors. '''
 
 	@contextmanager
-	def FeatureCompatibleID(self) -> FeatureCompatibleIDEmitter:
+	def FeatureCompatibleID(self) -> Generator[ConstructEmitter, None, None]:
 		descriptor = FeatureCompatibleIDEmitter()
 		yield descriptor
 
@@ -32,7 +32,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureRegProperty(self) -> FeatureRegPropertyEmitter:
+	def FeatureRegProperty(self) -> Generator[ConstructEmitter, None, None]:
 		descriptor = FeatureRegPropertyEmitter()
 		yield descriptor
 
@@ -40,7 +40,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureMinResumeTime(self) -> FeatureMinResumeTimeEmitter:
+	def FeatureMinResumeTime(self) -> Generator[ConstructEmitter, None, None]:
 		descriptor = FeatureMinResumeTimeEmitter()
 		yield descriptor
 
@@ -48,7 +48,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureModelID(self) -> FeatureModelIDEmitter:
+	def FeatureModelID(self) -> Generator[ConstructEmitter, None, None]:
 		descriptor = FeatureModelIDEmitter()
 		yield descriptor
 
@@ -56,7 +56,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureCCGPDevice(self) -> FeatureCCGPDeviceEmitter:
+	def FeatureCCGPDevice(self) -> Generator[ConstructEmitter, None, None]:
 		descriptor = FeatureCCGPDeviceEmitter()
 		yield descriptor
 
@@ -64,7 +64,7 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def FeatureVendorRevision(self) -> FeatureVendorRevisionEmitter:
+	def FeatureVendorRevision(self) -> Generator[ConstructEmitter, None, None]:
 		descriptor = FeatureVendorRevisionEmitter()
 		yield descriptor
 
@@ -88,7 +88,7 @@ class SubsetHeaderConfigurationEmitter(FeatureDescriptorEmitter):
 	DESCRIPTOR_FORMAT = SubsetHeaderConfiguration
 
 	@contextmanager
-	def SubsetHeaderFunction(self) -> SubsetHeaderFunctionEmitter:
+	def SubsetHeaderFunction(self) -> Generator[ConstructEmitter, None, None]:
 		descriptor = SubsetHeaderFunctionEmitter()
 		yield descriptor
 
@@ -107,7 +107,7 @@ class SetHeaderDescriptorEmitter(FeatureDescriptorEmitter):
 	DESCRIPTOR_FORMAT = SetHeaderDescriptor
 
 	@contextmanager
-	def SubsetHeaderConfiguration(self) -> SubsetHeaderConfigurationEmitter:
+	def SubsetHeaderConfiguration(self) -> Generator[ConstructEmitter, None, None]:
 		descriptor = SubsetHeaderConfigurationEmitter()
 		yield descriptor
 
@@ -126,7 +126,7 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
 	DESCRIPTOR_FORMAT = DescriptorSetInformation
 
 	@contextmanager
-	def SetHeaderDescriptor(self) -> SetHeaderDescriptorEmitter:
+	def SetHeaderDescriptor(self) -> Generator[ConstructEmitter, None, None]:
 		assert hasattr(self, 'bMS_VendorCode')
 
 		descriptor = SetHeaderDescriptorEmitter()
@@ -145,7 +145,7 @@ class PlatformDescriptorCollection:
 	''' Object that holds the OS descriptor sets for windows '''
 
 	def __init__(self) -> None:
-		self._descriptors = {}
+		self._descriptors: dict[int, bytes] = {}
 
 
 	def add_descriptor(self, descriptor: SetHeaderDescriptorEmitter, vendor_code: int) -> None:
@@ -169,7 +169,7 @@ class PlatformDescriptorCollection:
 
 
 	@property
-	def descriptors(self) -> Dict[int, bytes]:
+	def descriptors(self) -> dict[int, bytes]:
 		return self._descriptors
 
 
@@ -187,7 +187,7 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def DescriptorSetInformation(self) -> DescriptorSetInformationEmitter:
+	def DescriptorSetInformation(self) -> Generator[ConstructEmitter, None, None]:
 		'''
 		Context manager that allows addition of the information associated with a descriptor set.
 

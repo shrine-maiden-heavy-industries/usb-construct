@@ -3,7 +3,14 @@
 # This file is part of usb-construct.
 #
 
-from ...emitters.descriptors.standard import InterfaceAssociationDescriptorEmitter, InterfaceDescriptorEmitter
+
+from typing                           import Optional
+from types                            import TracebackType
+
+from ...emitters.construct_interop    import ConstructEmitter
+from ...emitters.descriptors.standard import (
+	InterfaceAssociationDescriptorEmitter, InterfaceDescriptorEmitter
+)
 from ...emitters.descriptors.uac3     import (
 	ClassSpecificAudioStreamingInterfaceDescriptorEmitter,
 	ClockSourceDescriptorEmitter, ConnectorDescriptorEmitter,
@@ -17,7 +24,10 @@ class HeaderDescriptor(DescriptorContextManager):
 	ParentDescriptor  = InterfaceAssociationDescriptorEmitter
 	DescriptorEmitter = HeaderDescriptorEmitter
 
-	def __exit__(self, exc_type, exc_value, traceback):
+	def __exit__(
+		self, exc_type: Optional[type[BaseException]], exc_value: BaseException,
+		traceback: Optional[TracebackType]
+	) -> None:
 		# If an exception was raised, fast exit
 		if not (exc_type is None and exc_value is None and traceback is None):
 			return
@@ -29,40 +39,40 @@ class HeaderDescriptor(DescriptorContextManager):
 class InputTerminalDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
 
-	def DescriptorEmitter(self) -> InputTerminalDescriptorEmitter:
+	def DescriptorEmitter(self) -> ConstructEmitter:
 		return InputTerminalDescriptorEmitter()
 
 
 class OutputTerminalDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
 
-	def DescriptorEmitter(self) -> OutputTerminalDescriptorEmitter:
+	def DescriptorEmitter(self) -> ConstructEmitter:
 		return OutputTerminalDescriptorEmitter()
 
 
 class ClockSourceDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
 
-	def DescriptorEmitter(self) -> ClockSourceDescriptorEmitter:
+	def DescriptorEmitter(self) -> ConstructEmitter:
 		return ClockSourceDescriptorEmitter()
 
 
 class PowerDomainDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
 
-	def DescriptorEmitter(self) -> PowerDomainDescriptorEmitter:
+	def DescriptorEmitter(self) -> ConstructEmitter:
 		return PowerDomainDescriptorEmitter()
 
 
 class ClassSpecificAudioStreamingInterfaceDescriptor(DescriptorContextManager):
 	ParentDescriptor = InterfaceDescriptorEmitter
 
-	def DescriptorEmitter(self) -> ClassSpecificAudioStreamingInterfaceDescriptorEmitter:
+	def DescriptorEmitter(self) -> ConstructEmitter:
 		return ClassSpecificAudioStreamingInterfaceDescriptorEmitter()
 
 
 class ConnectorDescriptor(DescriptorContextManager):
 	ParentDescriptor = HeaderDescriptorEmitter
 
-	def DescriptorEmitter(self) -> ConnectorDescriptorEmitter:
+	def DescriptorEmitter(self) -> ConstructEmitter:
 		return ConnectorDescriptorEmitter()

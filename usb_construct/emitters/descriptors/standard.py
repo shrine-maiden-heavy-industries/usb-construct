@@ -9,7 +9,7 @@ from typing                        import Generator, Optional, List, Tuple, Unio
 
 from ...types                      import LanguageIDs
 from ...types.descriptors.standard import *
-from ..                            import emitter_for_format
+from ..                            import ConstructEmitter, emitter_for_format
 from ..descriptor                  import ComplexDescriptorEmitter
 
 # Create our basic emitters...
@@ -54,7 +54,7 @@ class EndpointDescriptorEmitter(ComplexDescriptorEmitter):
 	DESCRIPTOR_FORMAT = EndpointDescriptor
 
 	@contextmanager
-	def SuperSpeedCompanion(self) -> SuperSpeedEndpointCompanionDescriptorEmitter:
+	def SuperSpeedCompanion(self) -> Generator[ConstructEmitter, None, None]:
 		'''
 		Context manager that allows addition of a SuperSpeed Companion to this endpoint descriptor.
 
@@ -82,7 +82,7 @@ class InterfaceDescriptorEmitter(ComplexDescriptorEmitter):
 	DESCRIPTOR_FORMAT = InterfaceDescriptor
 
 	@contextmanager
-	def EndpointDescriptor(self, *, add_default_superspeed: bool = False) -> EndpointDescriptorEmitter:
+	def EndpointDescriptor(self, *, add_default_superspeed: bool = False) -> Generator[EndpointDescriptorEmitter, None, None]:
 		'''
 		Context manager that allows addition of a subordinate endpoint descriptor.
 
@@ -129,7 +129,7 @@ class ConfigurationDescriptorEmitter(ComplexDescriptorEmitter):
 	DESCRIPTOR_FORMAT = ConfigurationDescriptor
 
 	@contextmanager
-	def InterfaceDescriptor(self) -> InterfaceDescriptorEmitter:
+	def InterfaceDescriptor(self) -> Generator[InterfaceDescriptorEmitter, None, None]:
 		'''
 		Context manager that allows addition of a subordinate interface descriptor.
 
@@ -154,7 +154,7 @@ class ConfigurationDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def InterfaceAssociationDescriptor(self) -> InterfaceAssociationDescriptorEmitter:
+	def InterfaceAssociationDescriptor(self) -> Generator[InterfaceAssociationDescriptorEmitter, None, None]:
 		'''
 		Context manager that allows addition of a subordinate interface association descriptor.
 
@@ -215,14 +215,14 @@ class DeviceDescriptorCollection:
 
 		# Create our internal descriptor tracker.
 		# Keys are a tuple of (type, index).
-		self._descriptors = {}
+		self._descriptors: dict[tuple[int, int], bytes] = {}
 
 		# Track string descriptors as they're created.
 		self._next_string_index = 1
-		self._index_for_string = {}
+		self._index_for_string: dict[str, int] = {}
 
 
-	def ensure_string_field_is_index(self, field_value: Union[int, str]):
+	def ensure_string_field_is_index(self, field_value: Union[int, str]) -> int:
 		'''
 		Processes the given field value; if it's not an string index, converts it to one.
 
@@ -286,7 +286,7 @@ class DeviceDescriptorCollection:
 
 		# If this is an emitter rather than a descriptor itself, convert it.
 		if hasattr(descriptor, 'emit'):
-			descriptor = descriptor.emit()
+			descriptor: bytes = descriptor.emit()
 
 		# Figure out the identifier (type + index) for this descriptor...
 		if (descriptor_type is None):
@@ -317,7 +317,7 @@ class DeviceDescriptorCollection:
 
 
 	@contextmanager
-	def DeviceDescriptor(self) -> DeviceDescriptorEmitter:
+	def DeviceDescriptor(self) -> Generator[ConstructEmitter, None, None] :
 		'''
 		Context manager that allows addition of a device descriptor.
 
@@ -349,7 +349,7 @@ class DeviceDescriptorCollection:
 
 
 	@contextmanager
-	def ConfigurationDescriptor(self) -> ConfigurationDescriptorEmitter:
+	def ConfigurationDescriptor(self) -> Generator[ConfigurationDescriptorEmitter, None, None]:
 		'''
 		Context manager that allows addition of a configuration descriptor.
 
@@ -374,7 +374,7 @@ class DeviceDescriptorCollection:
 
 
 	@contextmanager
-	def BOSDescriptor(self) -> 'BinaryObjectStoreDescriptorEmitter':
+	def BOSDescriptor(self) -> Generator['BinaryObjectStoreDescriptorEmitter', None, None]:
 		'''
 		Context manager that allows addition of a Binary Object Store descriptor.
 
@@ -432,7 +432,7 @@ class DeviceDescriptorCollection:
 		return self._descriptors[(type_number, index)]
 
 
-	def __iter__(self) -> Generator[Tuple[int, int, DescriptorFormat], None, None]:
+	def __iter__(self) -> Generator[Tuple[int, int, bytes], None, None]:
 		''' Allow iterating over each of our descriptors; yields (index, value, descriptor). '''
 		self._ensure_has_language_descriptor()
 		return ((number, index, desc) for ((number, index), desc) in self._descriptors.items())
@@ -446,7 +446,7 @@ class BinaryObjectStoreDescriptorEmitter(ComplexDescriptorEmitter):
 	DESCRIPTOR_FORMAT = BinaryObjectStoreDescriptor
 
 	@contextmanager
-	def USB2Extension(self) -> USB2ExtensionDescriptorEmitter:
+	def USB2Extension(self) -> Generator[ConstructEmitter, None, None]:
 		'''
 		Context manager that allows addition of a USB 2.0 Extension to this Binary Object Store.
 
@@ -469,7 +469,7 @@ class BinaryObjectStoreDescriptorEmitter(ComplexDescriptorEmitter):
 
 
 	@contextmanager
-	def SuperSpeedUSBDeviceCapability(self) -> SuperSpeedUSBDeviceCapabilityDescriptorEmitter:
+	def SuperSpeedUSBDeviceCapability(self) -> Generator[ConstructEmitter, None, None]:
 		'''
 		Context manager that allows addition of a SS Device Capability to this Binary Object Store.
 
@@ -548,7 +548,7 @@ class SuperSpeedDeviceDescriptorCollection(DeviceDescriptorCollection):
 			self.add_default_bos_descriptor()
 
 
-	def __iter__(self) -> Generator[Tuple[int, int, DescriptorFormat], None, None]:
+	def __iter__(self) -> Generator[tuple[int, int, bytes], None, None]:
 		''' Allow iterating over each of our descriptors; yields (index, value, descriptor). '''
 		self._ensure_has_bos_descriptor()
 		return super().__iter__()

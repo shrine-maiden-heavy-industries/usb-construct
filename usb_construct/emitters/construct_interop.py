@@ -4,7 +4,9 @@
 #
 ''' Helpers for creating construct-related emitters. '''
 
-import construct
+from typing             import Callable
+
+from ..types.descriptor import DescriptorFormat
 
 class ConstructEmitter:
 	'''
@@ -35,11 +37,11 @@ class ConstructEmitter:
 
 	'''
 
-	def __init__(self, struct: construct.Struct) -> None:
+	def __init__(self, struct: DescriptorFormat) -> None:
 		'''
 		Parameters
 		----------
-		construct_format : construct.Struct
+		construct_format : DescriptorFormat
 			The format for which to create an emitter.
 
 		'''
@@ -81,7 +83,8 @@ class ConstructEmitter:
 		''' Emits the stream of bytes associated with this object. '''
 
 		try:
-			return self.format.build(self.fields)
+			fmt: DescriptorFormat = self.format
+			return fmt.build(self.fields)
 		except KeyError as e:
 			raise KeyError(f'missing necessary field: {e}')
 
@@ -95,7 +98,7 @@ class ConstructEmitter:
 			raise AttributeError(f'descriptor emitter has no property {name}')
 
 
-def emitter_for_format(construct_format: construct.Struct):
+def emitter_for_format(construct_format: DescriptorFormat) -> Callable[[], ConstructEmitter]:
 	''' Creates a factory method for the relevant construct format. '''
 
 	def _factory() -> ConstructEmitter:

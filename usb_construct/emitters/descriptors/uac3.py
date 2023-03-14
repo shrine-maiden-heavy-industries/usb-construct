@@ -38,7 +38,7 @@ class HeaderDescriptorEmitter(ComplexDescriptorEmitter):
 		super().__init__(self.DESCRIPTOR_FORMAT)
 
 	@cached_property
-	def DESCRIPTOR_FORMAT(self) -> HeaderDescriptor:
+	def DESCRIPTOR_FORMAT(self) -> DescriptorFormat:
 		from usb_construct.emitters.descriptors.uac3 import HeaderDescriptor
 		return HeaderDescriptor
 

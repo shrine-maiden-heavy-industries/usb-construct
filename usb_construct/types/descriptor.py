@@ -5,7 +5,7 @@
 
 ''' Type elements for defining USB descriptors. '''
 
-from typing import Optional, Union
+from typing import Optional, Union, AnyStr
 
 import construct
 
@@ -99,7 +99,7 @@ class DescriptorFormat(construct.Struct):
 		return result
 
 
-	def parse(self, data, **context_keywords) -> construct.Subconstruct:
+	def parse(self, data, **context_keywords):
 		''' Hook on the parent parse() method which attaches a few methods. '''
 
 		# Use construct to run the parse itself...
@@ -177,7 +177,7 @@ class DescriptorField(construct.Subconstruct):
 
 	# FIXME: these are really primitive views of these types;
 	# we should extend these to get implicit parsing wherever possible
-	USB_TYPES = {
+	USB_TYPES: dict[str, Union[construct.FormatField, BCDFieldAdapter, construct.BytesInteger]] = {
 		'b'   : construct.Int8ul,
 		'bcd' : BCDFieldAdapter(construct.Int16ul),  # TODO: Create a BCD parser for this
 		'i'   : construct.Int8ul,
@@ -189,7 +189,7 @@ class DescriptorField(construct.Subconstruct):
 	}
 
 
-	LENGTH_TYPES = {
+	LENGTH_TYPES: dict[int, Union[construct.FormatField, construct.BytesInteger]] = {
 		1: construct.Int8ul,
 		2: construct.Int16ul,
 		3: construct.Int24ul,
@@ -219,7 +219,7 @@ class DescriptorField(construct.Subconstruct):
 
 
 	@classmethod
-	def _get_type_for_name(cls, name: str) -> Union[construct.FormatField, BCDFieldAdapter]:
+	def _get_type_for_name(cls, name: str) -> Union[construct.FormatField, BCDFieldAdapter, construct.BytesInteger]:
 		''' Returns the type that's appropriate for a given descriptor field name. '''
 
 		try:
@@ -237,14 +237,18 @@ class DescriptorField(construct.Subconstruct):
 		self.length = length
 
 
-	def __rtruediv__(self, field_name: str) -> construct.Subconstruct:
+	def __rtruediv__(self, field_name: Optional[AnyStr]) -> construct.Renamed:
 		# If we have a length, use it to figure out the type.
 		# Otherwise, extract the type from the prefix. (Using a length
 		# is useful for e.g. USB3 bitfields; which can span several bytes.)
 		if self.length is not None:
 			field_type = self.LENGTH_TYPES[self.length]
-		else:
-			field_type = self._get_type_for_name(field_name)
+		elif field_name is not None:
+			if isinstance(field_name, bytes):
+				field_type = self._get_type_for_name(field_name.decode('utf-8'))
+			else:
+				field_type = self._get_type_for_name(field_name)
+
 
 		if self.default is not None:
 			field_type = construct.Default(field_type, self.default)

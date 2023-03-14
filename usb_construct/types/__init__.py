@@ -19,7 +19,7 @@ class USBDirection(IntEnum):
 		return self is self.OUT
 
 	@classmethod
-	def parse(cls, value) -> 'USBDirection':
+	def parse(cls, value: int) -> 'USBDirection':
 		''' Helper that converts a numeric field into a direction. '''
 		return cls(value)
 
@@ -138,14 +138,12 @@ class USBPacketID(IntFlag):
 
 		if isinstance(value, bytes):
 			return cls.from_byte(value)
-
-		if isinstance(value, str):
+		elif isinstance(value, str):
 			return cls.from_name(value)
-
-		if isinstance(value, int):
+		elif isinstance(value, int):
 			return cls.from_int(value)
-
-		return cls(value)
+		else:
+			raise TypeError(f'value must be a bytes, str, or int, not \'{value!r}\'')
 
 
 	def category(self) -> USBPIDCategory:
