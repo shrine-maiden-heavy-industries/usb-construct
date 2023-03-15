@@ -118,6 +118,7 @@ def upload(session: nox.Session) -> None:
 	dist(session)
 	session.log(f'Uploading usb-construct-{usb_construct_version()} to PyPi')
 	session.run(
-		'python', '-m', 'twine',
-		'upload', f'{DIST_DIR}/usb-construct-{usb_construct_version()}*'
+		'python', '-m', 'twine', 'upload',
+		f'{DIST_DIR}/usb-construct-{usb_construct_version()}*',
+		f'{DIST_DIR}/usb_construct-{usb_construct_version()}*'
 	)
