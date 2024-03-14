@@ -7,12 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9', '3.10', '3.11', '3.12-dev', 'pypy-3.9-v7.3.11']
+        python-version: [ '3.10', '3.11', '3.12', 'pypy3.10-v7.3.15']
       fail-fast: true
 
     steps:
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -25,12 +25,7 @@ jobs:
           echo "GITHUB_WORKSPACE=\"`pwd`\"" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup OSS CAD Suite
-        uses: YosysHQ/setup-oss-cad-suite@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/checkout@v4
 
       - name: Setup
         shell: bash
@@ -50,4 +45,8 @@ jobs:
 
       - name: Codecov
         if: success() && github.repository == 'shrine-maiden-heavy-industries/usb-construct'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
+        with:
+          verbose: true
+          files: ./build/tests/coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
