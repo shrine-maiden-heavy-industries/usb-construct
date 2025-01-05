@@ -50,6 +50,9 @@ class USBDirection(IntEnum):
 		else:
 			return endpoint_number
 
+	def __or__(self, val: int) -> int:
+		return val | (self.value << 7)
+
 
 class USBPIDCategory(IntFlag):
 	''' Category constants for each of the groups that PIDs can fall under. '''
@@ -238,6 +241,8 @@ class USBRequestRecipient(IntEnum):
 		MASK  = 0b11111
 		return cls(request_type_int & MASK)
 
+	def __or__(self, val: int) -> int:
+		return val | self.value
 
 class USBRequestType(IntEnum):
 	''' Enumeration that describes each possible Type field for a USB request. '''
@@ -257,7 +262,8 @@ class USBRequestType(IntEnum):
 
 		return cls((request_type_int >> SHIFT) & MASK)
 
-
+	def __or__(self, val: int) -> int:
+		return val | (self.value << 5)
 
 class USBTransferType(IntEnum):
 	CONTROL     = 0
