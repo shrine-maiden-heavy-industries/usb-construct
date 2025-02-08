@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 import shutil
+from os             import getenv
 from pathlib        import Path
-from setuptools_scm import (
-	get_version, ScmVersion
-)
+from setuptools_scm import get_version, ScmVersion
 
 import nox
+from nox.sessions   import Session
 
 ROOT_DIR  = Path(__file__).parent
 
@@ -15,6 +15,8 @@ CNTRB_DIR = (ROOT_DIR  / 'contrib')
 DOCS_DIR  = (ROOT_DIR  / 'docs')
 DIST_DIR  = (BUILD_DIR / 'dist')
 
+IN_CI           = getenv('GITHUB_WORKSPACE') is not None
+ENABLE_COVERAGE = IN_CI or getenv('USB_CONSTRUCT_TEST_COVERAGE') is not None
 
 # Default sessions to run
 nox.options.sessions = (
@@ -38,15 +40,14 @@ def usb_construct_version() -> str:
 	)
 
 @nox.session(reuse_venv = True)
-def test(session: nox.Session) -> None:
+def test(session: Session) -> None:
 	out_dir = (BUILD_DIR / 'tests')
 	out_dir.mkdir(parents = True, exist_ok = True)
-	coverage = '--coverage' in session.posargs
 
 	unitest_args = ('-m', 'unittest', 'discover', '-s', str(ROOT_DIR))
 
 	session.install('.')
-	if coverage:
+	if ENABLE_COVERAGE:
 		session.log('Coverage support enabled')
 		session.install('coverage')
 		coverage_args = (
@@ -58,17 +59,17 @@ def test(session: nox.Session) -> None:
 
 	session.chdir(str(out_dir))
 	session.run(
-		'python', *coverage_args, *unitest_args
+		'python', *coverage_args, *unitest_args, *session.posargs
 	)
 
-	if coverage:
+	if ENABLE_COVERAGE:
 		session.run(
 			'python', '-m', 'coverage', 'xml',
 			f'--rcfile={CNTRB_DIR / "coveragerc"}'
 		)
 
 @nox.session
-def docs(session: nox.Session) -> None:
+def docs(session: Session) -> None:
 	out_dir = (BUILD_DIR / 'docs')
 	shutil.rmtree(out_dir, ignore_errors = True)
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
@@ -76,7 +77,7 @@ def docs(session: nox.Session) -> None:
 	session.run('sphinx-build', '-b', 'html', str(DOCS_DIR), str(out_dir))
 
 @nox.session
-def docs_linkcheck(session: nox.Session) -> None:
+def docs_linkcheck(session: Session) -> None:
 	out_dir = (BUILD_DIR / 'docs-linkcheck')
 	shutil.rmtree(out_dir, ignore_errors = True)
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
@@ -84,7 +85,7 @@ def docs_linkcheck(session: nox.Session) -> None:
 	session.run('sphinx-build', '-b', 'linkcheck', str(DOCS_DIR), str(out_dir))
 
 @nox.session
-def typecheck(session: nox.Session) -> None:
+def typecheck(session: Session) -> None:
 	out_dir = (BUILD_DIR / 'mypy')
 	out_dir.mkdir(parents = True, exist_ok = True)
 
@@ -100,7 +101,7 @@ def typecheck(session: nox.Session) -> None:
 	)
 
 @nox.session
-def lint(session: nox.Session) -> None:
+def lint(session: Session) -> None:
 	session.install('flake8')
 	session.run(
 		'flake8', '--config', str((CNTRB_DIR / '.flake8').resolve()), './usb_construct'
@@ -113,7 +114,7 @@ def lint(session: nox.Session) -> None:
 	)
 
 @nox.session
-def dist(session: nox.Session) -> None:
+def dist(session: Session) -> None:
 	session.install('build')
 	session.run(
 		'python', '-m', 'build',
@@ -121,7 +122,7 @@ def dist(session: nox.Session) -> None:
 	)
 
 @nox.session
-def upload(session: nox.Session) -> None:
+def upload(session: Session) -> None:
 	session.install('twine')
 	dist(session)
 	session.log(f'Uploading usb-construct-{usb_construct_version()} to PyPi')
