@@ -39,7 +39,7 @@ Unreleased template stuff
 
 ### Added
 
-- Initial [`UAS-3`](https://standards.incits.org/apps/group_public/project/details.php?project_id=2737) descriptor addition.
+- Initial [`UAS-3`](https://standards.incits.org/higherlogic/ws/public/projects/2737/details) descriptor addition.
 
 ### Changed
 
