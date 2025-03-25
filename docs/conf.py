@@ -16,37 +16,45 @@ language  = 'en'
 
 extensions = [
 	'sphinx.ext.autodoc',
-	'sphinx.ext.doctest',
+	'sphinx.ext.extlinks',
 	'sphinx.ext.githubpages',
 	'sphinx.ext.intersphinx',
 	'sphinx.ext.napoleon',
 	'sphinx.ext.todo',
 	'myst_parser',
-	'sphinx_rtd_theme',
+	'sphinx_copybutton',
 ]
-
-with (ROOT_DIR / '.gitignore').open('r') as f:
-	exclude_patterns = [line.strip() for line in f.readlines()]
-
 
 source_suffix = {
 	'.rst': 'restructuredtext',
 	'.md': 'markdown',
 }
 
-pygments_style         = 'monokai'
-autodoc_member_order   = 'bysource'
-graphviz_output_format = 'svg'
-todo_include_todos     = True
+extlinks = {
+	'issue': ('https://github.com/shrine-maiden-heavy-industries/usb-construct/issues/%s', 'usb-construct/%s'),
+	'pypi':  ('https://pypi.org/project/%s/', '%s'),
+}
+
+pygments_style              = 'default'
+pygments_dark_style         = 'monokai'
+autodoc_member_order        = 'bysource'
+autodoc_docstring_signature = False
+todo_include_todos          = True
 
 intersphinx_mapping = {
 	'python'   : ('https://docs.python.org/3', None),
 	'construct': ('https://construct.readthedocs.io/en/latest', None),
 }
 
-napoleon_google_docstring = False
-napoleon_numpy_docstring  = True
-napoleon_use_ivar         = True
+napoleon_google_docstring              = False
+napoleon_numpy_docstring               = True
+napoleon_use_ivar                      = True
+napoleon_use_admonition_for_notes      = True
+napoleon_use_admonition_for_examples   = True
+napoleon_use_admonition_for_references = True
+napoleon_custom_sections  = [
+	('Attributes', 'params_style'),
+]
 
 myst_heading_anchors = 3
 
@@ -54,27 +62,13 @@ templates_path = [
 	'_templates',
 ]
 
-html_context = {
-	'display_lower_left': False,
-	'current_language'  : language,
-	'current_version'   : version,
-	'version'           : version,
-	'display_github'    : True,
-	'github_user'       : 'shrine-maiden-heavy-industries',
-	'github_repo'       : 'usb-construct',
-	'github_version'    : 'main/docs/',
-	'versions'          : [
-		('latest', '/latest')
-	]
-}
 
 html_baseurl     = 'https://usb-construct.shmdn.link/'
-html_theme       = 'sphinx_rtd_theme'
+html_theme       = 'furo'
 html_copy_source = False
 
 html_theme_options = {
-	'collapse_navigation' : False,
-	'style_external_links': True,
+
 }
 
 html_static_path = [
@@ -84,5 +78,5 @@ html_static_path = [
 html_css_files = [
 	'css/styles.css'
 ]
-html_style = 'css/styles.css'
+
 autosectionlabel_prefix_document = True

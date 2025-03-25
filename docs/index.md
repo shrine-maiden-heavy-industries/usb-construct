@@ -3,10 +3,17 @@
 
 types/index
 emitters/index
-changelog
+```
+```{toctree}
+:caption: Development
+:hidden:
 
 Source Code <https://github.com/shrine-maiden-heavy-industries/usb-construct/>
+Contributing <https://github.com/shrine-maiden-heavy-industries/usb-construct/blob/main/CONTRIBUTING.md>
+changelog
+license
 ```
+
 # usb-construct
 
 `usb-construct` is a library that collects common data-processing code for USB tasks;
