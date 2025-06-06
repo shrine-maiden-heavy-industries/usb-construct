@@ -131,7 +131,7 @@ jobs:
       - name: 'Link Check'
         shell: bash
         run: |
-          nox -s docs_linkcheck
+          nox -s linkcheck-docs
 
 
   build-docs:
@@ -164,7 +164,7 @@ jobs:
       - name: 'Build Docs'
         shell: bash
         run: |
-          nox -s docs
+          nox -s build-docs
 
       - name: 'Upload docs artifact'
         if: success() && github.repository == 'shrine-maiden-heavy-industries/usb-construct' && github.event.ref == 'refs/heads/main' && github.event_name == 'push'
