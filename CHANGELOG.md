@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -18,12 +19,16 @@ Unreleased template stuff
 -->
 
 ## [Unreleased]
-### Added
-### Changed
-### Deprecated
-### Removed
-### Fixed
 
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
 
 ## [0.2.1]
 
