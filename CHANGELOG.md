@@ -30,7 +30,7 @@ Unreleased template stuff
 
 ### Fixed
 
-## [0.2.1]
+## [0.2.1] - 2025-01-06
 
 ### Changed
 
@@ -40,7 +40,7 @@ Unreleased template stuff
 
 - Fixed a useability issue where one would assume that it was possible to bitwise-or `USBDirecton`, `USBRequestType`, and `USBRequestRecipient` together to form a `bmRequestType`, this was not properly implemented, but is now correct.
 
-## [0.2.0]
+## [0.2.0] - 2023-03-14
 
 ### Added
 
@@ -59,7 +59,7 @@ Unreleased template stuff
 - Fixed the two failing tests caused by some internal refactoring.
 - Minor typing fixups
 
-## [0.1]
+## [0.1] - 2022-11-13
 
 Initial Release
 
