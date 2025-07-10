@@ -1,5 +1,21 @@
 name: 'usb-construct CI'
-on: [ push, pull_request ]
+on:
+  push:
+    branches-ignore:
+      - 'gh-pages'
+    paths:
+      - '.github/workflows/ci.yml'
+      - 'docs/**'
+      - 'examples/**'
+      - 'tests/**'
+      - 'usb_construct/**'
+      - 'noxfile.py'
+      - 'pyproject.toml'
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  pull_request:
+    branches:
+      - main
 
 env:
   TOOL_PYTHON_VERSION: '3.11'
@@ -7,7 +23,7 @@ env:
 jobs:
   lint-usb-construct:
     runs-on: ubuntu-latest
-    name: 'Lint usb-construct'
+    name: 'Lint USB Construct'
     steps:
       - name: 'Setup Python (${{ env.TOOL_PYTHON_VERSION }})'
         uses: actions/setup-python@v5
@@ -42,13 +58,14 @@ jobs:
         shell: bash
         continue-on-error: true
         run: |
-          nox -s typecheck
+          nox -s typecheck-mypy
+          nox -s typecheck-pyright
 
   test-usb-construct:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.10', '3.11', '3.12', '3.13', 'pypy3.10', ]
+        python-version: [ '3.11', '3.12', '3.13', ]
         allow-failure:
          - false
         include:
@@ -57,7 +74,7 @@ jobs:
           - python-version: 'pypy3.11'
             allow-failure: true
 
-    name: 'Test usb-construct (Python ${{ matrix.python-version }})'
+    name: 'Test USB Construct (Python ${{ matrix.python-version }})'
     continue-on-error: ${{ matrix.allow-failure }}
     steps:
       - name: 'Setup Python (${{ matrix.python-version }})'
@@ -103,7 +120,7 @@ jobs:
 
   linkcheck-docs:
     runs-on: ubuntu-latest
-    name: 'usb-construct Docs - Link-check'
+    name: 'USB Construct Docs - Link-check'
     steps:
       - name: 'Setup Python (${{ env.TOOL_PYTHON_VERSION }})'
         uses: actions/setup-python@v5
@@ -136,7 +153,7 @@ jobs:
 
   build-docs:
     runs-on: ubuntu-latest
-    name: 'usb-construct Docs - Build'
+    name: 'USB Construct Docs - Build'
     steps:
       - name: 'Setup Python (${{ env.TOOL_PYTHON_VERSION }})'
         uses: actions/setup-python@v5
@@ -176,7 +193,7 @@ jobs:
           retention-days: 1
 
   docs:
-    name: 'usb-construct Docs (Meta Job)'
+    name: 'USB Construct Docs (Meta Job)'
     needs:
       - linkcheck-docs
       - build-docs
@@ -185,7 +202,7 @@ jobs:
       - run: ${{ contains(needs.*.result, 'failure') && 'false' || 'true' }}
 
   ci-checkpoint:
-    name: 'usb-construct CI Checkpoint (Meta Job)'
+    name: 'USB Construct CI Checkpoint (Meta Job)'
     needs:
       - lint-usb-construct
       - test-usb-construct
@@ -195,7 +212,7 @@ jobs:
       - run: ${{ contains(needs.*.result, 'failure') && 'false' || 'true' }}
 
   publish-docs:
-    name: 'Publish usb-construct Docs'
+    name: 'Publish USB Construct Docs'
     if: github.repository == 'shrine-maiden-heavy-industries/usb-construct' && github.event.ref == 'refs/heads/main' && github.event_name == 'push'
     needs:
       - ci-checkpoint
@@ -220,7 +237,7 @@ jobs:
           clean: true
 
   publish-pypi:
-    name: 'usb-construct - Publish PyPi package'
+    name: 'USB Construct - Publish PyPi package'
     if: github.repository == 'shrine-maiden-heavy-industries/usb-construct' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev')
     needs:
       - publish-docs
