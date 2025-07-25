@@ -22,6 +22,9 @@ nox.options.sessions = (
 	'typecheck-mypy'
 )
 
+# Try to use `uv`, if not fallback to `virtualenv`
+nox.options.default_venv_backend = 'uv|virtualenv'
+
 @nox.session(reuse_venv = True)
 def test(session: Session) -> None:
 	OUTPUT_DIR = BUILD_DIR / 'tests'
@@ -29,7 +32,10 @@ def test(session: Session) -> None:
 
 	unitest_args = ('-m', 'unittest', 'discover', '-s', str(ROOT_DIR))
 
-	session.install('.')
+	if session.venv_backend != 'uv':
+		session.warn('Consider installing `uv` to prevent constant re-installs of packages in the session venv')
+
+	session.install('-e', '.')
 
 	if ENABLE_COVERAGE:
 		session.log('Coverage support enabled')
@@ -50,42 +56,54 @@ def test(session: Session) -> None:
 			session.log('Generating XML Coverage report...')
 			session.run('python', '-m', 'coverage', 'xml', f'--rcfile={ROOT_DIR / "pyproject.toml"}')
 
-@nox.session(name = 'watch-docs')
+@nox.session(name = 'watch-docs', reuse_venv = True)
 def watch_docs(session: Session) -> None:
 	OUTPUT_DIR = BUILD_DIR / 'docs'
 
+	if session.venv_backend != 'uv':
+		session.warn('Consider installing `uv` to prevent constant re-installs of packages in the session venv')
+
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
 	session.install('sphinx-autobuild')
-	session.install('.')
+	session.install('-e', '.')
 
 	session.run('sphinx-autobuild', str(DOCS_DIR), str(OUTPUT_DIR))
 
-@nox.session(name = 'build-docs')
+@nox.session(name = 'build-docs', reuse_venv = True)
 def build_docs(session: Session) -> None:
 	OUTPUT_DIR = BUILD_DIR / 'docs'
 
+	if session.venv_backend != 'uv':
+		session.warn('Consider installing `uv` to prevent constant re-installs of packages in the session venv')
+
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
-	session.install('.')
+	session.install('-e', '.')
 
 	session.run('sphinx-build', '-b', 'html', str(DOCS_DIR), str(OUTPUT_DIR))
 
-@nox.session(name = 'linkcheck-docs')
+@nox.session(name = 'linkcheck-docs', reuse_venv = True)
 def linkcheck_docs(session: Session) -> None:
 	OUTPUT_DIR = BUILD_DIR / 'docs-linkcheck'
 
+	if session.venv_backend != 'uv':
+		session.warn('Consider installing `uv` to prevent constant re-installs of packages in the session venv')
+
 	session.install('-r', str(DOCS_DIR / 'requirements.txt'))
-	session.install('.')
+	session.install('-e', '.')
 
 	session.run('sphinx-build', '-b', 'linkcheck', str(DOCS_DIR), str(OUTPUT_DIR))
 
-@nox.session(name = 'typecheck-mypy')
+@nox.session(name = 'typecheck-mypy', reuse_venv = True)
 def typecheck_mypy(session: Session) -> None:
 	OUTPUT_DIR = BUILD_DIR / 'typing' / 'mypy'
 	OUTPUT_DIR.mkdir(parents = True, exist_ok = True)
 
+	if session.venv_backend != 'uv':
+		session.warn('Consider installing `uv` to prevent constant re-installs of packages in the session venv')
+
 	session.install('mypy')
 	session.install('lxml')
-	session.install('.')
+	session.install('-e', '.')
 
 	session.run(
 		'mypy', '--non-interactive', '--install-types', '--pretty',
@@ -94,19 +112,25 @@ def typecheck_mypy(session: Session) -> None:
 		'-p', 'usb_construct', '--html-report', str(OUTPUT_DIR.resolve())
 	)
 
-@nox.session(name = 'typecheck-pyright')
+@nox.session(name = 'typecheck-pyright', reuse_venv = True)
 def typecheck_pyright(session: Session) -> None:
 	OUTPUT_DIR = BUILD_DIR / 'typing' / 'pyright'
 	OUTPUT_DIR.mkdir(parents = True, exist_ok = True)
 
+	if session.venv_backend != 'uv':
+		session.warn('Consider installing `uv` to prevent constant re-installs of packages in the session venv')
+
 	session.install('pyright')
-	session.install('.')
+	session.install('-e', '.')
 
 	with (OUTPUT_DIR / 'pyright.log').open('w') as f:
 		session.run('pyright', *session.posargs, stdout = f)
 
-@nox.session
+@nox.session(reuse_venv = True)
 def lint(session: Session) -> None:
+	if session.venv_backend != 'uv':
+		session.warn('Consider installing `uv` to prevent constant re-installs of packages in the session venv')
+
 	session.install('flake8')
 
 	session.run(
@@ -114,8 +138,11 @@ def lint(session: Session) -> None:
 		'./usb_construct', './tests', './examples', './docs'
 	)
 
-@nox.session
+@nox.session(reuse_venv = True)
 def dist(session: Session) -> None:
+	if session.venv_backend != 'uv':
+		session.warn('Consider installing `uv` to prevent constant re-installs of packages in the session venv')
+
 	session.install('build')
 
 	session.run('python', '-m', 'build', '-o', str(DIST_DIR))
