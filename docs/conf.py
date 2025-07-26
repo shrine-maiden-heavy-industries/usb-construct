@@ -1,17 +1,15 @@
 # SPDX-License-Identifier: BSD-3-Clause
-import os, sys, datetime
-from pathlib import Path
-sys.path.insert(0, os.path.abspath('.'))
+from datetime      import date
+from pathlib       import Path
 
 from usb_construct import __version__ as usb_construct_version
 
 ROOT_DIR = (Path(__file__).parent).parent
 
-
 project   = 'usb-construct'
 version   = usb_construct_version
 release   = version.split('+')[0]
-copyright = f'{datetime.date.today().year} Shrine Maiden Heavy Industries, et. al.'
+copyright = f'{date.today().year} Shrine Maiden Heavy Industries, et. al.'
 language  = 'en'
 
 extensions = [
