@@ -1,5 +1,8 @@
-
+blank_issues_enabled: false
 contact_links:
-  - name: Documentation
+  - name: 'View The Documentation'
     url: https://usb-construct.shmdn.link/
-    about: "usb_construct docs"
+    about: 'Read the USB Construct documentation.'
+  - name: 'Start A Discussion'
+    url: 'https://github.com/shrine-maiden-heavy-industries/usb-construct/discussions'
+    about: 'Have a question? Got something cool to share? Do it here!'
