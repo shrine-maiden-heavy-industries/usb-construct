@@ -100,11 +100,6 @@ jobs:
         run: |
           python -m pip install --user --upgrade pip setuptools wheel setuptools_scm nox
 
-      - name: 'Setup OSS CAD Suite'
-        uses: YosysHQ/setup-oss-cad-suite@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: 'Checkout'
         uses: actions/checkout@v4
         with:
