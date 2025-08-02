@@ -46,7 +46,6 @@ class ConstructEmitter:
 		self.__dict__['format'] = struct
 		self.__dict__['fields'] = {}
 
-
 	def _format_contains_field(self, field_name: str) -> bool:
 		'''
 		Returns True iff the given format has a field with the provided name.
@@ -62,7 +61,6 @@ class ConstructEmitter:
 		'''
 		return any(f.name == field_name for f in self.format.subcons)
 
-
 	def __setattr__(self, name: str, value) -> None:
 		''' Hook that we used to set our fields. '''
 
@@ -76,7 +74,6 @@ class ConstructEmitter:
 
 		self.fields[name] = value
 
-
 	def emit(self) -> bytes:
 		''' Emits the stream of bytes associated with this object. '''
 
@@ -84,7 +81,6 @@ class ConstructEmitter:
 			return self.format.build(self.fields)
 		except KeyError as e:
 			raise KeyError(f'missing necessary field: {e}')
-
 
 	def __getattr__(self, name: str):
 		''' Retrieves an emitter field, if possible. '''

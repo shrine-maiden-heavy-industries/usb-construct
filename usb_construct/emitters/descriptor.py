@@ -34,7 +34,6 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 		self._subordinates = []
 		self._type_counts = defaultdict(int)
 
-
 	def add_subordinate_descriptor(self, subordinate) -> None:
 		'''
 		Adds a subordinate descriptor to the relevant descriptor.
@@ -45,7 +44,7 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 			The subordinate descriptor to add; can be an emitter,
 			or a bytes-like object.
 
-		'''  # noqa: E101
+		'''
 
 		if hasattr(subordinate, 'emit'):
 			subordinate = subordinate.emit()
@@ -61,11 +60,9 @@ class ComplexDescriptorEmitter(ConstructEmitter):
 		# ... and add the relevant bytes to our list of subordinates.
 		self._subordinates.append(subordinate)
 
-
 	def _pre_emit(self) -> None:
 		''' Performs any manipulations needed on this object before emission. '''
 		pass
-
 
 	def emit(self, include_subordinates: bool = True) -> bytes:
 		'''

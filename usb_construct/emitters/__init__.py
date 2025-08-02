@@ -4,14 +4,12 @@
 #
 ''' USB-related emitters. '''
 
-from .construct_interop    import emitter_for_format, ConstructEmitter
-from .descriptors.standard import (
-	DeviceDescriptorCollection, SuperSpeedDeviceDescriptorCollection
-)
+from .construct_interop    import ConstructEmitter, emitter_for_format
+from .descriptors.standard import DeviceDescriptorCollection, SuperSpeedDeviceDescriptorCollection
 
 __all__ = (
-	'emitter_for_format',
 	'ConstructEmitter',
 	'DeviceDescriptorCollection',
+	'emitter_for_format',
 	'SuperSpeedDeviceDescriptorCollection',
 )
