@@ -40,7 +40,7 @@ autodoc_docstring_signature = False
 todo_include_todos          = True
 
 intersphinx_mapping = {
-	'python'   : ('https://docs.python.org/3', None),
+	'python': ('https://docs.python.org/3', None),
 	'construct': ('https://construct.readthedocs.io/en/latest', None),
 }
 
