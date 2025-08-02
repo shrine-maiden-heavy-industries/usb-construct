@@ -10,7 +10,6 @@ import construct
 
 from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
 
-
 class CDCDescriptorNumbers(IntEnum):
 	CS_INTERFACE  = 0x24
 	CS_ENDPOINT   = 0x25
@@ -52,28 +51,28 @@ HeaderDescriptor = DescriptorFormat(
 	'bLength'            / construct.Const(5, construct.Int8ul),
 	'bDescriptorType'    / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
 	'bDescriptorSubtype' / DescriptorNumber(CDCDescriptorSubtypes.HEADER),
-	'bcdCDC'             / DescriptorField(description = 'CDC Version', default = 1.1)
+	'bcdCDC'             / DescriptorField('CDC Version', default = 1.1)
 )
 
 ACMFunctionalDescriptor = DescriptorFormat(
 	'bLength'            / construct.Const(4, construct.Int8ul),
 	'bDescriptorType'    / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
 	'bDescriptorSubtype' / DescriptorNumber(CDCDescriptorSubtypes.ABSTRACT_CONTROL_MANAGEMENT_FUNCTIONAL),
-	'bmCapabilities'     / DescriptorField(description = 'ACM Capabilities', default = 0b0010)
+	'bmCapabilities'     / DescriptorField('ACM Capabilities', default = 0b0010)
 )
 
 UnionFunctionalDescriptor = DescriptorFormat(
 	'bLength'                / construct.Const(5, construct.Int8ul),
 	'bDescriptorType'        / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
 	'bDescriptorSubtype'     / DescriptorNumber(CDCDescriptorSubtypes.UNION_FUNCTIONAL_DESCRIPTOR),
-	'bControlInterface'      / DescriptorField(description = 'Control Interface Number'),
-	'bSubordinateInterface0' / DescriptorField(description = 'Subordinate Interface Number')
+	'bControlInterface'      / DescriptorField('Control Interface Number'),
+	'bSubordinateInterface0' / DescriptorField('Subordinate Interface Number')
 )
 
 CallManagementFunctionalDescriptor = DescriptorFormat(
 	'bLength'            / construct.Const(5, construct.Int8ul),
 	'bDescriptorType'    / DescriptorNumber(CDCDescriptorNumbers.CS_INTERFACE),
 	'bDescriptorSubtype' / DescriptorNumber(CDCDescriptorSubtypes.CALL_MANAGEMENT_FUNCTIONAL),
-	'bmCapabilities'     / DescriptorField(description = 'Call Management capabilities', default = 0),
-	'bDataInterface'     / DescriptorField(description = 'Data Interface Number')
+	'bmCapabilities'     / DescriptorField('Call Management capabilities', default = 0),
+	'bDataInterface'     / DescriptorField('Data Interface Number')
 )

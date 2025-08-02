@@ -8,15 +8,17 @@
 	[Midi20] refers to 'Universal Serial Bus Device Class Definition for MIDI Devices', Release 2.0, May 5, 2020
 '''
 
-from enum         import IntEnum
+from enum        import IntEnum
 
 import construct
 
 from ..           import USBTransferType
 from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
 from .standard    import StandardDescriptorNumbers
-from .uac3        import *
-
+from .uac3        import (
+	AudioClassSpecificACInterfaceDescriptorSubtypes, AudioClassSpecificDescriptorTypes, AudioInterfaceClassCode,
+	AudioInterfaceSubclassCodes,
+)
 
 class MidiStreamingInterfaceDescriptorTypes(IntEnum):
 	# As defined in [Midi20], A.1
@@ -62,9 +64,9 @@ class MidiStreamingJackTypes(IntEnum):
 StandardMidiStreamingInterfaceDescriptor = DescriptorFormat(
 	'bLength'            / construct.Const(9, construct.Int8ul),
 	'bDescriptorType'    / DescriptorNumber(StandardDescriptorNumbers.INTERFACE),
-	'bInterfaceNumber'   / DescriptorField(description = 'ID of the streaming interface'),
-	'bAlternateSetting'  / DescriptorField(description = 'alternate setting number for the interface', default = 0),
-	'bNumEndpoints'      / DescriptorField(description =
+	'bInterfaceNumber'   / DescriptorField('ID of the streaming interface'),
+	'bAlternateSetting'  / DescriptorField('alternate setting number for the interface', default = 0),
+	'bNumEndpoints'      / DescriptorField(
 		'Number of data endpoints used (excluding endpoint 0). Can be: 0 (no data endpoint); 1 (data endpoint);'
 		' 2 (data + explicit feedback endpoint)',
 		default = 0
@@ -73,7 +75,7 @@ StandardMidiStreamingInterfaceDescriptor = DescriptorFormat(
 	'bInterfaceSubClass' / DescriptorNumber(AudioInterfaceSubclassCodes.MIDI_STREAMING),
 	'bInterfaceProtocol' / DescriptorNumber(0),
 	'iInterface'         / DescriptorField(
-		description = 'index of a string descriptor describing this interface (0 = unused)',
+		'index of a string descriptor describing this interface (0 = unused)',
 		default = 0
 	)
 )
@@ -83,8 +85,8 @@ ClassSpecificMidiStreamingInterfaceHeaderDescriptor = DescriptorFormat(
 	'bLength'            / construct.Const(7, construct.Int8ul),
 	'bDescriptorType'    / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_INTERFACE),
 	'bDescriptorSubtype' / DescriptorNumber(AudioClassSpecificACInterfaceDescriptorSubtypes.HEADER),
-	'bcdADC'             / DescriptorField(description = 'Midi Streaming Class specification release version', default = 1.0),
-	'wTotalLength'       / DescriptorField(description =
+	'bcdADC'             / DescriptorField('Midi Streaming Class specification release version', default = 1.0),
+	'wTotalLength'       / DescriptorField(
 		'Total number of bytes of the class-specific MIDIStreaming interface descriptor. Includes the combined length'
 		' of this descriptor header and all Jack and Element descriptors.'
 	),
@@ -94,13 +96,13 @@ ClassSpecificMidiStreamingInterfaceHeaderDescriptor = DescriptorFormat(
 StandardMidiStreamingDataEndpointDescriptor = DescriptorFormat(
 	'bLength'          / construct.Const(7, construct.Int8ul),
 	'bDescriptorType'  / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_ENDPOINT),
-	'bEndpointAddress' / DescriptorField(description = 'endpoint address, use USBDirection.*.from_endpoint_address()'),
+	'bEndpointAddress' / DescriptorField('endpoint address, use USBDirection.*.from_endpoint_address()'),
 	'bmAttributes'     / DescriptorField(
-		description = 'endpoint type, see USBTransferType (only NONE, BULK or INTERRUPT allowed)',
+		'endpoint type, see USBTransferType (only NONE, BULK or INTERRUPT allowed)',
 		default = USBTransferType.BULK
 	),
-	'wMaxPacketSize'   / DescriptorField(description = 'Maximum packet size this endpoint is capable of sending or receiving'),
-	'bInterval'        / DescriptorField(description =
+	'wMaxPacketSize'   / DescriptorField('Maximum packet size this endpoint is capable of sending or receiving'),
+	'bInterval'        / DescriptorField(
 		'Interval for polling endpoint for Interrupt data transfers. For bulk endpoints this field is ignored'
 		' and must be reset to 0',
 		default = 0

@@ -3,7 +3,7 @@
 # This file is part of usb-construct.
 #
 
-from enum         import IntEnum
+from enum import IntEnum
 
 class MassStorageClassSpecificDescriptorTypes(IntEnum):
 	PIPE_USAGE = 0x24

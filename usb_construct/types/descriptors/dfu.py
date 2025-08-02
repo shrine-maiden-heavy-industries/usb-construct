@@ -12,8 +12,7 @@ from enum         import IntEnum
 
 import construct
 
-from ..descriptor import DescriptorField, DescriptorNumber, DescriptorFormat
-
+from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
 
 class DFUDescriptorNumbers(IntEnum):
 	FUNCTIONAL = 0x21

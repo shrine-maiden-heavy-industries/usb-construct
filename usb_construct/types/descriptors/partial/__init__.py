@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: BSD-3-Clause
+
 from .standard import (
-	DeviceDescriptor, ConfigurationDescriptor, StringDescriptor,
-	StringLanguageDescriptor, InterfaceDescriptor, EndpointDescriptor,
-	DeviceQualifierDescriptor,
+	ConfigurationDescriptor, DeviceDescriptor, DeviceQualifierDescriptor, EndpointDescriptor,
+	InterfaceDescriptor, StringDescriptor, StringLanguageDescriptor,
 )
 
 __all__ = (
-	'DeviceDescriptor',
 	'ConfigurationDescriptor',
+	'DeviceDescriptor',
+	'DeviceQualifierDescriptor',
+	'EndpointDescriptor',
+	'InterfaceDescriptor',
 	'StringDescriptor',
 	'StringLanguageDescriptor',
-	'InterfaceDescriptor',
-	'EndpointDescriptor',
-	'DeviceQualifierDescriptor',
 )

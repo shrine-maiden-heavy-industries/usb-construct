@@ -16,7 +16,6 @@ from construct    import len_, this
 from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
 from .standard    import DeviceCapabilityTypes, StandardDescriptorNumbers
 
-
 class OSDescriptorTypes(IntEnum):
 	SET_HEADER                  = 0
 	SUBSET_HEADER_CONFIGURATION = 1
@@ -61,7 +60,9 @@ PlatformDescriptor = DescriptorFormat(
 
 
 DescriptorSetInformation = DescriptorFormat(
-	'dwWindowsVersion'              / DescriptorField('Minimum windows version this set should apply to', default = 0x06030000),
+	'dwWindowsVersion'              / DescriptorField(
+		'Minimum windows version this set should apply to', default = 0x06030000
+	),
 	'wMSOSDescriptorSetTotalLength' / DescriptorField('The byte length of the descriptor set'),
 	'bMS_VendorCode'                / DescriptorField('The vendor code to request this descriptor set with'),
 	'bAltEnumCode'                  / DescriptorField(
@@ -106,7 +107,9 @@ FeatureCompatibleID = DescriptorFormat(
 
 
 FeatureRegProperty = DescriptorFormat(
-	'wLength'             / construct.Rebuild(construct.Int16ul, 14 + (2 * len_(this.PropertyName)) + (2 * len_(this.PropertyData))),
+	'wLength'             / construct.Rebuild(
+		construct.Int16ul, 14 + (2 * len_(this.PropertyName)) + (2 * len_(this.PropertyData))
+	),
 	'wDescriptorType'     / construct.Const(OSDescriptorTypes.FEATURE_REG_PROPERTY, construct.Int16ul),
 	'wPropertyDataType'   / DescriptorField('Data type of the registry property'),
 	'wPropertyNameLength' / construct.Rebuild(construct.Int16ul, 2 + (2 * len_(this.PropertyName))),
@@ -124,7 +127,9 @@ FeatureMinResumeTime = DescriptorFormat(
 	'wLength'              / construct.Const(0x06, construct.Int16ul),
 	'wDescriptorType'      / construct.Const(OSDescriptorTypes.FEATURE_MIN_RESUME_TIME, construct.Int16ul),
 	'bResumeRecoveryTime'  / DescriptorField('Number of milliseconds required to resume the device'),
-	'bResumeSignalingTime' / DescriptorField('Number of milliseconds device required for resume signaling to be asserted'),
+	'bResumeSignalingTime' / DescriptorField(
+		'Number of milliseconds device required for resume signaling to be asserted'
+	),
 )
 
 

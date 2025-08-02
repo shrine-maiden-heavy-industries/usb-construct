@@ -16,7 +16,6 @@ from construct    import this
 
 from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
 
-
 class StandardDescriptorNumbers(IntEnum):
 	''' Numbers of our standard descriptors. '''
 
@@ -150,7 +149,6 @@ DeviceDescriptor = DescriptorFormat(
 )
 
 
-
 ConfigurationDescriptor = DescriptorFormat(
 	'bLength'             / construct.Const(9, construct.Int8ul),
 	'bDescriptorType'     / DescriptorNumber(StandardDescriptorNumbers.CONFIGURATION),
@@ -234,14 +232,14 @@ InterfaceAssociationDescriptor = DescriptorFormat(
 	'bLength'           / construct.Const(8, construct.Int8ul),
 	'bDescriptorType'   / DescriptorNumber(StandardDescriptorNumbers.INTERFACE_ASSOCIATION),
 	'bFirstInterface'   / DescriptorField(
-		description = 'Interface number of the first interface that is associated with this function.',
+		'Interface number of the first interface that is associated with this function.',
 		default = 0
 	),
-	'bInterfaceCount'   / DescriptorField(description = 'Number of contiguous interfaces that are associated with this function'),
-	'bFunctionClass'    / DescriptorField(description = 'Function class code'),
-	'bFunctionSubclass' / DescriptorField(description = 'Function subclass code'),
-	'bFunctionProtocol' / DescriptorField(description = 'Function protocol code'),
-	'iFunction'         / DescriptorField(description = 'Index of a string descriptor that describes this interface', default = 0),
+	'bInterfaceCount'   / DescriptorField('Number of contiguous interfaces that are associated with this function'),
+	'bFunctionClass'    / DescriptorField('Function class code'),
+	'bFunctionSubclass' / DescriptorField('Function subclass code'),
+	'bFunctionProtocol' / DescriptorField('Function protocol code'),
+	'iFunction'         / DescriptorField('Index of a string descriptor that describes this interface', default = 0),
 )
 
 
