@@ -2,24 +2,18 @@
 
 import unittest
 
-from usb_construct.types.descriptors.standard import (
-	InterfaceAssociationDescriptor, StandardDescriptorNumbers
-)
+from usb_construct.types.descriptors.standard import InterfaceAssociationDescriptor, StandardDescriptorNumbers
 from usb_construct.types.descriptors.uac2     import (
-	AudioFunctionClassCode, AudioFunctionCategoryCodes, AudioFunctionProtocolCodes,
-	AudioInterfaceClassCode, AudioInterfaceSubclassCodes, AudioInterfaceProtocolCodes,
-	AudioClassSpecificStandardDescriptorNumbers, AudioClassSpecificACInterfaceDescriptorSubtypes,
-	ClockAttributes, ClockFrequencyControl, USBTerminalTypes, OutputTerminalTypes,
-	AudioClassSpecificASInterfaceDescriptorSubtypes, FormatTypes, TypeIFormats,
-	AudioClassSpecificEndpointDescriptorSubtypes,
-
-
-	StandardAudioControlInterfaceDescriptor, ClockSourceDescriptor, InputTerminalDescriptor,
-	OutputTerminalDescriptor, FeatureUnitDescriptor, AudioStreamingInterfaceDescriptor,
-	ClassSpecificAudioStreamingInterfaceDescriptor, TypeIFormatTypeDescriptor,
-	ExtendedTypeIFormatTypeDescriptor, ClassSpecificAudioStreamingIsochronousAudioDataEndpointDescriptor,
-	ExtendedTypeIIIFormatTypeDescriptor, TypeIIFormatTypeDescriptor, ExtendedTypeIIFormatTypeDescriptor,
-	TypeIIIFormatTypeDescriptor,
+	AudioClassSpecificACInterfaceDescriptorSubtypes, AudioClassSpecificASInterfaceDescriptorSubtypes,
+	AudioClassSpecificEndpointDescriptorSubtypes, AudioClassSpecificStandardDescriptorNumbers,
+	AudioFunctionCategoryCodes, AudioFunctionClassCode, AudioFunctionProtocolCodes, AudioInterfaceClassCode,
+	AudioInterfaceProtocolCodes, AudioInterfaceSubclassCodes, AudioStreamingInterfaceDescriptor,
+	ClassSpecificAudioStreamingInterfaceDescriptor, ClassSpecificAudioStreamingIsochronousAudioDataEndpointDescriptor,
+	ClockAttributes, ClockFrequencyControl, ClockSourceDescriptor, ExtendedTypeIFormatTypeDescriptor,
+	ExtendedTypeIIFormatTypeDescriptor, ExtendedTypeIIIFormatTypeDescriptor, FeatureUnitDescriptor, FormatTypes,
+	InputTerminalDescriptor, OutputTerminalDescriptor, OutputTerminalTypes,
+	StandardAudioControlInterfaceDescriptor, TypeIFormats, TypeIFormatTypeDescriptor, TypeIIFormatTypeDescriptor,
+	TypeIIIFormatTypeDescriptor, USBTerminalTypes,
 )
 
 class UAC2Cases(unittest.TestCase):
@@ -50,12 +44,12 @@ class UAC2Cases(unittest.TestCase):
 	def test_build_interface_association_descriptor(self):
 		# Build the relevant descriptor
 		data = InterfaceAssociationDescriptor.build({
-			'bFirstInterface'  : 1,
-			'bInterfaceCount'  : 2,
-			'bFunctionClass'   : AudioFunctionClassCode.AUDIO_FUNCTION,
+			'bFirstInterface': 1,
+			'bInterfaceCount': 2,
+			'bFunctionClass': AudioFunctionClassCode.AUDIO_FUNCTION,
 			'bFunctionSubclass': AudioFunctionCategoryCodes.FUNCTION_SUBCLASS_UNDEFINED,
 			'bFunctionProtocol': AudioFunctionProtocolCodes.AF_VERSION_02_00,
-			'iFunction'        : 0x42
+			'iFunction': 0x42
 		})
 
 		# ... and check the binary output

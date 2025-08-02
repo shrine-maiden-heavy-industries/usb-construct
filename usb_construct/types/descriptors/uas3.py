@@ -12,7 +12,6 @@ import construct
 from construct    import this
 
 from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
-
 from .msc         import MassStorageClassSpecificDescriptorTypes
 
 class PipeID(IntEnum):
@@ -31,13 +30,22 @@ class InformationUnitID(IntEnum):
 
 class InformationUnitTaskAttribute(IntEnum):
 	SIMPLE        = 0b000
-	''' Specifies that the command be managed according to the rules for a simple task attribute (see SAM-6) '''
+	'''
+	Specifies that the command be managed according to the rules for a simple task attribute (see SAM-6)
+	'''
 	HEAD_OF_QUEUE = 0b001
-	''' Specifies that the command be managed according to the rules for a head of queue task attribute (see SAM-6) '''
+	'''
+	Specifies that the command be managed according to the rules for a head of queue task attribute (see SAM-6)
+	'''
 	ORDERED       = 0b010
-	''' Specifies that the command be managed according to the rules for an ordered task attribute (see SAM-6) '''
+	'''
+	Specifies that the command be managed according to the rules for an ordered task attribute (see SAM-6)
+	'''
 	ACA           = 0b100
-	''' Specifies that the command be managed according to the rules for an automatic contingent allegiance task attribute (see SAM-6) '''
+	'''
+	Specifies that the command be managed according to the rules for an automatic contingent allegiance task
+	attribute (see SAM-6)
+	'''
 
 def command_priority(value: int) -> int:
 	'''

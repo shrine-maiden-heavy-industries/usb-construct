@@ -7,9 +7,9 @@ https://wicg.github.io/webusb/
 '''
 
 
+from ...types.descriptors.webusb import PlatformDescriptor, URLDescriptor
 from ..                          import emitter_for_format
 from ..descriptor                import ComplexDescriptorEmitter
-from ...types.descriptors.webusb import *
 
 URLDescriptorEmitter = emitter_for_format(URLDescriptor)
 

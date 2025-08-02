@@ -2,9 +2,7 @@
 
 from unittest import TestCase
 
-from usb_construct.types import USBDirection, USBRequestType, USBRequestRecipient
-
-
+from usb_construct.types import USBDirection, USBRequestRecipient, USBRequestType
 
 class USBTypesBitwise(TestCase):
 

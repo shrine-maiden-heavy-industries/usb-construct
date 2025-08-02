@@ -5,7 +5,6 @@
 
 from ..emitters.descriptor import ComplexDescriptorEmitter
 
-
 class DescriptorContextManager:
 	ParentDescriptor = ComplexDescriptorEmitter
 	DescriptorEmitter = None

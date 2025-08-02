@@ -1,35 +1,28 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 from .standard import (
-	get_string_descriptor,
-
-	InterfaceAssociationDescriptorEmitter, EndpointDescriptorEmitter,
-	InterfaceDescriptorEmitter, ConfigurationDescriptorEmitter,
-	DeviceDescriptorCollection, BinaryObjectStoreDescriptorEmitter,
-	SuperSpeedDeviceDescriptorCollection,
-
-	DeviceDescriptorEmitter, StringDescriptorEmitter, StringLanguageDescriptorEmitter,
-	DeviceQualifierDescriptorEmitter, USB2ExtensionDescriptorEmitter,
-	SuperSpeedUSBDeviceCapabilityDescriptorEmitter,
-	SuperSpeedEndpointCompanionDescriptorEmitter,
+	BinaryObjectStoreDescriptorEmitter, ConfigurationDescriptorEmitter, DeviceDescriptorCollection,
+	DeviceDescriptorEmitter, DeviceQualifierDescriptorEmitter, EndpointDescriptorEmitter,
+	InterfaceAssociationDescriptorEmitter, InterfaceDescriptorEmitter, StringDescriptorEmitter,
+	StringLanguageDescriptorEmitter, SuperSpeedDeviceDescriptorCollection,
+	SuperSpeedEndpointCompanionDescriptorEmitter, SuperSpeedUSBDeviceCapabilityDescriptorEmitter,
+	USB2ExtensionDescriptorEmitter, get_string_descriptor,
 )
 
 __all__ = (
-	'get_string_descriptor',
-
-	'InterfaceAssociationDescriptorEmitter',
-	'EndpointDescriptorEmitter',
-	'InterfaceDescriptorEmitter',
+	'BinaryObjectStoreDescriptorEmitter',
 	'ConfigurationDescriptorEmitter',
 	'DeviceDescriptorCollection',
-	'BinaryObjectStoreDescriptorEmitter',
-	'SuperSpeedDeviceDescriptorCollection',
-
 	'DeviceDescriptorEmitter',
+	'DeviceQualifierDescriptorEmitter',
+	'EndpointDescriptorEmitter',
+	'InterfaceAssociationDescriptorEmitter',
+	'InterfaceDescriptorEmitter',
 	'StringDescriptorEmitter',
 	'StringLanguageDescriptorEmitter',
-	'DeviceQualifierDescriptorEmitter',
-	'USB2ExtensionDescriptorEmitter',
-	'SuperSpeedUSBDeviceCapabilityDescriptorEmitter',
+	'SuperSpeedDeviceDescriptorCollection',
 	'SuperSpeedEndpointCompanionDescriptorEmitter',
+	'SuperSpeedUSBDeviceCapabilityDescriptorEmitter',
+	'USB2ExtensionDescriptorEmitter',
+	'get_string_descriptor',
 )

@@ -3,19 +3,18 @@
 # This file is part of usb-construct.
 #
 '''
-	Descriptors for USB Audio Class Devices (UAC), Release 1
+Descriptors for USB Audio Class Devices (UAC), Release 1
 
-	[Audio10] refers to 'Universal Serial Bus Device Class Definition for Audio Devices', Release 1.0, March 18, 1998
-	[Frmts10] refers to 'Universal Serial Bus Device Class Definition for Audio Data Formats', Release 1.0, March 18, 1998
-	[TermT10] refers to 'Universal Serial Bus Device Class Definition for Terminal Types', Release 1.0, March 18, 1998
+[Audio10] refers to 'Universal Serial Bus Device Class Definition for Audio Devices', Release 1.0, March 18, 1998
+[Frmts10] refers to 'Universal Serial Bus Device Class Definition for Audio Data Formats', Release 1.0, March 18, 1998
+[TermT10] refers to 'Universal Serial Bus Device Class Definition for Terminal Types', Release 1.0, March 18, 1998
 '''
 
-from enum        import IntEnum
+from enum         import IntEnum
 
 import construct
 
 from ..descriptor import DescriptorField, DescriptorFormat, DescriptorNumber
-
 
 class AudioInterfaceClassCode(IntEnum):
 	# As defined in [Audio10], Table A-1
@@ -266,13 +265,13 @@ class EmbeddedFunctionTerminalTypes(IntEnum):
 AudioControlInterruptEndpointDescriptor = DescriptorFormat(
 	'bLength'          / construct.Const(9, construct.Int8ul),
 	'bDescriptorType'  / DescriptorNumber(AudioClassSpecificDescriptorTypes.CS_ENDPOINT),
-	'bEndpointAddress' / DescriptorField(description = 'The address of the endpoint, use USBDirection.*.from_endpoint_address()'),
-	'bmAttributes'     / DescriptorField(description = 'D1..0: Transfer type (0b11 = Interrupt)', default = 0b11),
+	'bEndpointAddress' / DescriptorField('The address of the endpoint, use USBDirection.*.from_endpoint_address()'),
+	'bmAttributes'     / DescriptorField('D1..0: Transfer type (0b11 = Interrupt)', default = 0b11),
 	'wMaxPacketSize'   / DescriptorField(
-		description = 'Maximum packet size this endpoint is capable of. Used here to pass 6-byte interrupt information.'
-		, default = 6
+		'Maximum packet size this endpoint is capable of. Used here to pass 6-byte interrupt information.',
+		default = 6
 	),
-	'bInterval'        / DescriptorField(description = 'Interval for polling the Interrupt endpoint'),
-	'bRefresh'         / DescriptorField(description = 'Reset to 0'),
-	'bSynchAddress'    / DescriptorField(description = 'Reset to 0'),
+	'bInterval'        / DescriptorField('Interval for polling the Interrupt endpoint'),
+	'bRefresh'         / DescriptorField('Reset to 0'),
+	'bSynchAddress'    / DescriptorField('Reset to 0'),
 )

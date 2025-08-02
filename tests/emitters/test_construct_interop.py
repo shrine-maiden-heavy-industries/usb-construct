@@ -3,9 +3,7 @@
 import unittest
 import construct
 
-from usb_construct.emitters.construct_interop import (
-	ConstructEmitter
-)
+from usb_construct.emitters.construct_interop import ConstructEmitter
 
 class ConstructEmitterTest(unittest.TestCase):
 

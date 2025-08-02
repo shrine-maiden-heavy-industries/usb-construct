@@ -4,7 +4,7 @@
 #
 ''' Convenience emitters for simple, DFU descriptors. '''
 
-from ...types.descriptors.dfu import *
+from ...types.descriptors.dfu import FunctionalDescriptor
 from ..                       import emitter_for_format
 
 # Create our basic emitters...

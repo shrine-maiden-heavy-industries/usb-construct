@@ -7,7 +7,6 @@ from ...emitters.descriptors.dfu      import FunctionalDescriptorEmitter
 from ...emitters.descriptors.standard import InterfaceDescriptorEmitter
 from ..manager                        import DescriptorContextManager
 
-
 class FunctionalDescriptor(DescriptorContextManager):
 	ParentDescriptor = InterfaceDescriptorEmitter
 
