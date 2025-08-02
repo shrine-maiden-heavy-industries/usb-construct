@@ -5,13 +5,11 @@
 
 from ...emitters.descriptors.standard import InterfaceAssociationDescriptorEmitter, InterfaceDescriptorEmitter
 from ...emitters.descriptors.uac3     import (
-	ClassSpecificAudioStreamingInterfaceDescriptorEmitter,
-	ClockSourceDescriptorEmitter, ConnectorDescriptorEmitter,
-	HeaderDescriptorEmitter, InputTerminalDescriptorEmitter,
-	OutputTerminalDescriptorEmitter, PowerDomainDescriptorEmitter
+	ClassSpecificAudioStreamingInterfaceDescriptorEmitter, ClockSourceDescriptorEmitter,
+	ConnectorDescriptorEmitter, HeaderDescriptorEmitter, InputTerminalDescriptorEmitter,
+	OutputTerminalDescriptorEmitter, PowerDomainDescriptorEmitter,
 )
-from ..manager                        import DescriptorContextManager
-
+from ..manager import DescriptorContextManager
 
 class HeaderDescriptor(DescriptorContextManager):
 	ParentDescriptor  = InterfaceAssociationDescriptorEmitter

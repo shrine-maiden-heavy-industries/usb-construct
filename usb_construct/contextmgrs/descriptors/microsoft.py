@@ -3,9 +3,7 @@
 # This file is part of usb-construct.
 #
 
-from ...emitters.descriptors.microsoft import (
-	PlatformDescriptorCollection, PlatformDescriptorEmitter
-)
+from ...emitters.descriptors.microsoft import PlatformDescriptorCollection, PlatformDescriptorEmitter
 from ...emitters.descriptors.standard  import BinaryObjectStoreDescriptorEmitter
 from ..manager                         import DescriptorContextManager
 
