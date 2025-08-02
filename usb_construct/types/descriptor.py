@@ -22,7 +22,6 @@ class DescriptorFormat(construct.Struct):
 
 		super().__init__(*subcons, **subconskw)
 
-
 	@classmethod
 	def _get_subcon_field_type(
 		cls, subcon: Union[construct.Subconstruct, construct.Construct]
@@ -37,7 +36,6 @@ class DescriptorFormat(construct.Struct):
 			return subcon
 		else:
 			return cls._get_subcon_field_type(subcon.subcon)
-
 
 	@classmethod
 	def _create_partial(cls, *subcons, **subconskw) -> 'DescriptorFormat':
@@ -72,7 +70,6 @@ class DescriptorFormat(construct.Struct):
 
 		return DescriptorFormat(*new_subcons, _create_partial = False, **subconskw)
 
-
 	@staticmethod
 	def _to_detail_dictionary(descriptor, use_pretty_names: bool = True):
 		result = {}
@@ -97,7 +94,6 @@ class DescriptorFormat(construct.Struct):
 			result[detail_key] = value
 
 		return result
-
 
 	def parse(self, data, **context_keywords) -> construct.Subconstruct:
 		''' Hook on the parent parse() method which attaches a few methods. '''
@@ -131,11 +127,9 @@ class DescriptorNumber(construct.Const):
 		# Finally, add a documentation string for the type.
 		self.docs = 'Descriptor type'
 
-
 	def _parse(self, stream, context: construct.Container, path: str):
 		const_bytes = super()._parse(stream, context, path)
 		return const_bytes[0]
-
 
 	def get_descriptor_number(self) -> int:
 		''' Returns this constant's associated descriptor number.'''
@@ -148,7 +142,6 @@ class BCDFieldAdapter(construct.Adapter):
 	def _decode(self, obj: int, context: construct.Container, path: str) -> float:
 		hex_string = f'{obj:04x}'
 		return float(f'{hex_string[0:2]}.{hex_string[2:]}')
-
 
 	def _encode(self, obj: float, context: construct.Container, path: str) -> int:
 
@@ -164,7 +157,6 @@ class BCDFieldAdapter(construct.Adapter):
 		return int(f'{integer:02}{percent:02}', 16)
 
 
-
 class DescriptorField(construct.Subconstruct):
 	'''
 	Construct field definition that automatically adds fields of the proper
@@ -178,16 +170,15 @@ class DescriptorField(construct.Subconstruct):
 	# FIXME: these are really primitive views of these types;
 	# we should extend these to get implicit parsing wherever possible
 	USB_TYPES = {
-		'b'   : construct.Int8ul,
-		'bcd' : BCDFieldAdapter(construct.Int16ul),  # TODO: Create a BCD parser for this
-		'i'   : construct.Int8ul,
-		'id'  : construct.Int16ul,
-		'bm'  : construct.Int8ul,
-		'w'   : construct.Int16ul,
-		'dw'  : construct.Int32ul,
-		'qw'  : construct.Int64ul,
+		'b': construct.Int8ul,
+		'bcd': BCDFieldAdapter(construct.Int16ul),  # TODO: Create a BCD parser for this
+		'i': construct.Int8ul,
+		'id': construct.Int16ul,
+		'bm': construct.Int8ul,
+		'w': construct.Int16ul,
+		'dw': construct.Int32ul,
+		'qw': construct.Int64ul,
 	}
-
 
 	LENGTH_TYPES = {
 		1: construct.Int8ul,
@@ -196,7 +187,6 @@ class DescriptorField(construct.Subconstruct):
 		4: construct.Int32ul,
 		8: construct.Int64ul,
 	}
-
 
 	@staticmethod
 	def _get_prefix(name) -> str:
@@ -217,7 +207,6 @@ class DescriptorField(construct.Subconstruct):
 
 		return ''.join(prefix)
 
-
 	@classmethod
 	def _get_type_for_name(cls, name: str) -> Union[construct.FormatField, BCDFieldAdapter]:
 		''' Returns the type that's appropriate for a given descriptor field name. '''
@@ -227,7 +216,6 @@ class DescriptorField(construct.Subconstruct):
 		except KeyError:
 			raise ValueError('field names must be formatted per the USB standard!')
 
-
 	def __init__(
 		self, description: str = '', default: Optional[Union[int, float]] = None, *,
 		length: Optional[int] = None
@@ -235,7 +223,6 @@ class DescriptorField(construct.Subconstruct):
 		self.description = description
 		self.default = default
 		self.length = length
-
 
 	def __rtruediv__(self, field_name: str) -> construct.Subconstruct:
 		# If we have a length, use it to figure out the type.
