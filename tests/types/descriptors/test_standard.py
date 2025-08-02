@@ -3,11 +3,10 @@
 import unittest
 
 import construct
-
 from usb_construct.types                      import LanguageIDs
 from usb_construct.types.descriptor           import BCDFieldAdapter
 from usb_construct.types.descriptors.standard import (
-	StringDescriptor, StringLanguageDescriptor, DeviceDescriptor
+	DeviceDescriptor, StringDescriptor, StringLanguageDescriptor
 )
 
 class DescriptorParserCases(unittest.TestCase):
@@ -36,7 +35,6 @@ class DescriptorParserCases(unittest.TestCase):
 		ord('s'), 0x00,
 	])
 
-
 	def test_string_descriptor_parse(self):
 
 		# Parse the relevant string...
@@ -47,7 +45,6 @@ class DescriptorParserCases(unittest.TestCase):
 		self.assertEqual(parsed.bDescriptorType,             3)
 		self.assertEqual(parsed.bString, 'Great Scott Gadgets')
 
-
 	def test_string_descriptor_build(self):
 		data = StringDescriptor.build({
 			'bString': 'Great Scott Gadgets'
@@ -55,14 +52,12 @@ class DescriptorParserCases(unittest.TestCase):
 
 		self.assertEqual(data, self.STRING_DESCRIPTOR)
 
-
 	def test_string_language_descriptor_build(self):
 		data = StringLanguageDescriptor.build({
 			'wLANGID': (LanguageIDs.ENGLISH_US,)
 		})
 
 		self.assertEqual(data, b'\x04\x03\x09\x04')
-
 
 	def test_device_descriptor(self):
 
@@ -101,7 +96,6 @@ class DescriptorParserCases(unittest.TestCase):
 		self.assertEqual(parsed.iProduct,             2)
 		self.assertEqual(parsed.iSerialNumber,        3)
 		self.assertEqual(parsed.bNumConfigurations,   1)
-
 
 	def test_bcd_constructor(self):
 
