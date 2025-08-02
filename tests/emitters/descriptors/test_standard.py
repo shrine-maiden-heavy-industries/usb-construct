@@ -3,9 +3,8 @@
 import unittest
 
 from usb_construct.emitters.descriptors.standard import (
+	ConfigurationDescriptorEmitter, DeviceDescriptorCollection, StringDescriptorEmitter,
 	get_string_descriptor,
-	DeviceDescriptorCollection,
-	StringDescriptorEmitter, ConfigurationDescriptorEmitter,
 )
 
 class EmitterTests(unittest.TestCase):
@@ -16,10 +15,8 @@ class EmitterTests(unittest.TestCase):
 
 		self.assertEqual(emitter.emit(), b'\x0C\x03H\0e\0l\0l\0o\0')
 
-
 	def test_string_emitter_function(self):
 		self.assertEqual(get_string_descriptor('Hello'), b'\x0C\x03H\0e\0l\0l\0o\0')
-
 
 	def test_configuration_emitter(self):
 		descriptor = bytes([
@@ -54,7 +51,6 @@ class EmitterTests(unittest.TestCase):
 			255,     # interval
 		])
 
-
 		# Create a trivial configuration descriptor...
 		emitter = ConfigurationDescriptorEmitter()
 
@@ -64,11 +60,9 @@ class EmitterTests(unittest.TestCase):
 			with interface.EndpointDescriptor() as endpoint:
 				endpoint.bEndpointAddress = 1
 
-
 		# ... and validate that it matches our reference descriptor.
 		binary = emitter.emit()
 		self.assertEqual(len(binary), len(descriptor))
-
 
 	def test_descriptor_collection(self):
 		collection = DeviceDescriptorCollection()
@@ -81,7 +75,6 @@ class EmitterTests(unittest.TestCase):
 			d.iManufacturer      = 'Test Company'
 			d.iProduct           = 'Test Product'
 
-
 		with collection.ConfigurationDescriptor() as c:
 			c.bConfigurationValue = 1
 
@@ -93,7 +86,6 @@ class EmitterTests(unittest.TestCase):
 
 				with i.EndpointDescriptor() as e:
 					e.bEndpointAddress = 0x01
-
 
 		results = list(collection)
 
@@ -112,10 +104,11 @@ class EmitterTests(unittest.TestCase):
 		self.assertIn((1, 0, b'\x12\x01\x00\x02\x00\x00\x00@\xad\xde\xef\xbe\x00\x00\x01\x02\x00\x01'), results)
 
 		# Configuration descriptor, with subordinates.
-		self.assertIn((2, 0,
-			b'\t\x02 \x00\x01\x01\x00\x80\xfa\t\x04\x01\x00\x02\xff\xff\xff\x00\x07\x05\x81\x02@\x00\xff\x07\x05\x01\x02@\x00\xff'
+		self.assertIn((
+			2, 0,
+			b'\t\x02 \x00\x01\x01\x00\x80\xfa\t\x04\x01\x00\x02\xff\xff\xff\x00\x07\x05\x81\x02@\x00\xff'
+			b'\x07\x05\x01\x02@\x00\xff'
 		), results)
-
 
 	def test_empty_descriptor_collection(self):
 		collection = DeviceDescriptorCollection(automatic_language_descriptor = False)
