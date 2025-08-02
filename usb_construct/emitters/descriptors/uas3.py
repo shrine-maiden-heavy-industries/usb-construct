@@ -6,7 +6,7 @@
 # ⚠️ This was implemented off of a UAS-3 DRAFT ⚠️
 # ⚠️ It may be incomplete or subtly wrong!     ⚠️
 
-from ...types.descriptors.uas3 import *
+from ...types.descriptors.uas3 import PipeUsageDescriptor
 from ..                        import emitter_for_format
 
 PipeUsageDescriptorEmitter = emitter_for_format(PipeUsageDescriptor)

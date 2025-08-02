@@ -7,7 +7,11 @@
 from contextlib                     import contextmanager
 from typing                         import Dict
 
-from ...types.descriptors.microsoft import *
+from ...types.descriptors.microsoft import (
+	DescriptorSetInformation, FeatureCCGPDevice, FeatureCompatibleID, FeatureMinResumeTime,
+	FeatureModelID, FeatureRegProperty, FeatureVendorRevision, PlatformDescriptor,
+	SetHeaderDescriptor, SubsetHeaderConfiguration, SubsetHeaderFunction,
+)
 from ..                             import emitter_for_format
 from ..descriptor                   import ComplexDescriptorEmitter
 
@@ -30,14 +34,12 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	@contextmanager
 	def FeatureRegProperty(self) -> FeatureRegPropertyEmitter:
 		descriptor = FeatureRegPropertyEmitter()
 		yield descriptor
 
 		self.add_subordinate_descriptor(descriptor)
-
 
 	@contextmanager
 	def FeatureMinResumeTime(self) -> FeatureMinResumeTimeEmitter:
@@ -46,7 +48,6 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	@contextmanager
 	def FeatureModelID(self) -> FeatureModelIDEmitter:
 		descriptor = FeatureModelIDEmitter()
@@ -54,14 +55,12 @@ class FeatureDescriptorEmitter(ComplexDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	@contextmanager
 	def FeatureCCGPDevice(self) -> FeatureCCGPDeviceEmitter:
 		descriptor = FeatureCCGPDeviceEmitter()
 		yield descriptor
 
 		self.add_subordinate_descriptor(descriptor)
-
 
 	@contextmanager
 	def FeatureVendorRevision(self) -> FeatureVendorRevisionEmitter:
@@ -94,7 +93,6 @@ class SubsetHeaderConfigurationEmitter(FeatureDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	def _pre_emit(self) -> None:
 		# Figure out our total length.
 		subordinate_length = sum(len(sub) for sub in self._subordinates)
@@ -112,7 +110,6 @@ class SetHeaderDescriptorEmitter(FeatureDescriptorEmitter):
 		yield descriptor
 
 		self.add_subordinate_descriptor(descriptor)
-
 
 	def _pre_emit(self) -> None:
 		# Figure out our total length.
@@ -135,7 +132,6 @@ class DescriptorSetInformationEmitter(ComplexDescriptorEmitter):
 		self._subordinate = descriptor
 		self._collection.add_descriptor(descriptor, vendor_code = self.bMS_VendorCode)
 
-
 	def _pre_emit(self) -> None:
 		# Figure out our total length.
 		self.wMSOSDescriptorSetTotalLength = self._subordinate.wTotalLength
@@ -146,7 +142,6 @@ class PlatformDescriptorCollection:
 
 	def __init__(self) -> None:
 		self._descriptors = {}
-
 
 	def add_descriptor(self, descriptor: SetHeaderDescriptorEmitter, vendor_code: int) -> None:
 		'''
@@ -167,7 +162,6 @@ class PlatformDescriptorCollection:
 
 		self._descriptors[vendor_code] = descriptor
 
-
 	@property
 	def descriptors(self) -> Dict[int, bytes]:
 		return self._descriptors
@@ -184,7 +178,6 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
 		super().__init__(*args, **kwargs)
 
 		self._platform_collection = platform_collection
-
 
 	@contextmanager
 	def DescriptorSetInformation(self) -> DescriptorSetInformationEmitter:
@@ -207,7 +200,6 @@ class PlatformDescriptorEmitter(ComplexDescriptorEmitter):
 		yield descriptor
 
 		self.add_subordinate_descriptor(descriptor)
-
 
 	def _pre_emit(self) -> None:
 		# Figure out our total length.

@@ -6,7 +6,13 @@
 
 from functools                 import cached_property
 
-from ...types.descriptors.uac3 import *
+from ...types.descriptors.uac3 import (
+	AudioControlInterruptEndpointDescriptor, AudioStreamingInterfaceDescriptor,
+	AudioStreamingIsochronousEndpointDescriptor, AudioStreamingIsochronousFeedbackEndpointDescriptor,
+	ClassSpecificAudioStreamingInterfaceDescriptor, ClockSourceDescriptor, ConnectorDescriptor,
+	HeaderDescriptor, InputTerminalDescriptor, OutputTerminalDescriptor,
+	PowerDomainDescriptor,
+)
 from ..                        import emitter_for_format
 from ..descriptor              import ComplexDescriptorEmitter, ConstructEmitter
 

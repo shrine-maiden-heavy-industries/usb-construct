@@ -5,10 +5,15 @@
 ''' Convenience emitters for simple, standard descriptors. '''
 
 from contextlib                    import contextmanager
-from typing                        import Generator, Optional, List, Tuple, Union
+from typing                        import Generator, List, Optional, Tuple, Union
 
 from ...types                      import LanguageIDs
-from ...types.descriptors.standard import *
+from ...types.descriptors.standard import (
+	BinaryObjectStoreDescriptor, ConfigurationDescriptor, DescriptorFormat, DeviceDescriptor,
+	DeviceQualifierDescriptor, EndpointDescriptor, InterfaceAssociationDescriptor, InterfaceDescriptor,
+	StandardDescriptorNumbers, StringDescriptor, StringLanguageDescriptor,
+	SuperSpeedEndpointCompanionDescriptor, SuperSpeedUSBDeviceCapabilityDescriptor, USB2ExtensionDescriptor,
+)
 from ..                            import emitter_for_format
 from ..descriptor                  import ComplexDescriptorEmitter
 
@@ -111,7 +116,6 @@ class InterfaceDescriptorEmitter(ComplexDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	def _pre_emit(self) -> None:
 
 		# Count our endpoints, and update our internal count.
@@ -120,7 +124,6 @@ class InterfaceDescriptorEmitter(ComplexDescriptorEmitter):
 		# Ensure that our interface string is an index, if we can.
 		if self._collection and hasattr(self, 'iInterface'):
 			self.iInterface = self._collection.ensure_string_field_is_index(self.iInterface)
-
 
 
 class ConfigurationDescriptorEmitter(ComplexDescriptorEmitter):
@@ -152,7 +155,6 @@ class ConfigurationDescriptorEmitter(ComplexDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	@contextmanager
 	def InterfaceAssociationDescriptor(self) -> InterfaceAssociationDescriptorEmitter:
 		'''
@@ -176,12 +178,12 @@ class ConfigurationDescriptorEmitter(ComplexDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	def _pre_emit(self) -> None:
 
 		# Count our interfaces. Alternate settings of the same interface do not count multiple times.
 		self.bNumInterfaces = len(set([
-			subordinate[2] for subordinate in self._subordinates if (subordinate[1] == StandardDescriptorNumbers.INTERFACE)
+			subordinate[2] for subordinate in self._subordinates
+			if (subordinate[1] == StandardDescriptorNumbers.INTERFACE)
 		]))
 
 		# Figure out our total length.
@@ -193,13 +195,11 @@ class ConfigurationDescriptorEmitter(ComplexDescriptorEmitter):
 			self.iConfiguration = self._collection.ensure_string_field_is_index(self.iConfiguration)
 
 
-
 class DeviceDescriptorCollection:
 	''' Object that builds a full collection of descriptors related to a given USB device. '''
 
 	# Most systems seem happiest with en_US (ugh), so default to that.
 	DEFAULT_SUPPORTED_LANGUAGES = [ LanguageIDs.ENGLISH_US ]
-
 
 	def __init__(self, automatic_language_descriptor: bool = True) -> None:
 		'''
@@ -221,7 +221,6 @@ class DeviceDescriptorCollection:
 		self._next_string_index = 1
 		self._index_for_string = {}
 
-
 	def ensure_string_field_is_index(self, field_value: Union[int, str]):
 		'''
 		Processes the given field value; if it's not an string index, converts it to one.
@@ -236,7 +235,6 @@ class DeviceDescriptorCollection:
 		else:
 			return field_value
 
-
 	def get_index_for_string(self, string: str) -> int:
 		'''
 		Returns an string descriptor index for the given string.
@@ -249,7 +247,6 @@ class DeviceDescriptorCollection:
 		# If we already have a descriptor for this string, return it.
 		if string in self._index_for_string:
 			return self._index_for_string[string]
-
 
 		# Otherwise, create one:
 
@@ -264,7 +261,6 @@ class DeviceDescriptorCollection:
 
 		# ... and return our index.
 		return index
-
 
 	def add_descriptor(self, descriptor, index: int = 0, descriptor_type = None) -> None:
 		'''
@@ -296,7 +292,6 @@ class DeviceDescriptorCollection:
 		# ... and store it.
 		self._descriptors[identifier] = descriptor
 
-
 	def add_language_descriptor(self, supported_languages: Optional[List[LanguageIDs]] = None):
 		'''
 		Adds a language descriptor to the list of device descriptors.
@@ -314,7 +309,6 @@ class DeviceDescriptorCollection:
 		descriptor = StringLanguageDescriptorEmitter()
 		descriptor.wLANGID = supported_languages
 		self.add_descriptor(descriptor)
-
 
 	@contextmanager
 	def DeviceDescriptor(self) -> DeviceDescriptorEmitter:
@@ -347,7 +341,6 @@ class DeviceDescriptorCollection:
 
 		self.add_descriptor(descriptor)
 
-
 	@contextmanager
 	def ConfigurationDescriptor(self) -> ConfigurationDescriptorEmitter:
 		'''
@@ -372,7 +365,6 @@ class DeviceDescriptorCollection:
 
 		self.add_descriptor(descriptor)
 
-
 	@contextmanager
 	def BOSDescriptor(self) -> 'BinaryObjectStoreDescriptorEmitter':
 		'''
@@ -396,7 +388,6 @@ class DeviceDescriptorCollection:
 
 		self.add_descriptor(descriptor)
 
-
 	def _ensure_has_language_descriptor(self) -> None:
 		''' ensures that we have a language descriptor; adding one if necessary.'''
 
@@ -408,8 +399,6 @@ class DeviceDescriptorCollection:
 		# if we don't have a language descriptor, add our default one.
 		if (StandardDescriptorNumbers.STRING, 0) not in self._descriptors:
 			self.add_language_descriptor()
-
-
 
 	def get_descriptor_bytes(self, type_number: int, index: int = 0) -> bytes:
 		'''
@@ -431,13 +420,10 @@ class DeviceDescriptorCollection:
 
 		return self._descriptors[(type_number, index)]
 
-
 	def __iter__(self) -> Generator[Tuple[int, int, DescriptorFormat], None, None]:
 		''' Allow iterating over each of our descriptors; yields (index, value, descriptor). '''
 		self._ensure_has_language_descriptor()
 		return ((number, index, desc) for ((number, index), desc) in self._descriptors.items())
-
-
 
 
 class BinaryObjectStoreDescriptorEmitter(ComplexDescriptorEmitter):
@@ -467,7 +453,6 @@ class BinaryObjectStoreDescriptorEmitter(ComplexDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	@contextmanager
 	def SuperSpeedUSBDeviceCapability(self) -> SuperSpeedUSBDeviceCapabilityDescriptorEmitter:
 		'''
@@ -492,7 +477,6 @@ class BinaryObjectStoreDescriptorEmitter(ComplexDescriptorEmitter):
 
 		self.add_subordinate_descriptor(descriptor)
 
-
 	def _pre_emit(self) -> None:
 
 		# Figure out the total length of our descriptor, including subordinates.
@@ -501,7 +485,6 @@ class BinaryObjectStoreDescriptorEmitter(ComplexDescriptorEmitter):
 
 		# Count our subordinate descriptors, and update our internal count.
 		self.bNumDeviceCaps = len(self._subordinates)
-
 
 
 class SuperSpeedDeviceDescriptorCollection(DeviceDescriptorCollection):
@@ -520,7 +503,6 @@ class SuperSpeedDeviceDescriptorCollection(DeviceDescriptorCollection):
 		self._automatic_descriptors = automatic_descriptors
 		super().__init__(automatic_language_descriptor = automatic_descriptors)
 
-
 	def add_default_bos_descriptor(self) -> None:
 		''' Adds a default, empty BOS descriptor. '''
 
@@ -534,7 +516,6 @@ class SuperSpeedDeviceDescriptorCollection(DeviceDescriptorCollection):
 		# ... and add it to our overall BOS descriptor.
 		self.add_descriptor(descriptor)
 
-
 	def _ensure_has_bos_descriptor(self) -> None:
 		''' Ensures that we have a BOS descriptor; adding one if necessary.'''
 
@@ -546,7 +527,6 @@ class SuperSpeedDeviceDescriptorCollection(DeviceDescriptorCollection):
 		# If we don't have a language descriptor, add our default one.
 		if (StandardDescriptorNumbers.BOS, 0) not in self._descriptors:
 			self.add_default_bos_descriptor()
-
 
 	def __iter__(self) -> Generator[Tuple[int, int, DescriptorFormat], None, None]:
 		''' Allow iterating over each of our descriptors; yields (index, value, descriptor). '''
