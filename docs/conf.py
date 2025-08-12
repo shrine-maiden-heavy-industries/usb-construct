@@ -21,6 +21,7 @@ extensions = [
 	'sphinx.ext.todo',
 	'myst_parser',
 	'sphinx_copybutton',
+	'sphinx_multiversion',
 ]
 
 source_suffix = {
@@ -66,12 +67,38 @@ html_theme       = 'furo'
 html_copy_source = False
 
 html_theme_options = {
-
+	'announcement': 'This documentation is a work in progress, and you can help us <a href="https://github.com/shrine-maiden-heavy-industries/usb-construct/blob/main/CONTRIBUTING.md">improve it!</a>', # noqa: E501
+	'light_css_variables': {
+		'color-brand-primary': '#2672a8',
+		'color-brand-content': '#2672a8',
+		'color-announcement-background': '#ffab87',
+		'color-announcement-text': '#494453',
+	},
+	'dark_css_variables': {
+		'color-brand-primary': '#85C2FE',
+		'color-brand-content': '#85C2FE',
+		'color-announcement-background': '#ffab87',
+		'color-announcement-text': '#494453',
+	},
+	'source_repository': 'https://github.com/shrine-maiden-heavy-industries/usb-construct/',
+	'source_branch': 'main',
+	'source_directory': 'docs/',
 }
 
 html_static_path = [
 	'_static'
 ]
+
+html_sidebars = {
+	"**": [
+		"sidebar/brand.html",
+		"sidebar/search.html",
+		"sidebar/scroll-start.html",
+		"sidebar/navigation.html",
+		"sidebar/version_selector.html",
+		"sidebar/scroll-end.html",
+	]
+}
 
 html_css_files = [
 	'css/styles.css'
@@ -82,3 +109,12 @@ autosectionlabel_prefix_document = True
 linkcheck_retries = 2
 linkcheck_workers = 1 # At the cost of speed try to prevent rate-limiting
 linkcheck_ignore  = []
+linkcheck_anchors_ignore_for_url = []
+
+# Sphinx-Multiversion stuff
+# TODO(aki): Revert to `^v(?!0)\d+\.\d+\.\d+$` when `v1.0.0` drops,
+smv_tag_whitelist    = r'^v\d+\.\d+\.\d+$'
+smv_branch_whitelist = r'^main$'           # Only look at `main`
+smv_remote_whitelist = r'^origin$'
+smv_released_pattern = r'^refs/tags/v.+$'  # Only consider tags to be full releases
+smv_outputdir_format = '{ref.name}'
