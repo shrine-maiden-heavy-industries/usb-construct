@@ -20,8 +20,12 @@ extensions = [
 	'sphinx.ext.napoleon',
 	'sphinx.ext.todo',
 	'myst_parser',
+	'sphinx_autodoc_typehints',
+	'sphinx_codeautolink',
 	'sphinx_copybutton',
+	'sphinx_inline_tabs',
 	'sphinx_multiversion',
+	'sphinxext.opengraph',
 ]
 
 source_suffix = {
@@ -57,10 +61,14 @@ napoleon_custom_sections  = [
 
 myst_heading_anchors = 3
 
+always_use_bars_union = True
+typehints_defaults = 'braces-after'
+typehints_use_signature = True
+typehints_use_signature_return = True
+
 templates_path = [
 	'_templates',
 ]
-
 
 html_baseurl     = 'https://usb-construct.shmdn.link/'
 html_theme       = 'furo'
@@ -104,7 +112,13 @@ html_css_files = [
 	'css/styles.css'
 ]
 
-autosectionlabel_prefix_document = True
+# TODO(aki): OpenGraph metadata stuff
+ogp_site_url = html_baseurl
+ogp_social_cards = {}
+ogp_image = None
+ogp_image_alt = None
+ogp_custom_meta_tags = {}
+ogp_enable_meta_description = True
 
 linkcheck_retries = 2
 linkcheck_workers = 1 # At the cost of speed try to prevent rate-limiting
