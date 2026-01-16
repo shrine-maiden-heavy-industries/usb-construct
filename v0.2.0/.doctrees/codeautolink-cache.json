@@ -1,0 +1,47 @@
+{
+  "changelog": [],
+  "emitters/index": [
+    {
+      "source": "MyStruct = struct(\n        'a' / Int8\n        'b' / Int8\n)",
+      "names": [],
+      "example": {
+        "document": "emitters/index",
+        "ref_id": "module-usb_construct.emitters.descriptor",
+        "headings": [
+          "Emitters",
+          "Examples"
+        ]
+      },
+      "doc_lineno": 8
+    },
+    {
+      "source": "emitter   = ConstructEmitter(MyStruct)\nemitter.a = 0xab\nemitter.b = 0xcd\nmy_bytes  = emitter.emit() # '\u00ab\u00cd'",
+      "names": [],
+      "example": {
+        "document": "emitters/index",
+        "ref_id": "module-usb_construct.emitters.descriptor",
+        "headings": [
+          "Emitters",
+          "Examples"
+        ]
+      },
+      "doc_lineno": 17
+    }
+  ],
+  "index": [],
+  "types/core": [],
+  "types/descriptors/cdc": [],
+  "types/descriptors/dfu": [],
+  "types/descriptors/index": [],
+  "types/descriptors/microsoft": [],
+  "types/descriptors/midi1": [],
+  "types/descriptors/midi2": [],
+  "types/descriptors/standard": [],
+  "types/descriptors/uac1": [],
+  "types/descriptors/uac2": [],
+  "types/descriptors/uac3": [],
+  "types/descriptors/uas3": [],
+  "types/descriptors/webusb": [],
+  "types/index": [],
+  "types/superspeed": []
+}

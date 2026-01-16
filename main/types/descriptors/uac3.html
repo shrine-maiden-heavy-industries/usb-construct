@@ -1,0 +1,708 @@
+
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="UAC3" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://usb-construct.shmdn.link/types/descriptors/uac3.html" />
+<meta property="og:site_name" content="usb-construct" />
+<meta property="og:description" content="Descriptors for USB Audio Class Devices (UAC), Release 3[Audio30] refers to ‘Universal Serial Bus Device Class Definition for Audio Devices’, Release 3.0, September 22, 2016 [Frmts30] refers to ‘Un..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://usb-construct.shmdn.link/_images/social_previews/summary_types_descriptors_uac3_9f935a03.png" />
+<meta property="og:image:alt" content="Descriptors for USB Audio Class Devices (UAC), Release 3[Audio30] refers to ‘Universal Serial Bus Device Class Definition for Audio Devices’, Release 3.0, September 22, 2016 [Frmts30] refers to ‘Un..." />
+<meta name="description" content="Descriptors for USB Audio Class Devices (UAC), Release 3[Audio30] refers to ‘Universal Serial Bus Device Class Definition for Audio Devices’, Release 3.0, September 22, 2016 [Frmts30] refers to ‘Un..." />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="UAC3" href="uas3.html"><link rel="prev" title="UAC2" href="uac2.html">
+        <link rel="canonical" href="https://usb-construct.shmdn.link/types/descriptors/uac3.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+
+<title>UAC3 - usb-construct 0.2.2.dev59 Documentation</title>
+
+<link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/styles.css?v=d73683b3" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #2672a8;
+  --color-brand-content: #2672a8;
+  --color-announcement-background: #ffab87;
+  --color-announcement-text: #494453;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #85C2FE;
+  --color-brand-content: #85C2FE;
+  --color-announcement-background: #ffab87;
+  --color-announcement-text: #494453;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #85C2FE;
+  --color-brand-content: #85C2FE;
+  --color-announcement-background: #ffab87;
+  --color-announcement-text: #494453;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+<div class="announcement multiver">
+  <aside class="announcement-content multiver-content">
+    <strong>
+    
+    This is the bleeding-edge development documentation, for the stable <code>v0.2.1</code> docs <a href="../../../v0.2.1/types/descriptors/uac3.html">Click Here</a>.
+    
+    </strong>
+  </aside>
+</div>
+<div class="announcement">
+  <aside class="announcement-content">
+     This documentation is a work in progress, and you can help us <a href="https://github.com/shrine-maiden-heavy-industries/usb-construct/blob/main/CONTRIBUTING.md">improve it!</a> 
+  </aside>
+</div>
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">usb-construct 0.2.2.dev59 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky">
+<a class="sidebar-brand" href="../../index.html">
+	<span class="sidebar-brand-text">usb-construct 0.2.2.dev59 Documentation</span>
+	
+  </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Types</a><input aria-label="Toggle navigation of Types" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core.html">Core Types</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Descriptors</a><input aria-label="Toggle navigation of Descriptors" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cdc.html">CDC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dfu.html">DFU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microsoft.html">Microsoft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="midi1.html">MIDI1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="midi2.html">MIDI2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="standard.html">Standard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uac1.html">UAC1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uac2.html">UAC2</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">UAC3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uas3.html">UAC3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webusb.html">WebUSB</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../superspeed.html">Superspeed</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../emitters/index.html">Emitters</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/usb-construct/">Source Code</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/shrine-maiden-heavy-industries/usb-construct/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">Licenses</a></li>
+</ul>
+
+</div>
+<div class="sidebar-tree">
+	<p class="caption" role="heading">
+		<span class="caption-text">Versions</span>
+	</p>
+	<ul>
+		<li class="toctree-l1"><a class="reference" href="../../../v0.2.1/types/descriptors/uac3.html">v0.2.1</a></li>
+		<li class="toctree-l1"><a class="reference" href="../../../v0.2.0/types/descriptors/uac3.html">v0.2.0</a></li>
+	</ul>
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/shrine-maiden-heavy-industries/usb-construct/blob/main/docs/types/descriptors/uac3.md?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/shrine-maiden-heavy-industries/usb-construct/edit/main/docs/types/descriptors/uac3.md" rel="edit" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-usb_construct.types.descriptors.uac3">
+<span id="uac3"></span><h1>UAC3<a class="headerlink" href="#module-usb_construct.types.descriptors.uac3" title="Link to this heading">¶</a></h1>
+<p>Descriptors for USB Audio Class Devices (UAC), Release 3</p>
+<p>[Audio30] refers to ‘Universal Serial Bus Device Class Definition for Audio Devices’, Release 3.0, September 22, 2016
+[Frmts30] refers to ‘Universal Serial Bus Device Class Definition for Audio Data Formats’, Release 3.0, September 22, 2016
+[TermT30] refers to ‘Universal Serial Bus Device Class Definition for Terminal Types’, Release 3.0, May 31, 2006</p>
+<p>NOTE: This is not complete yet and will be extended as needed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioInterfaceClassCode">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioInterfaceClassCode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioInterfaceClassCode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioInterfaceSubclassCodes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioInterfaceSubclassCodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioInterfaceSubclassCodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioInterfaceProtocolCodes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioInterfaceProtocolCodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioInterfaceProtocolCodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioFunctionClassCode">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioFunctionClassCode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioFunctionClassCode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioFunctionSubclassCodes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioFunctionSubclassCodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioFunctionSubclassCodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioFunctionProtocolCodes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioFunctionProtocolCodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioFunctionProtocolCodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioFunctionCategoryCodes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioFunctionCategoryCodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioFunctionCategoryCodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioClassSpecificDescriptorTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioClassSpecificDescriptorTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificDescriptorTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ClusterDescriptorSubtypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ClusterDescriptorSubtypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ClusterDescriptorSubtypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ClusterDescriptorSegmentTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ClusterDescriptorSegmentTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ClusterDescriptorSegmentTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ChannelPurposeDefinitions">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ChannelPurposeDefinitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ChannelPurposeDefinitions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AmbisonicComponentOrderingConventionTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AmbisonicComponentOrderingConventionTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AmbisonicComponentOrderingConventionTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AmbisonicNormalizationTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AmbisonicNormalizationTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AmbisonicNormalizationTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioClassSpecificACInterfaceDescriptorSubtypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioClassSpecificACInterfaceDescriptorSubtypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificACInterfaceDescriptorSubtypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioClassSpecificASInterfaceDescriptorSubtypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioClassSpecificASInterfaceDescriptorSubtypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificASInterfaceDescriptorSubtypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioClassSpecificStringDescriptorSubtypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioClassSpecificStringDescriptorSubtypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificStringDescriptorSubtypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ExtendedTerminalSegmentTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ExtendedTerminalSegmentTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ExtendedTerminalSegmentTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.EffectUnitEffectTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">EffectUnitEffectTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.EffectUnitEffectTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ProcessingUnitProcessTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ProcessingUnitProcessTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ProcessingUnitProcessTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioClassSpecificEndpointDescriptorSubtypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioClassSpecificEndpointDescriptorSubtypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificEndpointDescriptorSubtypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioClassSpecificRequestCodes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioClassSpecificRequestCodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificRequestCodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioControlInterfaceControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioControlInterfaceControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioControlInterfaceControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ClockSourceControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ClockSourceControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ClockSourceControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ClockSelectorControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ClockSelectorControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ClockSelectorControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ClockMultiplierControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ClockMultiplierControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ClockMultiplierControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.TerminalControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">TerminalControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.TerminalControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.MixerControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">MixerControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.MixerControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.SelectorControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">SelectorControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.SelectorControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.FeatureUnitControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">FeatureUnitControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.FeatureUnitControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ParametricEqualizerSectionEffectUnitControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ParametricEqualizerSectionEffectUnitControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ParametricEqualizerSectionEffectUnitControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ReverberationEffectUnitControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ReverberationEffectUnitControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ReverberationEffectUnitControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ModulationDelayEffectUnitControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ModulationDelayEffectUnitControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ModulationDelayEffectUnitControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.DynamicRangeCompressorEffectUnitControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">DynamicRangeCompressorEffectUnitControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.DynamicRangeCompressorEffectUnitControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.UpDownMixProcessingUnitControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">UpDownMixProcessingUnitControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.UpDownMixProcessingUnitControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.StereoExtenderProcessingUnitControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">StereoExtenderProcessingUnitControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.StereoExtenderProcessingUnitControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ExtensionUnitControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ExtensionUnitControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ExtensionUnitControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioStreamingInterfaceControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioStreamingInterfaceControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioStreamingInterfaceControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.EndpointControlSelectors">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">EndpointControlSelectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.EndpointControlSelectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.USBTerminalTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">USBTerminalTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.USBTerminalTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.InputTerminalTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">InputTerminalTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.InputTerminalTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.OutputTerminalTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">OutputTerminalTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.OutputTerminalTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.BidirectionalTerminalTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">BidirectionalTerminalTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.BidirectionalTerminalTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.TelephonyTerminalTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">TelephonyTerminalTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.TelephonyTerminalTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ExternalTerminalTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ExternalTerminalTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ExternalTerminalTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.EmbeddedFunctionTerminalTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">EmbeddedFunctionTerminalTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.EmbeddedFunctionTerminalTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ConnectorTypes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ConnectorTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ConnectorTypes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioDataFormats">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioDataFormats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioDataFormats" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.AudioChannels">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">AudioChannels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.AudioChannels" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ConnectorAttributes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ConnectorAttributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ConnectorAttributes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usb_construct.types.descriptors.uac3.ConnectorColour">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">usb_construct.types.descriptors.uac3.</span></span><span class="sig-name descname"><span class="pre">ConnectorColour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">colour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unspecified</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usb_construct.types.descriptors.uac3.ConnectorColour" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="uas3.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">UAC3</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="uac2.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">UAC2</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026 Shrine Maiden Heavy Industries, et. al.
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">UAC3</a><ul>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioInterfaceClassCode"><code class="docutils literal notranslate"><span class="pre">AudioInterfaceClassCode</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioInterfaceSubclassCodes"><code class="docutils literal notranslate"><span class="pre">AudioInterfaceSubclassCodes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioInterfaceProtocolCodes"><code class="docutils literal notranslate"><span class="pre">AudioInterfaceProtocolCodes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioFunctionClassCode"><code class="docutils literal notranslate"><span class="pre">AudioFunctionClassCode</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioFunctionSubclassCodes"><code class="docutils literal notranslate"><span class="pre">AudioFunctionSubclassCodes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioFunctionProtocolCodes"><code class="docutils literal notranslate"><span class="pre">AudioFunctionProtocolCodes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioFunctionCategoryCodes"><code class="docutils literal notranslate"><span class="pre">AudioFunctionCategoryCodes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificDescriptorTypes"><code class="docutils literal notranslate"><span class="pre">AudioClassSpecificDescriptorTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ClusterDescriptorSubtypes"><code class="docutils literal notranslate"><span class="pre">ClusterDescriptorSubtypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ClusterDescriptorSegmentTypes"><code class="docutils literal notranslate"><span class="pre">ClusterDescriptorSegmentTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ChannelPurposeDefinitions"><code class="docutils literal notranslate"><span class="pre">ChannelPurposeDefinitions</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AmbisonicComponentOrderingConventionTypes"><code class="docutils literal notranslate"><span class="pre">AmbisonicComponentOrderingConventionTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AmbisonicNormalizationTypes"><code class="docutils literal notranslate"><span class="pre">AmbisonicNormalizationTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificACInterfaceDescriptorSubtypes"><code class="docutils literal notranslate"><span class="pre">AudioClassSpecificACInterfaceDescriptorSubtypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificASInterfaceDescriptorSubtypes"><code class="docutils literal notranslate"><span class="pre">AudioClassSpecificASInterfaceDescriptorSubtypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificStringDescriptorSubtypes"><code class="docutils literal notranslate"><span class="pre">AudioClassSpecificStringDescriptorSubtypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ExtendedTerminalSegmentTypes"><code class="docutils literal notranslate"><span class="pre">ExtendedTerminalSegmentTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.EffectUnitEffectTypes"><code class="docutils literal notranslate"><span class="pre">EffectUnitEffectTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ProcessingUnitProcessTypes"><code class="docutils literal notranslate"><span class="pre">ProcessingUnitProcessTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificEndpointDescriptorSubtypes"><code class="docutils literal notranslate"><span class="pre">AudioClassSpecificEndpointDescriptorSubtypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioClassSpecificRequestCodes"><code class="docutils literal notranslate"><span class="pre">AudioClassSpecificRequestCodes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioControlInterfaceControlSelectors"><code class="docutils literal notranslate"><span class="pre">AudioControlInterfaceControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ClockSourceControlSelectors"><code class="docutils literal notranslate"><span class="pre">ClockSourceControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ClockSelectorControlSelectors"><code class="docutils literal notranslate"><span class="pre">ClockSelectorControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ClockMultiplierControlSelectors"><code class="docutils literal notranslate"><span class="pre">ClockMultiplierControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.TerminalControlSelectors"><code class="docutils literal notranslate"><span class="pre">TerminalControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.MixerControlSelectors"><code class="docutils literal notranslate"><span class="pre">MixerControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.SelectorControlSelectors"><code class="docutils literal notranslate"><span class="pre">SelectorControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.FeatureUnitControlSelectors"><code class="docutils literal notranslate"><span class="pre">FeatureUnitControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ParametricEqualizerSectionEffectUnitControlSelectors"><code class="docutils literal notranslate"><span class="pre">ParametricEqualizerSectionEffectUnitControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ReverberationEffectUnitControlSelectors"><code class="docutils literal notranslate"><span class="pre">ReverberationEffectUnitControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ModulationDelayEffectUnitControlSelectors"><code class="docutils literal notranslate"><span class="pre">ModulationDelayEffectUnitControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.DynamicRangeCompressorEffectUnitControlSelectors"><code class="docutils literal notranslate"><span class="pre">DynamicRangeCompressorEffectUnitControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.UpDownMixProcessingUnitControlSelectors"><code class="docutils literal notranslate"><span class="pre">UpDownMixProcessingUnitControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.StereoExtenderProcessingUnitControlSelectors"><code class="docutils literal notranslate"><span class="pre">StereoExtenderProcessingUnitControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ExtensionUnitControlSelectors"><code class="docutils literal notranslate"><span class="pre">ExtensionUnitControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioStreamingInterfaceControlSelectors"><code class="docutils literal notranslate"><span class="pre">AudioStreamingInterfaceControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.EndpointControlSelectors"><code class="docutils literal notranslate"><span class="pre">EndpointControlSelectors</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.USBTerminalTypes"><code class="docutils literal notranslate"><span class="pre">USBTerminalTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.InputTerminalTypes"><code class="docutils literal notranslate"><span class="pre">InputTerminalTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.OutputTerminalTypes"><code class="docutils literal notranslate"><span class="pre">OutputTerminalTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.BidirectionalTerminalTypes"><code class="docutils literal notranslate"><span class="pre">BidirectionalTerminalTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.TelephonyTerminalTypes"><code class="docutils literal notranslate"><span class="pre">TelephonyTerminalTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ExternalTerminalTypes"><code class="docutils literal notranslate"><span class="pre">ExternalTerminalTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.EmbeddedFunctionTerminalTypes"><code class="docutils literal notranslate"><span class="pre">EmbeddedFunctionTerminalTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ConnectorTypes"><code class="docutils literal notranslate"><span class="pre">ConnectorTypes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioDataFormats"><code class="docutils literal notranslate"><span class="pre">AudioDataFormats</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.AudioChannels"><code class="docutils literal notranslate"><span class="pre">AudioChannels</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ConnectorAttributes"><code class="docutils literal notranslate"><span class="pre">ConnectorAttributes</span></code></a></li>
+<li><a class="reference internal" href="#usb_construct.types.descriptors.uac3.ConnectorColour"><code class="docutils literal notranslate"><span class="pre">ConnectorColour</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=b94538f7"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/tabs.js?v=3ee01567"></script>
+    </body>
+</html>
