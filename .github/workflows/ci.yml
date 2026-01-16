@@ -259,6 +259,7 @@ jobs:
           branch: gh-pages
           folder: built_docs/
           clean: true
+          single-commit: true
 
   publish-pypi:
     name: 'USB Construct - Publish PyPi package'
